@@ -208,12 +208,19 @@ class DemoManager:
             language: 编程语言
             
         Returns:
-            目录名
+            目录名（纯ASCII英文）
         """
         # 将名称转换为合法的目录名
         safe_name = name.lower().replace(' ', '-').replace('_', '-')
-        # 移除特殊字符
-        safe_name = ''.join(c for c in safe_name if c.isalnum() or c == '-')
+        # 只保留ASCII字母、数字和连字符（移除中文等非ASCII字符）
+        safe_name = ''.join(c for c in safe_name if c.isascii() and (c.isalnum() or c == '-'))
+        # 移除连续的连字符和首尾连字符
+        while '--' in safe_name:
+            safe_name = safe_name.replace('--', '-')
+        safe_name = safe_name.strip('-')
+        # 确保名称不为空
+        if not safe_name:
+            safe_name = 'demo'
         return f"{language.lower()}-{safe_name}"
     
     def update_demo_metadata(self, demo: Demo, updates: Dict[str, Any]) -> bool:

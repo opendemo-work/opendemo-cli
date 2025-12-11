@@ -52,6 +52,10 @@ class DemoVerifier:
             return self._verify_python(demo_path, verification_method)
         elif language.lower() == 'java':
             return self._verify_java(demo_path)
+        elif language.lower() == 'go':
+            return self._verify_go(demo_path)
+        elif language.lower() == 'nodejs':
+            return self._verify_nodejs(demo_path)
         else:
             return {
                 'verified': False,
@@ -219,6 +223,247 @@ class DemoVerifier:
             'outputs': [],
             'errors': ['Java verification not fully implemented yet']
         }
+        
+        return result
+    
+    def _verify_go(self, demo_path: Path) -> Dict[str, Any]:
+        """
+        验证Go demo
+        
+        Args:
+            demo_path: demo路径
+            
+        Returns:
+            验证结果
+        """
+        result = {
+            'verified': False,
+            'method': 'go',
+            'steps': [],
+            'outputs': [],
+            'errors': []
+        }
+        
+        # 创建临时目录
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_path = Path(temp_dir)
+            
+            try:
+                # 检查Go环境
+                go_check = subprocess.run(
+                    ['go', 'version'],
+                    capture_output=True,
+                    text=True,
+                    timeout=10
+                )
+                if go_check.returncode != 0:
+                    result['errors'].append('Go is not installed or not in PATH')
+                    return result
+                result['steps'].append(f'Go environment check: {go_check.stdout.strip()}')
+                
+                # 复制demo到临时目录
+                demo_copy = temp_path / 'demo'
+                shutil.copytree(demo_path, demo_copy)
+                result['steps'].append('Copied demo to temp directory')
+                
+                # 检查是否有go.mod，如果没有则初始化
+                go_mod_file = demo_copy / 'go.mod'
+                if not go_mod_file.exists():
+                    init_result = subprocess.run(
+                        ['go', 'mod', 'init', 'demo'],
+                        cwd=demo_copy,
+                        capture_output=True,
+                        text=True,
+                        timeout=30
+                    )
+                    if init_result.returncode == 0:
+                        result['steps'].append('Initialized go.mod')
+                    else:
+                        result['errors'].append(f'Failed to initialize go.mod: {init_result.stderr}')
+                        return result
+                
+                # 安装依赖
+                tidy_result = subprocess.run(
+                    ['go', 'mod', 'tidy'],
+                    cwd=demo_copy,
+                    capture_output=True,
+                    text=True,
+                    timeout=120
+                )
+                if tidy_result.returncode == 0:
+                    result['steps'].append('Installed dependencies (go mod tidy)')
+                else:
+                    result['errors'].append(f'Failed to run go mod tidy: {tidy_result.stderr}')
+                    return result
+                
+                # 编译检查
+                build_result = subprocess.run(
+                    ['go', 'build', './...'],
+                    cwd=demo_copy,
+                    capture_output=True,
+                    text=True,
+                    timeout=120
+                )
+                if build_result.returncode == 0:
+                    result['steps'].append('Build check passed')
+                else:
+                    result['errors'].append(f'Build failed: {build_result.stderr}')
+                    return result
+                
+                # 运行代码
+                code_dir = demo_copy / 'code'
+                timeout = self.config.get('verification_timeout', 300)
+                
+                if code_dir.exists() and list(code_dir.glob('*.go')):
+                    # 尝试运行 code 目录下的 go 文件
+                    run_result = subprocess.run(
+                        ['go', 'run', '.'],
+                        cwd=code_dir,
+                        capture_output=True,
+                        text=True,
+                        timeout=timeout
+                    )
+                else:
+                    # 尝试运行整个项目
+                    run_result = subprocess.run(
+                        ['go', 'run', '.'],
+                        cwd=demo_copy,
+                        capture_output=True,
+                        text=True,
+                        timeout=timeout
+                    )
+                
+                result['steps'].append('Executed Go code')
+                if run_result.stdout:
+                    result['outputs'].append(f"=== Go Output ===\n{run_result.stdout}")
+                
+                if run_result.returncode == 0:
+                    result['verified'] = True
+                    result['message'] = 'All verification steps passed'
+                else:
+                    result['errors'].append(f'Execution failed: {run_result.stderr}')
+                    return result
+                    
+            except subprocess.TimeoutExpired:
+                result['errors'].append('Execution timeout')
+            except Exception as e:
+                result['errors'].append(str(e))
+                logger.error(f"Go verification failed: {e}")
+        
+        return result
+    
+    def _verify_nodejs(self, demo_path: Path) -> Dict[str, Any]:
+        """
+        验证Node.js demo
+        
+        Args:
+            demo_path: demo路径
+            
+        Returns:
+            验证结果
+        """
+        result = {
+            'verified': False,
+            'method': 'nodejs',
+            'steps': [],
+            'outputs': [],
+            'errors': []
+        }
+        
+        # 创建临时目录
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_path = Path(temp_dir)
+            
+            try:
+                # 检查Node环境
+                node_check = subprocess.run(
+                    ['node', '--version'],
+                    capture_output=True,
+                    text=True,
+                    timeout=10
+                )
+                if node_check.returncode != 0:
+                    result['errors'].append('Node.js is not installed or not in PATH')
+                    return result
+                result['steps'].append(f'Node.js environment check: {node_check.stdout.strip()}')
+                
+                # 复制demo到临时目录
+                demo_copy = temp_path / 'demo'
+                shutil.copytree(demo_path, demo_copy)
+                result['steps'].append('Copied demo to temp directory')
+                
+                # 安装依赖（如果有package.json）
+                package_json = demo_copy / 'package.json'
+                if package_json.exists():
+                    npm_install = subprocess.run(
+                        ['npm', 'install'],
+                        cwd=demo_copy,
+                        capture_output=True,
+                        text=True,
+                        timeout=300
+                    )
+                    if npm_install.returncode == 0:
+                        result['steps'].append('Installed dependencies (npm install)')
+                    else:
+                        result['errors'].append(f'Failed to install dependencies: {npm_install.stderr}')
+                        return result
+                
+                # 运行代码
+                code_dir = demo_copy / 'code'
+                timeout = self.config.get('verification_timeout', 300)
+                
+                # 查找主文件
+                main_file = None
+                if code_dir.exists():
+                    # 尝试查找 main.js, index.js 或第一个 .js 文件
+                    for filename in ['main.js', 'index.js']:
+                        candidate = code_dir / filename
+                        if candidate.exists():
+                            main_file = candidate
+                            break
+                    if not main_file:
+                        js_files = list(code_dir.glob('*.js'))
+                        if js_files:
+                            main_file = js_files[0]
+                
+                if main_file:
+                    run_result = subprocess.run(
+                        ['node', str(main_file)],
+                        cwd=code_dir,
+                        capture_output=True,
+                        text=True,
+                        timeout=timeout
+                    )
+                    result['steps'].append(f'Executed {main_file.name}')
+                elif package_json.exists():
+                    # 尝试使用 npm start
+                    run_result = subprocess.run(
+                        ['npm', 'start'],
+                        cwd=demo_copy,
+                        capture_output=True,
+                        text=True,
+                        timeout=timeout
+                    )
+                    result['steps'].append('Executed npm start')
+                else:
+                    result['errors'].append('No executable JavaScript file found')
+                    return result
+                
+                if run_result.stdout:
+                    result['outputs'].append(f"=== Node.js Output ===\n{run_result.stdout}")
+                
+                if run_result.returncode == 0:
+                    result['verified'] = True
+                    result['message'] = 'All verification steps passed'
+                else:
+                    result['errors'].append(f'Execution failed: {run_result.stderr}')
+                    return result
+                    
+            except subprocess.TimeoutExpired:
+                result['errors'].append('Execution timeout')
+            except Exception as e:
+                result['errors'].append(str(e))
+                logger.error(f"Node.js verification failed: {e}")
         
         return result
     

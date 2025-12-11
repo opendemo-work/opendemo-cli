@@ -2,7 +2,7 @@
 
 ## 项目简介
 
-Open Demo CLI 是一个智能化的编程学习辅助命令行工具，帮助开发者快速获取高质量、可执行的编程语言Demo代码。支持本地Demo库搜索和AI智能生成，是学习编程的得力助手。
+Open Demo CLI 是一个智能化的编程学习辅助命令行工具，帮助开发者快速获取高质量、可执行的编程语言Demo代码。支持Python、Go、Node.js和Java多种语言，支持本地Demo库搜索和AI智能生成，是学习编程的得力助手。
 
 ---
 
@@ -52,14 +52,20 @@ opendemo/
 │       │   └── logger.py          # 日志工具
 │       │
 │       └── builtin_demos/    # 内置Demo库（只读）
-│           └── python/       # Python内置Demo
+│           ├── python/       # Python内置Demo
+│           ├── go/           # Go内置Demo
+│           └── nodejs/       # Node.js内置Demo
 │
 ├── 📂 Demo输出目录
 │   └── opendemo_output/      # 生成的Demo保存位置
-│       └── python/           # Python Demo (51个)
-│           ├── logging/
-│           ├── async-programming/
-│           ├── collections-module/
+│       ├── python/           # Python Demo (51个)
+│       │   ├── logging/
+│       │   ├── async-programming/
+│       │   └── ...
+│       ├── go/               # Go Demo (20个)
+│       │   ├── go-go并发编程.../
+│       │   └── ...
+│       └── nodejs/           # Node.js Demo (2个)
 │           └── ...
 │
 ├── ⚙️ 配置文件
@@ -124,8 +130,14 @@ python -m opendemo.cli config set ai.api_endpoint https://your-api-endpoint/v1/c
 # 查看所有支持的语言
 python -m opendemo.cli search
 
-# 列出所有Python Demo（扫描opendemo_output/python目录）
+# 列出所有Python Demo（扫描 opendemo_output/python 目录）
 python -m opendemo.cli search python
+
+# 列出所有Go Demo
+python -m opendemo.cli search go
+
+# 列出所有Node.js Demo
+python -m opendemo.cli search nodejs
 
 # 按关键字过滤
 python -m opendemo.cli search python async
@@ -236,6 +248,26 @@ python -m opendemo.cli config set output_directory ./my_demos
 | **网络与数据库** | http-requests, socket-networking, database-sqlite | HTTP请求、Socket、SQLite |
 | **调试与测试** | logging, debugging, unit-testing, profiling-optimization | 日志、调试、测试、性能 |
 | **其他** | regex, datetime, enums, type-hints, exception-handling | 正则、时间、枚举、类型提示 |
+
+### 现有Go Demo（89个）
+
+| 分类 | Demo数量 | 示例 |
+|------|---------|------|
+| **基础语法** | 15+ | 变量、函数、结构体、接口、切片 |
+| **并发编程** | 12+ | goroutines、channels、sync原语、context、worker pool |
+| **DevOps/SRE** | 25+ | Prometheus、健康检查、限流熔断、优雅关闭、OpenTelemetry、Kafka、Docker SDK |
+| **网络编程** | 12+ | HTTP服务器、RESTful API、gRPC、WebSocket、TCP、负载均衡 |
+| **工程实践** | 18+ | 单元测试、基准测试、pprof、依赖注入、Swagger、OAuth2.0 |
+
+### 现有Node.js Demo（67个）
+
+| 分类 | Demo数量 | 示例 |
+|------|---------|------|
+| **基础语法** | 15+ | 变量、函数、闭包、解构赋值 |
+| **异步编程** | 10+ | Promise、async/await、回调、Generator |
+| **DevOps/SRE** | 20+ | Express、健康检查、Cluster、PM2、Prometheus、Kafka、Docker SDK |
+| **安全认证** | 8+ | JWT、OAuth2.0、Passport、Helmet安全中间件 |
+| **工程实践** | 14+ | Jest测试、日志管理、进程管理、GraphQL、Swagger |
 
 ### Demo目录结构
 
@@ -352,4 +384,4 @@ python -m opendemo.cli new python 你的主题
 
 ---
 
-*最后更新: 2024-12-10*
+*最后更新: 2025-12-11*

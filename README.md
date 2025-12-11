@@ -13,8 +13,9 @@
 ## 支持的语言
 
 - Python (51个内置Demo)
+- **Go (89个内置Demo)** - 包含DevOps/SRE完整支持
+- **Node.js (67个内置Demo)** - 包含DevOps/SRE完整支持
 - Java (待扩充)
-- 更多语言即将支持...
 
 ## 快速开始
 
@@ -36,20 +37,37 @@ opendemo config init
 
 **获取demo:**
 ```bash
+# Python Demo
 opendemo get python logging      # 优先匹配已有demo
 opendemo get python list         # 语义匹配 list-operations
 opendemo get python logging new  # 强制重新生成
+
+# Go Demo
+opendemo get go goroutines       # 获取Go并发编程demo
+opendemo get go prometheus       # 获取Prometheus监控demo
+opendemo get go grpc             # 获取gRPC服务demo
+opendemo get go health           # 获取健康检查demo
+
+# Node.js Demo
+opendemo get nodejs express      # 获取Express框架demo
+opendemo get nodejs cluster      # 获取Cluster集群demo
+opendemo get nodejs jwt          # 获取JWT认证demo
 ```
 
 **搜索demo:**
 ```bash
+opendemo search                  # 显示所有支持的语言
 opendemo search python           # 列出所有Python demo
 opendemo search python async     # 按关键字过滤
+opendemo search go               # 列出所有Go demo
+opendemo search nodejs           # 列出所有Node.js demo
 ```
 
 **创建新demo:**
 ```bash
 opendemo new python 异步HTTP请求处理
+opendemo new go 并发编程 --difficulty intermediate
+opendemo new nodejs async-await --difficulty intermediate
 ```
 
 **配置管理:**
@@ -80,6 +98,8 @@ opendemo/
 │   │   └── formatters.py
 │   └── builtin_demos/     # 内置demo库
 │       ├── python/
+│       ├── go/
+│       ├── nodejs/
 │       └── java/
 ├── tests/                 # 测试文件
 ├── pyproject.toml         # 项目配置
@@ -105,7 +125,7 @@ opendemo/
 - `metadata.json`: demo元数据
 - `README.md`: 实操指南文档
 - `code/`: 代码文件目录
-- `requirements.txt` 或 `pom.xml`: 依赖声明
+- `requirements.txt` 或 `pom.xml` 或 `go.mod` 或 `package.json`: 依赖声明
 - `tests/`: 测试文件(可选)
 
 ## 开发

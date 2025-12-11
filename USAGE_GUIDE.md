@@ -32,18 +32,28 @@ python -m opendemo.cli config set ai.api_key YOUR_API_KEY
 python -m opendemo.cli search python
 ```
 
+列出所有Go demo:
+
+```bash
+python -m opendemo.cli search go
+```
+
+列出所有Node.js demo:
+
+```bash
+python -m opendemo.cli search nodejs
+```
+
 输出示例:
 ```
-找到 51 个匹配的demo:
+可用的语言:
+  - python: 51 个demo
+  - java: 0 个demo
+  - go: 89 个demo
+  - nodejs: 67 个demo
 
-┌──────┬──────────────────────┬────────────┬──────────────────────┬──────────────┐
-│ #    │ 名称                 │ 语言       │ 关键字               │ 难度         │
-├──────┼──────────────────────┼────────────┼──────────────────────┼──────────────┤
-│ 1    │ abc-interfaces       │ python     │ abc, interfaces      │ beginner     │
-│ 2    │ async-programming    │ python     │ async, programming   │ beginner     │
-│ 3    │ logging              │ python     │ logging              │ beginner     │
-│ ... │ ...                  │ ...        │ ...                  │ ...          │
-└──────┴──────────────────────┴────────────┴──────────────────────┴──────────────┘
+使用 'opendemo search <语言>' 查看特定语言的demo
+```
 ```
 
 按关键字搜索过滤:
@@ -127,7 +137,21 @@ python -m opendemo.cli config set ai.temperature 0.7
 
 ## 实际演示
 
-### 示例1: 搜索所有Python demo
+### 示例1: 查看支持的语言
+
+```bash
+$ python -m opendemo.cli search
+
+可用的语言:
+  - python: 51 个demo
+  - java: 0 个demo
+  - go: 89 个demo
+  - nodejs: 67 个demo
+
+使用 'opendemo search <语言>' 查看特定语言的demo
+```
+
+### 示例2: 搜索所有Python demo
 
 ```bash
 $ python -m opendemo.cli search python
@@ -149,7 +173,47 @@ $ python -m opendemo.cli search python
 使用 'opendemo get <语言> <关键字>' 获取具体demo
 ```
 
-### 示例2: 获取已有demo
+### 示例3: 搜索Go demo
+
+```bash
+$ python -m opendemo.cli search go
+
+找到 89 个匹配的demo:
+
+╭──────┬───────────────────────────┬────────────┬───────────────────────┬──────────────╮
+│ #    │ 名称                      │ 语言       │ 关键字                │ 难度         │
+├──────┼───────────────────────────┼────────────┼───────────────────────┼──────────────┤
+│ 1    │ go-go并发编程入门goroutines... │ go        │ goroutines, 并发   │ intermediate │
+│ 2    │ go-go-channels-实战演示     │ go        │ channels          │ intermediate │
+│ ... │ ...                       │ ...        │ ...                │ ...          │
+╰──────┴───────────────────────────┴────────────┴───────────────────────┴──────────────╯
+```
+
+### 示例4: 获取Go demo
+
+```bash
+$ python -m opendemo.cli get go goroutines
+
+>>> 搜索 go - goroutines 的demo...
+[OK] 在输出目录中找到匹配的demo: go-go并发编程入门goroutines实战演示
+[OK] Demo已存在!
+
+名称: go-go并发编程入门goroutines实战演示
+语言: go
+路径: opendemo_output\go\go-go并发编程入门goroutines实战演示
+关键字: goroutines, 并发, channel
+
+包含文件:
+  - code/main.go
+  - code/concurrent_sum.go
+  - code/worker_pool.go
+
+快速开始:
+  1. cd opendemo_output\go\go-go并发编程入门goroutines实战演示
+  2. go run .
+```
+
+### 示例5: 获取已有Python demo
 
 ```bash
 $ python -m opendemo.cli get python logging
@@ -174,7 +238,7 @@ $ python -m opendemo.cli get python logging
 如需重新生成: opendemo get python logging new
 ```
 
-### 示例3: 强制重新生成demo
+### 示例6: 强制重新生成demo
 
 ```bash
 $ python -m opendemo.cli get python logging new
@@ -189,7 +253,7 @@ $ python -m opendemo.cli get python logging new
 ...
 ```
 
-### 示例4: 执行demo
+### 示例7: 执行 Python demo
 
 ```bash
 $ cd opendemo_output\python\logging
@@ -226,13 +290,19 @@ opendemo/
 │   │   ├── logger.py            # 日志工具
 │   │   └── formatters.py        # 输出格式化
 │   └── builtin_demos/           # 内置demo库
-│       └── python/              # Python demo
+│       ├── python/              # Python demo
+│       ├── go/                  # Go demo
+│       └── nodejs/              # Node.js demo
 ├── opendemo_output/             # Demo输出目录
-│   └── python/                  # Python demo (51个)
-│       ├── abc-interfaces/      # 抽象基类
-│       ├── async-programming/   # 异步编程
-│       ├── logging/             # 日志记录
-│       ├── collections-module/  # collections模块
+│   ├── python/                  # Python demo (51个)
+│   │   ├── abc-interfaces/      # 抽象基类
+│   │   ├── async-programming/   # 异步编程
+│   │   ├── logging/             # 日志记录
+│   │   └── ...                  # 更多demo
+│   ├── go/                      # Go demo (20个)
+│   │   ├── go-go并发编程.../     # 并发编程
+│   │   └── ...                  # 更多demo
+│   └── nodejs/                  # Node.js demo (2个)
 │       └── ...                  # 更多demo
 ├── pyproject.toml               # 项目配置
 ├── README.md                    # 项目说明

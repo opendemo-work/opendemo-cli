@@ -1,0 +1,45 @@
+STATUS,LANGUAGE,TOPIC,DIFFICULTY,ERROR
+SUCCESS,go,variables types,beginner
+SUCCESS,go,arrays slices,beginner
+SUCCESS,go,maps,beginner
+SUCCESS,go,functions,beginner
+SUCCESS,go,structs,beginner
+SUCCESS,go,interfaces,intermediate
+SUCCESS,go,goroutines,intermediate
+SUCCESS,go,channels,intermediate
+SUCCESS,go,error-handling,beginner
+SUCCESS,go,json,beginner
+SUCCESS,go,file-io,beginner
+ERROR,go,http-client,intermediate,Command '['python', '-m', 'opendemo.cli', 'new', 'go', 'http-client', '--difficulty', 'intermediate']' timed out after 120 seconds
+SUCCESS,go,context,intermediate
+SUCCESS,go,defer,beginner
+SUCCESS,go,closures,intermediate
+SUCCESS,go,select,intermediate
+SUCCESS,go,sync mutex waitgroup,intermediate
+SUCCESS,go,embedding,intermediate
+SUCCESS,go,time,beginner
+SUCCESS,go,strings,beginner
+SUCCESS,go,constants enums iota,beginner
+SUCCESS,go,panic recover,intermediate
+SUCCESS,nodejs,variables types,beginner
+SUCCESS,nodejs,arrow-functions,beginner
+SUCCESS,nodejs,destructuring,beginner
+SUCCESS,nodejs,promises,intermediate
+SUCCESS,nodejs,async-await,intermediate
+SUCCESS,nodejs,callbacks,beginner
+SUCCESS,nodejs,functions,beginner
+SUCCESS,nodejs,array-methods,beginner
+SUCCESS,nodejs,fs file-system,beginner
+SUCCESS,nodejs,http-module,intermediate
+SUCCESS,nodejs,event-emitter,intermediate
+SUCCESS,nodejs,buffer,intermediate
+SUCCESS,nodejs,streams,intermediate
+SUCCESS,nodejs,path,beginner
+SUCCESS,nodejs,json,beginner
+SUCCESS,nodejs,error-handling,intermediate
+SUCCESS,nodejs,classes inheritance,intermediate
+SUCCESS,nodejs,closures,intermediate
+SUCCESS,nodejs,map-set,beginner
+SUCCESS,nodejs,spread-operator,beginner
+SUCCESS,nodejs,template-strings,beginner
+SUCCESS,nodejs,higher-order-functions,intermediate

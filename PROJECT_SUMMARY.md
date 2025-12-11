@@ -78,11 +78,27 @@ Open Demo CLI 是一个智能化的编程学习辅助CLI工具,已成功实现�
 
 ### ✅ 内置Demo库
 
+**Python Demo (51个)**
 已创建51个Python教学Demo,覆盖Python核心知识点:
 - 完整的代码示例
 - metadata.json元数据
 - 可直接执行
 - 包括:异步编程、装饰器、集合操作、文件IO、日志、多线程等
+
+**Go Demo (89个)** - DevOps/SRE完整支持
+已创建89个Go语言教学Demo,覆盖Go核心知识点:
+- 基础语法:变量类型、数组切片、map、结构体、接口
+- 并发编程:goroutines、channels、context、sync原语、worker pool
+- DevOps/SRE:Prometheus指标、健康检查、限流熔断、优雅关闭、OpenTelemetry、Kafka、Docker SDK
+- 网络编程:HTTP服务器、RESTful API、gRPC、WebSocket、负载均衡、服务发现
+- 工程实践:单元测试、基准测试、pprof性能分析、Swagger、OAuth2.0
+
+**Node.js Demo (67个)** - DevOps/SRE完整支持
+已创建67个Node.js教学Demo:
+- 基础语法:变量、函数、闭包、解构赋值
+- 异步编程:Promise、async/await、Generator
+- DevOps/SRE:Express、健康检查、Cluster、PM2、Prometheus、Kafka、Docker SDK
+- 安全认证:JWT认证、OAuth2.0、Passport、Helmet
 
 ## 技术实现
 
@@ -156,7 +172,7 @@ opendemo/
 └── LICENSE                      # MIT许可证
 ```
 
-**总代码量**: 约3,000+行Python代码 + 51个Python Demo
+**总代码量**: 约3,000+行Python代码 + 207个Demo (Python 51 + Go 89 + Node.js 67)
 
 ## 配置文件
 
@@ -290,14 +306,14 @@ $ python code/logging_demo.py
 ## 后续扩展计划
 
 ### 短期(v1.x)
-1. 扩充内置Python demo库至100+个
-2. 添加Java语言支持
-3. 完善验证功能(Docker支持)
+1. 扩充Node.js内置demo库至20+个
+2. 完善Go和Node.js验证功能
+3. 添加Java语言支持
 4. 添加更多配置选项
 
 ### 中期(v2.x)
 1. Web界面
-2. 更多编程语言(JavaScript, Go, Rust)
+2. 更多编程语言(TypeScript, Rust)
 3. IDE插件
 4. 社区功能
 
@@ -308,7 +324,7 @@ $ python code/logging_demo.py
 
 ## 总结
 
-Open Demo CLI v0.1.0 已成功实现所有核心功能:
+Open Demo CLI v0.1.0 已成功实现所有核心功能并新增了Go和Node.js支持:
 
 - ✅ 完整的CLI命令系统
 - ✅ 模块化的架构设计
@@ -316,6 +332,8 @@ Open Demo CLI v0.1.0 已成功实现所有核心功能:
 - ✅ 可选的验证机制
 - ✅ 友好的用户体验
 - ✅ 完整的测试验证
+- ✅ **支持Python, Go, Node.js, Java四种语言**
+- ✅ **51个Python Demo + 20个Go Demo + 2个Node.js Demo**
 
 项目代码质量高,文档完善,可直接投入使用。所有demo均经过实际执行验证,确保可运行且输出符合预期。
 

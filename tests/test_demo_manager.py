@@ -101,7 +101,7 @@ class TestDemoManager:
         assert manager._demo_cache == {}
     
     def test_generate_demo_name(self):
-        """测试生成 demo 目录名"""
+        """测试生成 demo 目录名（纯ASCII英文）"""
         mock_storage = Mock()
         manager = DemoManager(mock_storage)
         
@@ -112,6 +112,14 @@ class TestDemoManager:
         # 测试带特殊字符
         name = manager._generate_demo_name("Test_Demo!", "java")
         assert name == "java-test-demo"
+        
+        # 测试中文名称（应该过滤掉中文）
+        name = manager._generate_demo_name("并发编程goroutines", "go")
+        assert name == "go-goroutines"
+        
+        # 测试纯中文（应该返回默认名称）
+        name = manager._generate_demo_name("中文主题", "nodejs")
+        assert name == "nodejs-demo"
     
     def test_get_file_description(self):
         """测试获取文件描述"""

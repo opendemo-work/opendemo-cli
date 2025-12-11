@@ -1,0 +1,1043 @@
+{
+  "go": [
+    {
+      "folder": "go-cobra-cli-cli-tool-demo",
+      "name": "Cobra CLI 工具开发演示",
+      "description": "一个展示如何使用 Cobra 构建现代化 Go CLI 应用的完整示例"
+    },
+    {
+      "folder": "go-dockersdkgo-container-management",
+      "name": "DockerSDK容器操作管理Go示例",
+      "description": "使用Go语言通过Docker SDK实现容器的创建、启动、停止和删除操作。"
+    },
+    {
+      "folder": "go-ginwebdemo-web-framework-intro",
+      "name": "Gin框架Web开发入门Demo",
+      "description": "一个基于Gin框架的轻量级Web服务入门示例"
+    },
+    {
+      "folder": "go-go-badgerdb-demo-embedded-db-storage",
+      "name": "Go BadgerDB 内存数据库存储Demo",
+      "description": "一个展示如何使用BadgerDB进行高效键值存储的Go语言示例项目。"
+    },
+    {
+      "folder": "go-go-cache-warmup-strategy-demo",
+      "name": "Go缓存预热与缓存策略演示",
+      "description": "演示Go中缓存预热和常见缓存策略的实现"
+    },
+    {
+      "folder": "go-go-channels-demo",
+      "name": "Go Channels 实战演示",
+      "description": "通过实际示例展示 Go 中 channels 的核心用法和并发模式。"
+    },
+    {
+      "folder": "go-go-consul-service-discovery",
+      "name": "Go Consul 服务注册与发现演示",
+      "description": "一个使用 Go 和 Consul 实现服务注册与发现的可执行演示项目"
+    },
+    {
+      "folder": "go-go-context-practice",
+      "name": "Go Context 实践示例",
+      "description": "演示 Go 中 context 包在超时、取消和跨 goroutine 传递中的实际应用"
+    },
+    {
+      "folder": "go-go-control-flow-demo",
+      "name": "Go控制流演示",
+      "description": "展示Go语言中if、switch和for控制流语句的基本用法。"
+    },
+    {
+      "folder": "go-go-db-connection-pool-demo",
+      "name": "Go数据库连接池管理演示",
+      "description": "展示如何在Go中使用标准库实现高效、安全的数据库连接池管理。"
+    },
+    {
+      "folder": "go-go-defer-demo",
+      "name": "Go Defer 机制实战演示",
+      "description": "通过多个场景演示Go中defer关键字的正确用法和最佳实践"
+    },
+    {
+      "folder": "go-go-demo",
+      "name": "Go函数编程实战演示",
+      "description": "通过实际示例展示Go语言中函数的多种用法，包括基本函数、多返回值、闭包和高阶函数。"
+    },
+    {
+      "folder": "go-go-demo-1",
+      "name": "Go反射与元编程实战演示",
+      "description": "通过实际示例展示Go语言中reflect包的高级用法，实现动态类型检查、字段修改和方法调用。"
+    },
+    {
+      "folder": "go-go-demo-10",
+      "name": "Go模板引擎实战演示",
+      "description": "展示Go中html/template和text/template的典型用法"
+    },
+    {
+      "folder": "go-go-demo-11",
+      "name": "Go正则表达式文本匹配实战演示",
+      "description": "通过多个场景演示Go中使用regexp包进行高效文本匹配的方法。"
+    },
+    {
+      "folder": "go-go-demo-12",
+      "name": "Go结构体实战演示",
+      "description": "通过实际示例展示Go中结构体的定义、方法绑定和组合用法。"
+    },
+    {
+      "folder": "go-go-demo-13",
+      "name": "Go语言结构体实战演示",
+      "description": "通过实际示例展示Go中结构体的定义、初始化和方法使用。"
+    },
+    {
+      "folder": "go-go-demo-14",
+      "name": "Go闭包编程实战演示",
+      "description": "通过实际示例展示Go中闭包的使用场景和优势"
+    },
+    {
+      "folder": "go-go-demo-15",
+      "name": "Go限流与熔断机制实战演示",
+      "description": "通过Go实现限流和熔断机制，提升服务的稳定性和容错能力。"
+    },
+    {
+      "folder": "go-go-demo-2",
+      "name": "Go变量类型实战演示",
+      "description": "通过实际示例掌握Go语言中的变量声明与基本数据类型使用。"
+    },
+    {
+      "folder": "go-go-demo-3",
+      "name": "Go字符串处理实战演示",
+      "description": "演示Go中常用字符串操作的实用示例"
+    },
+    {
+      "folder": "go-go-demo-4",
+      "name": "Go并发原语实战演示",
+      "description": "演示Go中sync包的WaitGroup、Once和Pool原语在并发编程中的实际应用"
+    },
+    {
+      "folder": "go-go-demo-5",
+      "name": "Go接口实战演示",
+      "description": "通过实际示例展示Go语言中接口的使用和多态特性"
+    },
+    {
+      "folder": "go-go-demo-6",
+      "name": "Go控制流语句实战演示",
+      "description": "通过实际例子演示Go语言中if、switch和for控制流语句的使用。"
+    },
+    {
+      "folder": "go-go-demo-7",
+      "name": "Go数组与切片实战演示",
+      "description": "通过实际示例掌握Go语言中数组和切片的核心用法。"
+    },
+    {
+      "folder": "go-go-demo-8",
+      "name": "Go文件操作实战演示",
+      "description": "展示Go中常见文件I/O操作的完整示例"
+    },
+    {
+      "folder": "go-go-demo-9",
+      "name": "Go时间处理实战演示",
+      "description": "演示Go中time包的核心用法，包括时间操作、格式化和定时器。"
+    },
+    {
+      "folder": "go-go-elkdemo-log-aggregation",
+      "name": "Go-ELK日志聚合集成Demo",
+      "description": "一个使用Go语言实现日志发送到ELK栈的可执行示例"
+    },
+    {
+      "folder": "go-go-embedded-programming-demo",
+      "name": "Go嵌入式编程示例",
+      "description": "展示Go语言中结构体嵌入和组合的实用编程模式"
+    },
+    {
+      "folder": "go-go-embeddemo-embed-static-assets",
+      "name": "Go Embed静态资源嵌入Demo",
+      "description": "演示如何使用Go的embed包将静态文件嵌入二进制文件中"
+    },
+    {
+      "folder": "go-go-error-handling-demo",
+      "name": "go-error-handling-demo",
+      "description": "一个展示Go中错误处理最佳实践的可执行示例"
+    },
+    {
+      "folder": "go-go-http-demo",
+      "name": "Go HTTP客户端实战演示",
+      "description": "展示Go中使用net/http包进行HTTP请求的多种实践方式"
+    },
+    {
+      "folder": "go-go-http-restful-api-demo",
+      "name": "Go_HTTP_RESTful_API_Demo",
+      "description": "一个基于Go语言的轻量级RESTful API服务器示例，展示路由、请求处理和JSON响应。"
+    },
+    {
+      "folder": "go-go-json-demo",
+      "name": "Go JSON处理实战演示",
+      "description": "展示Go中JSON编码与解码的核心用法"
+    },
+    {
+      "folder": "go-go-jwtdemo-auth-login-verify",
+      "name": "Go-JWT认证用户登录验证Demo",
+      "description": "一个基于Go语言的JWT用户登录与认证完整示例"
+    },
+    {
+      "folder": "go-go-maps-demo",
+      "name": "Go Maps 实战演示",
+      "description": "通过实际示例掌握Go中map的常用操作和最佳实践"
+    },
+    {
+      "folder": "go-go-oauth20-third-party-login",
+      "name": "Go OAuth2.0 第三方登录示例",
+      "description": "一个使用Go实现OAuth2.0第三方登录的可执行示例"
+    },
+    {
+      "folder": "go-go-panic-recover-demo",
+      "name": "Go Panic Recover 实战演示",
+      "description": "通过实际示例展示 Go 中 panic 和 recover 的正确使用方式。"
+    },
+    {
+      "folder": "go-go-pprof-demo",
+      "name": "Go pprof性能分析实战演示",
+      "description": "通过可运行示例展示如何使用Go的pprof工具进行CPU和内存性能分析。"
+    },
+    {
+      "folder": "go-go-prometheus-metrics-demo",
+      "name": "Go_Prometheus_Metrics_Demo",
+      "description": "一个使用Go实现Prometheus指标采集的完整可执行示例"
+    },
+    {
+      "folder": "go-go-protobuf-serialization-demo",
+      "name": "Go-Protobuf-Serialization-Demo",
+      "description": "一个展示如何在Go中使用Protocol Buffers进行高效二进制序列化的可执行示例。"
+    },
+    {
+      "folder": "go-go-redis-cache-operations-demo",
+      "name": "Go Redis缓存操作演示",
+      "description": "使用go-redis库实现常见缓存操作的Go语言示例"
+    },
+    {
+      "folder": "go-go-redis-distributed-lock-demo",
+      "name": "Go-Redis分布式锁演示",
+      "description": "使用Redsync实现可靠的Redis分布式锁机制"
+    },
+    {
+      "folder": "go-go-select-demo",
+      "name": "Go Select 机制实战演示",
+      "description": "通过多个场景演示 Go 中 select 语句的使用方法和最佳实践。"
+    },
+    {
+      "folder": "go-go-select-mechanism-demo",
+      "name": "Go Select 机制演示",
+      "description": "通过多个场景演示 Go 中 select 语句的使用方式"
+    },
+    {
+      "folder": "go-go-swagger-demo",
+      "name": "Go-Swagger-Demo",
+      "description": "一个展示如何使用swag为Go项目生成Swagger API文档的可执行示例"
+    },
+    {
+      "folder": "go-go-tcp-network-programming",
+      "name": "Go TCP网络编程示例",
+      "description": "一个展示Go中TCP服务器与客户端通信的可执行演示程序"
+    },
+    {
+      "folder": "go-go-variable-types-demo",
+      "name": "Go变量类型演示",
+      "description": "展示Go语言中常见变量类型的声明与使用方式。"
+    },
+    {
+      "folder": "go-go-variables-types-demo",
+      "name": "Go变量与类型演示",
+      "description": "通过实际示例展示Go语言中变量和基本数据类型的使用方法。"
+    },
+    {
+      "folder": "go-go-viper-config-env-integration",
+      "name": "Go Viper配置管理与环境变量集成示例",
+      "description": "展示如何使用Viper库在Go应用中管理配置和环境变量"
+    },
+    {
+      "folder": "go-go-worker-pool-demo",
+      "name": "Go Worker Pool 实战演示",
+      "description": "一个展示Go中Worker池模式的完整可执行示例，用于高效处理并发任务。"
+    },
+    {
+      "folder": "go-gocontextdemo-timeout-context-demo",
+      "name": "Go超时控制与Context实践Demo",
+      "description": "演示如何使用Go中的context实现超时和截止时间控制"
+    },
+    {
+      "folder": "go-gocron-cron-scheduler-demo",
+      "name": "Go定时任务调度Cron示例",
+      "description": "使用robfig/cron库实现Go中的定时任务调度"
+    },
+    {
+      "folder": "go-godemo-benchmark-profiling",
+      "name": "Go基准测试性能分析Demo",
+      "description": "通过实际示例演示Go语言中基准测试的编写与性能分析方法。"
+    },
+    {
+      "folder": "go-godemo-config-hot-reload-demo",
+      "name": "Go配置热更新与文件监听Demo",
+      "description": "使用fsnotify实现配置文件的热更新监听，无需重启服务即可加载最新配置。"
+    },
+    {
+      "folder": "go-godemo-dependency-injection-demo",
+      "name": "Go依赖注入设计模式实战Demo",
+      "description": "通过真实场景演示Go语言中的依赖注入实现方式"
+    },
+    {
+      "folder": "go-godemo-exponential-backoff-retry",
+      "name": "Go指数退避重试机制Demo",
+      "description": "展示在Go中实现指数退避重试机制的最佳实践"
+    },
+    {
+      "folder": "go-godemo-functional-programming-practice",
+      "name": "Go函数编程实践Demo",
+      "description": "通过实际示例学习Go语言中函数的多种用法"
+    },
+    {
+      "folder": "go-godemo-health-check-monitor",
+      "name": "Go健康检查服务监控Demo",
+      "description": "一个基于Go的可扩展健康检查服务监控示例，支持多端点监控和自定义检测逻辑。"
+    },
+    {
+      "folder": "go-godemo-load-balancer-reverse-proxy",
+      "name": "Go负载均衡与反向代理Demo",
+      "description": "一个基于Go实现的简单负载均衡反向代理服务器示例"
+    },
+    {
+      "folder": "go-godemo-log-rotation-demo",
+      "name": "Go日志轮转文件管理Demo",
+      "description": "演示如何在Go中实现基于大小和时间的日志轮转与文件管理"
+    },
+    {
+      "folder": "go-godemo-signal-graceful-shutdown",
+      "name": "Go信号处理与优雅关闭Demo",
+      "description": "演示Go中如何通过信号处理实现服务的优雅关闭"
+    },
+    {
+      "folder": "go-godemo-table-driven-testing",
+      "name": "Go单元测试表驱动测试Demo",
+      "description": "展示Go中使用表驱动测试进行高效单元测试的完整示例"
+    },
+    {
+      "folder": "go-godocker-multi-stage-docker-build",
+      "name": "Go多阶段Docker构建演示",
+      "description": "展示如何使用Go和Docker多阶段构建创建高效容器镜像"
+    },
+    {
+      "folder": "go-gogoroutines-demo",
+      "name": "Go并发编程入门：Goroutines实战演示",
+      "description": "通过多个实际场景演示Go中goroutines和channel的使用方法。"
+    },
+    {
+      "folder": "go-gogoroutines-goroutines-basics-demo",
+      "name": "Go并发编程实战：Goroutines入门",
+      "description": "通过实际示例掌握Go语言中goroutines和channel的基本使用。"
+    },
+    {
+      "folder": "go-gogoroutines-goroutines-basics-demo-1",
+      "name": "Go并发编程实战：Goroutines入门与应用",
+      "description": "通过实际示例掌握Go语言中goroutines和channel的使用方法。"
+    },
+    {
+      "folder": "go-gogoroutines-goroutines-detailed-demo",
+      "name": "Go并发编程实战：Goroutines详解",
+      "description": "通过多个实用场景演示Go中goroutines的正确使用方式。"
+    },
+    {
+      "folder": "go-gogoroutines-goroutines-practical-demo",
+      "name": "Go并发编程实战：Goroutines应用示例",
+      "description": "通过多个实用场景演示Go中goroutines和channel的正确使用方式。"
+    },
+    {
+      "folder": "go-gohashjwt-crypto-hash-jwt-demo",
+      "name": "Go加密安全实践：Hash与JWT示例",
+      "description": "演示Go中使用加密哈希和JWT进行安全身份验证的完整示例"
+    },
+    {
+      "folder": "go-gohttp-middleware-http-server",
+      "name": "Go中间件模式HTTP服务器示例",
+      "description": "一个展示Go中使用中间件模式构建HTTP服务的可执行示例"
+    },
+    {
+      "folder": "go-goiota-const-enum-iota-demo",
+      "name": "Go常量枚举iota演示",
+      "description": "使用iota演示Go中常量和枚举的优雅实现方式"
+    },
+    {
+      "folder": "go-goiota-const-enum-iota-usage",
+      "name": "Go常量枚举与iota使用示例",
+      "description": "演示Go中使用iota实现枚举和常量的多种模式"
+    },
+    {
+      "folder": "go-goiota-constants-enums-iota-demo",
+      "name": "Go常量枚举与iota演示",
+      "description": "使用iota演示Go中模拟枚举的惯用方式"
+    },
+    {
+      "folder": "go-golrudemo-lru-cache-impl-demo",
+      "name": "Go语言LRU缓存策略实现Demo",
+      "description": "使用Go实现LRU缓存策略的完整示例，包含可运行代码和详细教学文档。"
+    },
+    {
+      "folder": "go-gomakefile-makefile-automation-demo",
+      "name": "Go项目自动化构建与Makefile集成演示",
+      "description": "通过Makefile实现Go项目的自动化构建、测试和清理的完整示例。"
+    },
+    {
+      "folder": "go-gomutexwaitgroup-mutex-waitgroup-control-demo",
+      "name": "Go并发控制实战：Mutex与WaitGroup演示",
+      "description": "展示如何使用sync.Mutex和sync.WaitGroup进行Go中的并发控制和数据安全访问。"
+    },
+    {
+      "folder": "go-gomutexwaitgroup-mutex-waitgroup-demo",
+      "name": "Go并发编程实战：Mutex与WaitGroup",
+      "description": "演示Go中使用sync.Mutex和sync.WaitGroup进行并发控制的完整示例"
+    },
+    {
+      "folder": "go-gomutexwaitgroup-mutex-waitgroup-demo-1",
+      "name": "Go并发编程实战：Mutex与WaitGroup详解",
+      "description": "通过实际示例掌握Go中使用Mutex和WaitGroup进行并发控制的方法。"
+    },
+    {
+      "folder": "go-gorm-demo",
+      "name": "GORM增删改查实战演示",
+      "description": "一个完整的GORM ORM框架增删改查示例，帮助Go开发者快速掌握数据库操作。"
+    },
+    {
+      "folder": "go-goselect-mechanism-demo",
+      "name": "Go并发编程中的select机制演示",
+      "description": "通过多个场景演示Go中select语句的使用方式及其在并发控制中的作用。"
+    },
+    {
+      "folder": "go-gosql-sql-transaction-demo",
+      "name": "Go数据库SQL事务操作演示",
+      "description": "一个展示Go中使用database/sql进行SQL事务操作的完整可执行示例。"
+    },
+    {
+      "folder": "go-gozapdemo-structured-logging-zap-demo",
+      "name": "Go结构化日志管理Zap实战Demo",
+      "description": "使用uber-go/zap实现高性能结构化日志记录的完整示例"
+    },
+    {
+      "folder": "go-grpc-protobuf-go-demo",
+      "name": "gRPC-Protobuf-Go-Demo",
+      "description": "一个展示如何使用gRPC和Protobuf进行远程过程调用的Go语言示例"
+    },
+    {
+      "folder": "go-istiogo-service-mesh-proxy",
+      "name": "Istio代理服务网格Go演示",
+      "description": "一个用Go编写的轻量级模拟Istio服务网格中Envoy代理行为的演示程序。"
+    },
+    {
+      "folder": "go-kafkago-producer-consumer",
+      "name": "Kafka生产者消费者Go示例",
+      "description": "使用Go实现Kafka生产者和消费者的完整可运行示例"
+    },
+    {
+      "folder": "go-opentelemetrygo-distributed-tracing",
+      "name": "OpenTelemetry分布式追踪Go示例",
+      "description": "一个可运行的Go示例，展示如何使用OpenTelemetry实现分布式追踪"
+    },
+    {
+      "folder": "go-rabbitmq-amqp-go-demo",
+      "name": "RabbitMQ_AMQP_Go_Demo",
+      "description": "使用Go实现RabbitMQ AMQP协议的完整示例，涵盖生产者、消费者和工作队列模式。"
+    },
+    {
+      "folder": "go-websocket-gorilla-realtime-communication",
+      "name": "WebSocket实时通信 Gorilla",
+      "description": "使用Gorilla WebSocket库实现Go语言中的实时双向通信"
+    }
+  ],
+  "nodejs": [
+    {
+      "folder": "nodejs-arrow-functions-demo",
+      "name": "Arrow Functions Demo",
+      "description": "展示 Node.js 中箭头函数的常用场景和最佳实践"
+    },
+    {
+      "folder": "nodejs-async-await-nodejs-demo",
+      "name": "async-await-nodejs-demo",
+      "description": "一个展示 async/await 在 Node.js 中实际应用的可执行示例"
+    },
+    {
+      "folder": "nodejs-axios-demo",
+      "name": "Axios拦截器实战演示",
+      "description": "通过实际示例展示Axios拦截器在请求和响应处理中的应用"
+    },
+    {
+      "folder": "nodejs-bullnodejs-demo-queue-async-tasks",
+      "name": "Bull队列异步任务处理Node.js Demo",
+      "description": "使用Bull和Redis实现可靠的异步任务处理系统"
+    },
+    {
+      "folder": "nodejs-consulnodejsdemo-service-discovery-config",
+      "name": "Consul服务发现与配置中心Node.js集成Demo",
+      "description": "展示如何在Node.js应用中集成Consul实现服务注册、发现和动态配置管理。"
+    },
+    {
+      "folder": "nodejs-docker-sdk-for-nodejs-container-management-demo",
+      "name": "Docker SDK for Node.js 容器管理演示",
+      "description": "使用Node.js通过Docker SDK实现容器的创建、启动、停止和删除操作。"
+    },
+    {
+      "folder": "nodejs-express-restful-api-demo",
+      "name": "Express_RESTful_API_Demo",
+      "description": "一个展示使用Express框架开发RESTful API的完整可执行示例"
+    },
+    {
+      "folder": "nodejs-generator-async-flow-control-demo",
+      "name": "Generator异步流控制演示",
+      "description": "使用Generator函数精确控制异步任务流的Node.js实战示例"
+    },
+    {
+      "folder": "nodejs-graphql-api-demo",
+      "name": "GraphQL API 查询语言实战演示",
+      "description": "一个可执行的Node.js示例，展示如何使用GraphQL构建灵活的API查询接口。"
+    },
+    {
+      "folder": "nodejs-helmet-security-middleware-demo",
+      "name": "Helmet安全中间件防护示例",
+      "description": "使用Helmet中间件增强Node.js应用的安全性，防止常见Web漏洞。"
+    },
+    {
+      "folder": "nodejs-ioredis-nodejs-demo",
+      "name": "ioredis-nodejs-demo",
+      "description": "使用ioredis实现Redis缓存操作的Node.js示例"
+    },
+    {
+      "folder": "nodejs-jest-mockdemo-mock-unit-testing",
+      "name": "Jest Mock模拟单元测试Demo",
+      "description": "展示如何在Jest中使用Mock模拟函数、模块和异步行为的完整示例"
+    },
+    {
+      "folder": "nodejs-jwtnodejs-auth-authorization",
+      "name": "JWT认证与授权Node.js演示",
+      "description": "一个展示使用jsonwebtoken库实现JWT认证和授权的完整Node.js示例"
+    },
+    {
+      "folder": "nodejs-kafkanodejs-producer-consumer",
+      "name": "Kafka生产者消费者Node.js演示",
+      "description": "一个展示Kafka在Node.js中实现生产者与消费者模式的可执行示例。"
+    },
+    {
+      "folder": "nodejs-mapsetdemo",
+      "name": "MapSetDemo",
+      "description": "一个展示JavaScript中Map和Set数据结构用法的Node.js示例项目"
+    },
+    {
+      "folder": "nodejs-multerdemo-file-upload-handling",
+      "name": "Multer文件上传处理Demo",
+      "description": "一个展示如何使用Multer在Node.js中处理文件上传的完整可运行示例。"
+    },
+    {
+      "folder": "nodejs-nestjsdemo-framework-intro",
+      "name": "NestJS框架入门Demo",
+      "description": "一个可执行的NestJS入门示例，帮助开发者快速理解核心概念。"
+    },
+    {
+      "folder": "nodejs-node-cron-cron-scheduler-demo",
+      "name": "Node-Cron定时任务调度演示",
+      "description": "使用node-cron库实现多种场景下的定时任务调度"
+    },
+    {
+      "folder": "nodejs-nodejs-buffer-demo",
+      "name": "Node.js Buffer 操作实战演示",
+      "description": "展示 Node.js 中 Buffer 的常见用法和最佳实践"
+    },
+    {
+      "folder": "nodejs-nodejs-class-inheritance-demo",
+      "name": "NodeJS类继承演示",
+      "description": "通过实际示例展示Node.js中ES6类继承的用法和最佳实践"
+    },
+    {
+      "folder": "nodejs-nodejs-cluster-cluster-load-balancing",
+      "name": "Node.js_Cluster_多进程负载均衡示例",
+      "description": "使用Node.js Cluster模块实现多进程负载均衡的完整示例"
+    },
+    {
+      "folder": "nodejs-nodejs-demo",
+      "name": "Node.js事件发射器实战演示",
+      "description": "通过实际示例展示Node.js中EventEmitter的多种使用场景"
+    },
+    {
+      "folder": "nodejs-nodejs-demo-1",
+      "name": "NodeJS函数编程实战演示",
+      "description": "通过实际示例学习Node.js中函数的多种用法和最佳实践"
+    },
+    {
+      "folder": "nodejs-nodejs-demo-10",
+      "name": "Node.js高阶函数实战演示",
+      "description": "通过实际示例展示Node.js中高阶函数的常见用法和优势"
+    },
+    {
+      "folder": "nodejs-nodejs-demo-2",
+      "name": "NodeJS回调函数实战演示",
+      "description": "通过实际示例掌握Node.js中回调函数的使用方法和最佳实践。"
+    },
+    {
+      "folder": "nodejs-nodejs-demo-3",
+      "name": "Node.js子进程管理实战演示",
+      "description": "通过实际示例展示Node.js中使用spawn和exec进行子进程管理的最佳实践。"
+    },
+    {
+      "folder": "nodejs-nodejs-demo-4",
+      "name": "NodeJS展开运算符实战演示",
+      "description": "通过实际示例展示JavaScript中展开运算符在数组和对象中的应用"
+    },
+    {
+      "folder": "nodejs-nodejs-demo-5",
+      "name": "NodeJS数组方法实战演示",
+      "description": "通过实际示例展示JavaScript中常用数组方法的使用场景和最佳实践"
+    },
+    {
+      "folder": "nodejs-nodejs-demo-6",
+      "name": "NodeJS熔断器模式实战演示",
+      "description": "通过真实场景演示Node.js中熔断器模式的实现与应用"
+    },
+    {
+      "folder": "nodejs-nodejs-demo-7",
+      "name": "Node.js解构赋值实战演示",
+      "description": "通过多个场景演示JavaScript中解构赋值的强大功能和实际应用"
+    },
+    {
+      "folder": "nodejs-nodejs-demo-8",
+      "name": "NodeJS错误处理实战演示",
+      "description": "展示Node.js中同步、异步及Promise链中的错误处理最佳实践"
+    },
+    {
+      "folder": "nodejs-nodejs-demo-9",
+      "name": "NodeJS闭包实战演示",
+      "description": "通过实际示例深入理解JavaScript中闭包的工作原理和应用场景"
+    },
+    {
+      "folder": "nodejs-nodejs-demo-regex-validation-demo",
+      "name": "NodeJS_正则表达式文本匹配验证_Demo",
+      "description": "演示如何在Node.js中使用正则表达式进行文本匹配与数据验证"
+    },
+    {
+      "folder": "nodejs-nodejs-filesystem-operations-demo",
+      "name": "Node.js文件系统操作演示",
+      "description": "一个展示Node.js中fs模块常用操作的可执行示例"
+    },
+    {
+      "folder": "nodejs-nodejs-health-check-demo",
+      "name": "Node.js健康检查示例",
+      "description": "一个展示Node.js中存活与就绪健康检查实现的可运行示例"
+    },
+    {
+      "folder": "nodejs-nodejs-http-demo",
+      "name": "Node.js HTTP模块实战演示",
+      "description": "展示Node.js内置HTTP模块在不同场景下的使用方法"
+    },
+    {
+      "folder": "nodejs-nodejs-json-demo",
+      "name": "Node.js JSON处理实战演示",
+      "description": "展示Node.js中JSON的解析、生成和文件操作的最佳实践"
+    },
+    {
+      "folder": "nodejs-nodejs-middleware-chain-demo",
+      "name": "Node.js中间件处理链演示",
+      "description": "展示Node.js中使用Express构建可扩展的中间件请求处理链"
+    },
+    {
+      "folder": "nodejs-nodejs-mongodb-mongoose-demo",
+      "name": "NodeJS_MongoDB_Mongoose_Demo",
+      "description": "一个展示如何使用Mongoose连接和操作MongoDB的Node.js示例项目"
+    },
+    {
+      "folder": "nodejs-nodejs-object-operations-demo",
+      "name": "NodeJS对象操作实战：深拷贝、冻结与遍历",
+      "description": "演示如何在Node.js中进行对象的深拷贝、冻结和安全遍历。"
+    },
+    {
+      "folder": "nodejs-nodejs-osdemo-os-system-monitor",
+      "name": "Node.js OS模块系统信息监控Demo",
+      "description": "使用Node.js的OS模块实时监控系统资源和硬件信息"
+    },
+    {
+      "folder": "nodejs-nodejs-path-demo",
+      "name": "Node.js Path模块实战演示",
+      "description": "通过实际示例展示Node.js中path模块的常用操作。"
+    },
+    {
+      "folder": "nodejs-nodejs-prometheusdemo-metrics-collection",
+      "name": "Node.js Prometheus监控指标采集Demo",
+      "description": "一个可运行的Node.js应用，展示如何暴露Prometheus监控指标。"
+    },
+    {
+      "folder": "nodejs-nodejs-promises-demo",
+      "name": "Node.js Promises 实战演示",
+      "description": "通过实际场景演示 Node.js 中 Promise 的核心用法与最佳实践"
+    },
+    {
+      "folder": "nodejs-nodejs-proxyreflect-demo",
+      "name": "Node.js Proxy与Reflect元编程实战演示",
+      "description": "通过实际示例展示JavaScript中Proxy和Reflect在元编程中的高级应用"
+    },
+    {
+      "folder": "nodejs-nodejs-rate-limiter-demo",
+      "name": "NodeJS限流器演示",
+      "description": "一个展示多种限流策略的Node.js可执行示例"
+    },
+    {
+      "folder": "nodejs-nodejs-streams-demo",
+      "name": "Node.js Streams 实战演示",
+      "description": "通过实际示例展示 Node.js 流在文件处理和数据转换中的高效应用"
+    },
+    {
+      "folder": "nodejs-nodejs-swagger-openapi-demo",
+      "name": "NodeJS_Swagger_OpenAPI_Demo",
+      "description": "一个基于Express和Swagger的Node.js API文档自动生成演示项目"
+    },
+    {
+      "folder": "nodejs-nodejs-variable-types-demo",
+      "name": "NodeJS变量类型演示",
+      "description": "展示Node.js中基本变量类型及其用法的入门级示例"
+    },
+    {
+      "folder": "nodejs-nodejs-variables-basics-demo",
+      "name": "NodeJS变量基础演示",
+      "description": "展示Node.js中变量声明的三种方式及其作用域规则。"
+    },
+    {
+      "folder": "nodejs-nodejs-worker-threads-multithreading-demo",
+      "name": "Node.js Worker Threads 多线程编程实战示例",
+      "description": "通过实际示例展示如何在 Node.js 中使用 Worker Threads 实现 CPU 密集型任..."
+    },
+    {
+      "folder": "nodejs-nodejscrypto-hashbcrypt-crypto-bcrypt-demo",
+      "name": "NodeJS加密安全示例：Crypto Hash与Bcrypt实战",
+      "description": "演示如何在Node.js中使用crypto和bcrypt进行安全哈希处理。"
+    },
+    {
+      "folder": "nodejs-nodejsdemo-cron-scheduling",
+      "name": "NodeJS定时任务调度Demo",
+      "description": "使用node-schedule库实现灵活的定时任务调度示例"
+    },
+    {
+      "folder": "nodejs-nodejsdemo-env-variables-demo",
+      "name": "NodeJS环境变量管理Demo",
+      "description": "使用dotenv库在Node.js中安全地管理环境变量"
+    },
+    {
+      "folder": "nodejs-nodejsdemo-graceful-shutdown-demo",
+      "name": "Node.js优雅关闭实践Demo",
+      "description": "演示如何在Node.js中实现服务的优雅关闭，确保请求完成和资源正确释放。"
+    },
+    {
+      "folder": "nodejs-nodejsdemo-logging-management",
+      "name": "NodeJS日志管理Demo",
+      "description": "展示如何使用Winston和Bunyan实现结构化日志记录的Node.js示例"
+    },
+    {
+      "folder": "nodejs-nodejsdemo-retry-exponential-backoff",
+      "name": "NodeJS请求重试与指数退避机制实战Demo",
+      "description": "演示如何在Node.js中实现带指数退避的请求重试机制"
+    },
+    {
+      "folder": "nodejs-nodejsdemo-unit-testing-coverage",
+      "name": "NodeJS单元测试与覆盖率实战Demo",
+      "description": "一个展示如何使用Jest和Mocha进行单元测试并生成测试覆盖率报告的完整Node.js示例。"
+    },
+    {
+      "folder": "nodejs-nodejshttpdemo-load-balancer-proxy",
+      "name": "Node.js负载均衡HTTP代理Demo",
+      "description": "一个基于Node.js实现的可扩展负载均衡HTTP代理示例"
+    },
+    {
+      "folder": "nodejs-oauth20passportnodejs-demo-passport-oauth-integration",
+      "name": "OAuth2.0授权Passport集成Node.js Demo",
+      "description": "一个展示如何在Node.js中使用Passport实现OAuth2.0第三方登录的完整可运行示例。"
+    },
+    {
+      "folder": "nodejs-pm2nodejs-multi-process-deployment",
+      "name": "PM2多进程部署Node.js示例",
+      "description": "展示如何使用PM2进行Node.js应用的多进程部署和进程管理。"
+    },
+    {
+      "folder": "nodejs-sequelize-orm-database-operations-demo",
+      "name": "Sequelize ORM 数据库操作实战示例",
+      "description": "一个展示 Sequelize ORM 在 Node.js 中进行数据库操作的完整可执行示例。"
+    },
+    {
+      "folder": "nodejs-socketiodemo-realtime-chat-demo",
+      "name": "Socket.io实时聊天室Demo",
+      "description": "一个基于Socket.io的实时多人聊天室示例，展示WebSockets在Node.js中的应用。"
+    },
+    {
+      "folder": "nodejs-symbol-symbol-iterator-demo",
+      "name": "Symbol符号与迭代器应用示例",
+      "description": "演示Symbol作为唯一属性键和自定义迭代器的应用场景"
+    },
+    {
+      "folder": "nodejs-template-strings-demo",
+      "name": "template-strings-demo",
+      "description": "展示Node.js中模板字符串的多种实用场景"
+    },
+    {
+      "folder": "nodejs-typescript-express-api-demo",
+      "name": "TypeScript_Express_API_Demo",
+      "description": "一个基于TypeScript和Express的轻量级REST API示例项目"
+    },
+    {
+      "folder": "nodejs-websocket-realtime-communication",
+      "name": "WebSocket实时通信演示",
+      "description": "使用 ws 和 socket.io 实现 WebSocket 实时通信的完整示例"
+    }
+  ],
+  "python": [
+    {
+      "folder": "abc-interfaces",
+      "name": "abc-interfaces",
+      "description": "Python abc-interfaces demo"
+    },
+    {
+      "folder": "async-programming",
+      "name": "async-programming",
+      "description": "Python async-programming demo"
+    },
+    {
+      "folder": "bitwise-operations",
+      "name": "bitwise-operations",
+      "description": "Python bitwise-operations demo"
+    },
+    {
+      "folder": "caching",
+      "name": "caching",
+      "description": "Python caching demo"
+    },
+    {
+      "folder": "cli-argparse",
+      "name": "cli-argparse",
+      "description": "Python cli-argparse demo"
+    },
+    {
+      "folder": "collections-module",
+      "name": "collections-module",
+      "description": "Python collections-module demo"
+    },
+    {
+      "folder": "comprehensions",
+      "name": "comprehensions",
+      "description": "Python comprehensions demo"
+    },
+    {
+      "folder": "config-management",
+      "name": "config-management",
+      "description": "Python config-management demo"
+    },
+    {
+      "folder": "context-managers",
+      "name": "context-managers",
+      "description": "Python context-managers demo"
+    },
+    {
+      "folder": "control-flow",
+      "name": "control-flow",
+      "description": "Python control-flow demo"
+    },
+    {
+      "folder": "copy-deepcopy",
+      "name": "copy-deepcopy",
+      "description": "Python copy-deepcopy demo"
+    },
+    {
+      "folder": "database-sqlite",
+      "name": "database-sqlite",
+      "description": "Python database-sqlite demo"
+    },
+    {
+      "folder": "dataclasses",
+      "name": "dataclasses",
+      "description": "Python dataclasses demo"
+    },
+    {
+      "folder": "datetime",
+      "name": "datetime",
+      "description": "Python datetime demo"
+    },
+    {
+      "folder": "debugging",
+      "name": "debugging",
+      "description": "Python debugging demo"
+    },
+    {
+      "folder": "descriptors-property",
+      "name": "descriptors-property",
+      "description": "Python descriptors-property demo"
+    },
+    {
+      "folder": "dict-operations",
+      "name": "dict-operations",
+      "description": "Python dict-operations demo"
+    },
+    {
+      "folder": "enums",
+      "name": "enums",
+      "description": "Python enums demo"
+    },
+    {
+      "folder": "environment-variables",
+      "name": "environment-variables",
+      "description": "Python environment-variables demo"
+    },
+    {
+      "folder": "exception-handling",
+      "name": "exception-handling",
+      "description": "Python exception-handling demo"
+    },
+    {
+      "folder": "file-operations",
+      "name": "file-operations",
+      "description": "Python file-operations demo"
+    },
+    {
+      "folder": "functions-decorators",
+      "name": "functions-decorators",
+      "description": "Python functions-decorators demo"
+    },
+    {
+      "folder": "functools-module",
+      "name": "functools-module",
+      "description": "Python functools-module demo"
+    },
+    {
+      "folder": "http-requests",
+      "name": "http-requests",
+      "description": "Python http-requests demo"
+    },
+    {
+      "folder": "inheritance-mro",
+      "name": "inheritance-mro",
+      "description": "Python inheritance-mro demo"
+    },
+    {
+      "folder": "iterators-generators",
+      "name": "iterators-generators",
+      "description": "Python iterators-generators demo"
+    },
+    {
+      "folder": "itertools-module",
+      "name": "itertools-module",
+      "description": "Python itertools-module demo"
+    },
+    {
+      "folder": "json-yaml",
+      "name": "json-yaml",
+      "description": "Python json-yaml demo"
+    },
+    {
+      "folder": "lambda-expressions",
+      "name": "lambda-expressions",
+      "description": "Python lambda-expressions demo"
+    },
+    {
+      "folder": "list-operations",
+      "name": "list-operations",
+      "description": "Python list-operations demo"
+    },
+    {
+      "folder": "logging",
+      "name": "logging",
+      "description": "Python logging demo"
+    },
+    {
+      "folder": "magic-methods",
+      "name": "magic-methods",
+      "description": "Python magic-methods demo"
+    },
+    {
+      "folder": "metaclasses",
+      "name": "metaclasses",
+      "description": "Python metaclasses demo"
+    },
+    {
+      "folder": "modules-packages",
+      "name": "modules-packages",
+      "description": "Python modules-packages demo"
+    },
+    {
+      "folder": "multiprocessing",
+      "name": "multiprocessing",
+      "description": "Python multiprocessing demo"
+    },
+    {
+      "folder": "multithreading",
+      "name": "multithreading",
+      "description": "Python multithreading demo"
+    },
+    {
+      "folder": "numbers-math",
+      "name": "numbers-math",
+      "description": "Python numbers-math demo"
+    },
+    {
+      "folder": "oop-classes",
+      "name": "oop-classes",
+      "description": "Python oop-classes demo"
+    },
+    {
+      "folder": "operator-module",
+      "name": "operator-module",
+      "description": "Python operator-module demo"
+    },
+    {
+      "folder": "pathlib-os",
+      "name": "pathlib-os",
+      "description": "Python pathlib-os demo"
+    },
+    {
+      "folder": "profiling-optimization",
+      "name": "profiling-optimization",
+      "description": "Python profiling-optimization demo"
+    },
+    {
+      "folder": "regex",
+      "name": "regex",
+      "description": "Python regex demo"
+    },
+    {
+      "folder": "scope-closures",
+      "name": "scope-closures",
+      "description": "Python scope-closures demo"
+    },
+    {
+      "folder": "serialization-pickle",
+      "name": "serialization-pickle",
+      "description": "Python serialization-pickle demo"
+    },
+    {
+      "folder": "set-operations",
+      "name": "set-operations",
+      "description": "Python set-operations demo"
+    },
+    {
+      "folder": "socket-networking",
+      "name": "socket-networking",
+      "description": "Python socket-networking demo"
+    },
+    {
+      "folder": "string-operations",
+      "name": "string-operations",
+      "description": "Python string-operations demo"
+    },
+    {
+      "folder": "threading-synchronization",
+      "name": "threading-synchronization",
+      "description": "Python threading-synchronization demo"
+    },
+    {
+      "folder": "tuple-basics",
+      "name": "tuple-basics",
+      "description": "Python tuple-basics demo"
+    },
+    {
+      "folder": "type-hints",
+      "name": "type-hints",
+      "description": "Python type-hints demo"
+    },
+    {
+      "folder": "unit-testing",
+      "name": "unit-testing",
+      "description": "Python unit-testing demo"
+    }
+  ]
+}

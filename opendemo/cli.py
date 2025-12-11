@@ -26,7 +26,7 @@ from opendemo.utils.formatters import (
 from opendemo.utils.logger import setup_logger, get_logger
 
 # 支持的语言列表
-SUPPORTED_LANGUAGES = ['python', 'java']
+SUPPORTED_LANGUAGES = ['python', 'java', 'go', 'nodejs']
 
 
 @click.group()
