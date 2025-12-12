@@ -1,0 +1,11 @@
+{
+  "name": "list-operations",
+  "language": "python",
+  "keywords": [
+    "list",
+    "operations"
+  ],
+  "description": "Python list-operations demo",
+  "difficulty": "beginner",
+  "verified": true
+}

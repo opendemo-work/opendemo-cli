@@ -1,0 +1,19 @@
+{
+  "name": "Go_HTTP_RESTful_API_Demo",
+  "language": "go",
+  "keywords": [
+    "HTTP服务器",
+    "RESTful API",
+    "Go语言",
+    "Web服务",
+    "路由处理"
+  ],
+  "description": "一个基于Go语言的轻量级RESTful API服务器示例，展示路由、请求处理和JSON响应。",
+  "difficulty": "intermediate",
+  "author": "",
+  "created_at": "2025-12-11T14:10:30.789655",
+  "updated_at": "2025-12-11T14:10:30.789655",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false
+}

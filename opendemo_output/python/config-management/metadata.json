@@ -1,0 +1,11 @@
+{
+  "name": "config-management",
+  "language": "python",
+  "keywords": [
+    "config",
+    "management"
+  ],
+  "description": "Python config-management demo",
+  "difficulty": "beginner",
+  "verified": true
+}

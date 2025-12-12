@@ -1,0 +1,21 @@
+{
+  "name": "load-balancer-proxy-demo",
+  "version": "1.0.0",
+  "description": "A simple load-balanced HTTP proxy in Node.js",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "backend1": "node backend.js 3001",
+    "backend2": "node backend.js 3002"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "http-proxy": "^1.18.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "keywords": ["load-balancer", "proxy", "http-proxy", "reverse-proxy"],
+  "author": "",
+  "license": "MIT"
+}

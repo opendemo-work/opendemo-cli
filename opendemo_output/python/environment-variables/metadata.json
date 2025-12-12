@@ -1,0 +1,11 @@
+{
+  "name": "environment-variables",
+  "language": "python",
+  "keywords": [
+    "environment",
+    "variables"
+  ],
+  "description": "Python environment-variables demo",
+  "difficulty": "beginner",
+  "verified": true
+}

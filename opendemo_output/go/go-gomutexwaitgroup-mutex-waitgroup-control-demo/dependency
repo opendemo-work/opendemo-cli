@@ -1,0 +1,5 @@
+module go-concurrency-demo
+
+go 1.19
+
+// 本项目仅依赖Go标准库，无需外部依赖。

@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package proto;
+
+// 用户服务定义：提供获取用户信息的RPC方法
+service UserService {
+  // 获取指定ID的用户信息
+  rpc GetUser (GetUserRequest) returns (User);
+}
+
+// 请求消息：客户端传入用户ID
+message GetUserRequest {
+  int32 id = 1; // 用户唯一标识
+}
+
+// 响应消息：返回用户详细信息
+message User {
+  int32 id = 1;        // 用户ID
+  string name = 2;     // 用户姓名
+  string email = 3;    // 用户邮箱
+}

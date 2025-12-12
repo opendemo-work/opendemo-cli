@@ -1,0 +1,15 @@
+{
+  "name": "kafka-demo",
+  "version": "1.0.0",
+  "description": "Kafka Producer & Consumer Demo in Node.js",
+  "main": "producer.js",
+  "scripts": {
+    "start:consumer": "node code/consumer.js",
+    "start:producer": "node code/producer.js"
+  },n  "dependencies": {
+    "kafkajs": "^1.16.0"
+  },
+  "keywords": ["kafka", "messaging", "producer", "consumer"],
+  "author": "",
+  "license": "MIT"
+}

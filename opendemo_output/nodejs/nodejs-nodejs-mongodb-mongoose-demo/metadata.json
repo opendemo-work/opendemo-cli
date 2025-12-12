@@ -1,0 +1,19 @@
+{
+  "name": "NodeJS_MongoDB_Mongoose_Demo",
+  "language": "nodejs",
+  "keywords": [
+    "MongoDB",
+    "Mongoose",
+    "数据库连接",
+    "Node.js",
+    "REST API"
+  ],
+  "description": "一个展示如何使用Mongoose连接和操作MongoDB的Node.js示例项目",
+  "difficulty": "intermediate",
+  "author": "",
+  "created_at": "2025-12-11T16:04:10.136193",
+  "updated_at": "2025-12-11T16:04:10.136193",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false
+}

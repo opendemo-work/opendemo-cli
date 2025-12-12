@@ -1,0 +1,11 @@
+{
+  "name": "copy-deepcopy",
+  "language": "python",
+  "keywords": [
+    "copy",
+    "deepcopy"
+  ],
+  "description": "Python copy-deepcopy demo",
+  "difficulty": "beginner",
+  "verified": true
+}

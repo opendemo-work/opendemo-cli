@@ -1,0 +1,49 @@
+openapi: 3.0.0
+info:
+  title: My API
+  description: 一个演示用的RESTful API服务，展示Swagger文档集成
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: 开发环境服务器
+paths:
+  /users:
+    get:
+      summary: 获取用户列表
+      description: 返回系统中所有用户的模拟数据
+      responses:
+        '200':
+          description: 成功返回用户列表
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        name:
+                          type: string
+                          example: 张三
+                        email:
+                          type: string
+                          format: email
+                          example: zhangsan@example.com
+        '500':
+          description: 服务器内部错误
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Internal Server Error

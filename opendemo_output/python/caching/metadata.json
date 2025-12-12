@@ -1,0 +1,10 @@
+{
+  "name": "caching",
+  "language": "python",
+  "keywords": [
+    "caching"
+  ],
+  "description": "Python caching demo",
+  "difficulty": "beginner",
+  "verified": true
+}

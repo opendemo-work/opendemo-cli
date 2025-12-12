@@ -1,0 +1,22 @@
+{
+  "name": "nodejs-scheduling-demo",
+  "version": "1.0.0",
+  "description": "Node.js定时任务调度演示",
+  "main": "basic-scheduler.js",
+  "scripts": {
+    "start": "node basic-scheduler.js",
+    "cron": "node cron-scheduler.js",
+    "dynamic": "node dynamic-scheduler.js"
+  },
+  "dependencies": {
+    "node-schedule": "^2.1.0"
+  },
+  "keywords": [
+    "scheduler",
+    "cron",
+    "job",
+    "automation"
+  ],
+  "author": "",
+  "license": "MIT"
+}

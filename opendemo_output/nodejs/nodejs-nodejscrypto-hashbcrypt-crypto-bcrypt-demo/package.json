@@ -1,0 +1,17 @@
+{
+  "name": "crypto-bcrypt-demo",
+  "version": "1.0.0",
+  "description": "Node.js demo for secure password hashing using crypto and bcrypt.",
+  "main": "hash-bcrypt.js",
+  "scripts": {
+    "demo:crypto": "node hash-crypto.js",
+    "demo:bcrypt": "node hash-bcrypt.js",
+    "start": "node hash-bcrypt.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.0"
+  },
+  "keywords": ["crypto", "bcrypt", "hash", "security"],
+  "author": "Developer",
+  "license": "MIT"
+}

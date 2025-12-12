@@ -1,0 +1,11 @@
+{
+  "name": "database-sqlite",
+  "language": "python",
+  "keywords": [
+    "database",
+    "sqlite"
+  ],
+  "description": "Python database-sqlite demo",
+  "difficulty": "beginner",
+  "verified": true
+}

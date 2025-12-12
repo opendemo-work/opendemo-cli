@@ -1,0 +1,11 @@
+{
+  "name": "file-operations",
+  "language": "python",
+  "keywords": [
+    "file",
+    "operations"
+  ],
+  "description": "Python file-operations demo",
+  "difficulty": "beginner",
+  "verified": true
+}

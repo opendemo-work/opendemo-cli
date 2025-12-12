@@ -1,0 +1,16 @@
+{
+  "name": "axios-interceptor-demo",
+  "version": "1.0.0",
+  "description": "A demo showing how to use Axios interceptors for HTTP requests in Node.js",
+  "main": "request-interceptor.js",
+  "scripts": {
+    "start": "node request-interceptor.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["axios", "interceptor", "http", "nodejs"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.0"
+  }
+}

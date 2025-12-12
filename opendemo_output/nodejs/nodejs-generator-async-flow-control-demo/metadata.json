@@ -1,0 +1,22 @@
+{
+  "name": "Generator异步流控制演示",
+  "language": "nodejs",
+  "keywords": [
+    "generator",
+    "异步编程",
+    "迭代器",
+    "流程控制",
+    "nodejs"
+  ],
+  "description": "使用Generator函数精确控制异步任务流的Node.js实战示例",
+  "difficulty": "advanced",
+  "author": "",
+  "created_at": "2025-12-11T14:42:24.996290",
+  "updated_at": "2025-12-11T14:42:24.996290",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false,
+  "aliases": [
+    "nodejs-generator异步流控制演示"
+  ]
+}

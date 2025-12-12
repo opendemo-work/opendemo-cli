@@ -1,0 +1,14 @@
+{
+  "name": "worker-threads-demo",
+  "version": "1.0.0",
+  "description": "A practical demo of using Worker Threads in Node.js for CPU-intensive tasks.",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "author": "",
+  "license": "MIT"
+}

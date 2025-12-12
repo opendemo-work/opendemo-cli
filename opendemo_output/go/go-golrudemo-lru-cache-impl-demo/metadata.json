@@ -1,0 +1,22 @@
+{
+  "name": "Go语言LRU缓存策略实现Demo",
+  "language": "go",
+  "keywords": [
+    "LRU",
+    "缓存",
+    "Go",
+    "数据结构",
+    "双向链表"
+  ],
+  "description": "使用Go实现LRU缓存策略的完整示例，包含可运行代码和详细教学文档。",
+  "difficulty": "intermediate",
+  "author": "",
+  "created_at": "2025-12-11T16:06:20.566902",
+  "updated_at": "2025-12-11T16:06:20.566902",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false,
+  "aliases": [
+    "go-go语言lru缓存策略实现demo"
+  ]
+}

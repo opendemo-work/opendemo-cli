@@ -1,0 +1,14 @@
+{
+  "name": "arrow-functions-demo",
+  "version": "1.0.0",
+  "description": "A simple demo to illustrate arrow functions in Node.js",
+  "main": "basic-arrow-example.js",
+  "scripts": {
+    "start": "node basic-arrow-example.js",
+    "demo:arrays": "node array-methods-with-arrows.js",
+    "demo:this": "node this-binding-comparison.js"
+  },
+  "keywords": ["es6", "arrow-function", "nodejs"],
+  "author": "Developer",
+  "license": "MIT"
+}

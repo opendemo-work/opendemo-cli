@@ -1,0 +1,5 @@
+module context-demo
+
+go 1.21
+
+// 仅使用标准库，无外部依赖

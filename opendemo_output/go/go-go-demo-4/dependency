@@ -1,0 +1,14 @@
+# 无外部依赖
+# 本项目仅使用 Go 标准库
+# 确保已安装 Go 1.19+
+
+# 查看当前 Go 版本
+# go version
+
+# 构建项目
+# go build *.go
+
+# 运行任一文件
+# go run waitgroup_demo.go
+# go run once_demo.go
+# go run pool_demo.go

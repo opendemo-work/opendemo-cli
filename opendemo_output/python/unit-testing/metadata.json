@@ -1,0 +1,11 @@
+{
+  "name": "unit-testing",
+  "language": "python",
+  "keywords": [
+    "unit",
+    "testing"
+  ],
+  "description": "Python unit-testing demo",
+  "difficulty": "beginner",
+  "verified": true
+}

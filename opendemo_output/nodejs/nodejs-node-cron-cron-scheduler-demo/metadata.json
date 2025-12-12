@@ -1,0 +1,22 @@
+{
+  "name": "Node-Cron定时任务调度演示",
+  "language": "nodejs",
+  "keywords": [
+    "定时任务",
+    "node-cron",
+    "任务调度",
+    "自动化",
+    "cron"
+  ],
+  "description": "使用node-cron库实现多种场景下的定时任务调度",
+  "difficulty": "intermediate",
+  "author": "",
+  "created_at": "2025-12-11T15:59:07.418841",
+  "updated_at": "2025-12-11T15:59:07.418841",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false,
+  "aliases": [
+    "nodejs-node-cron定时任务调度演示"
+  ]
+}

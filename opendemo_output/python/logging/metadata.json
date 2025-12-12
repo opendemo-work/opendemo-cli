@@ -1,0 +1,10 @@
+{
+  "name": "logging",
+  "language": "python",
+  "keywords": [
+    "logging"
+  ],
+  "description": "Python logging demo",
+  "difficulty": "beginner",
+  "verified": true
+}

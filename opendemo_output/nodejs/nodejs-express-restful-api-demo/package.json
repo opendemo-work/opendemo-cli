@@ -1,0 +1,19 @@
+{
+  "name": "express-restful-demo",
+  "version": "1.0.0",
+  "description": "A simple Express RESTful API demo for learning purposes",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": ["express", "restful", "api", "nodejs", "demo"],
+  "author": "Developer",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

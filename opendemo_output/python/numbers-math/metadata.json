@@ -1,0 +1,11 @@
+{
+  "name": "numbers-math",
+  "language": "python",
+  "keywords": [
+    "numbers",
+    "math"
+  ],
+  "description": "Python numbers-math demo",
+  "difficulty": "beginner",
+  "verified": true
+}

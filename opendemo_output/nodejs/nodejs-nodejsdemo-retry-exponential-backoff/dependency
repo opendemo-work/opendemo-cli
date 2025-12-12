@@ -1,0 +1,17 @@
+{
+  "name": "retry-demo",
+  "version": "1.0.0",
+  "description": "A demo of exponential backoff retry mechanism in Node.js",
+  "main": "retryWithAxios.js",
+  "scripts": {
+    "start": "node retryWithAxios.js",
+    "demo:fetch": "node retryWithFetch.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "node-fetch": "^3.3.2"
+  },
+  "keywords": ["retry", "backoff", "http", "resilience"],
+  "author": "",
+  "license": "MIT"
+}

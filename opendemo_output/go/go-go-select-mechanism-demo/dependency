@@ -1,0 +1,2 @@
+# 无外部依赖
+# 仅使用 Go 标准库: fmt, time, math/rand

@@ -1,0 +1,24 @@
+{
+  "name": "pm2-demo",
+  "version": "1.0.0",
+  "description": "PM2多进程部署示例",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "pm2 start app.js --watch",
+    "cluster": "pm2 start ecosystem.config.js",
+    "stop": "pm2 delete all",
+    "status": "pm2 list",
+    "logs": "pm2 logs"
+  },
+  "keywords": ["pm2", "nodejs", "cluster", "deployment"],
+  "author": "Developer",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

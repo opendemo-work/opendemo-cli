@@ -1,0 +1,22 @@
+{
+  "name": "Go并发编程实战：Goroutines入门",
+  "language": "go",
+  "keywords": [
+    "goroutines",
+    "并发",
+    "channel",
+    "go",
+    "concurrency"
+  ],
+  "description": "通过实际示例掌握Go语言中goroutines和channel的基本使用。",
+  "difficulty": "intermediate",
+  "author": "",
+  "created_at": "2025-12-11T16:28:16.158226",
+  "updated_at": "2025-12-11T16:28:16.158226",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false,
+  "aliases": [
+    "go-go并发编程实战goroutines入门"
+  ]
+}

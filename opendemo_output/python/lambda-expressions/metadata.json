@@ -1,0 +1,11 @@
+{
+  "name": "lambda-expressions",
+  "language": "python",
+  "keywords": [
+    "lambda",
+    "expressions"
+  ],
+  "description": "Python lambda-expressions demo",
+  "difficulty": "beginner",
+  "verified": true
+}

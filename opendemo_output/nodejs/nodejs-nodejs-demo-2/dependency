@@ -1,0 +1,6 @@
+# 本项目依赖
+
+- Node.js v14+
+- 内置模块：fs, path
+
+> 无需 npm install，直接运行即可

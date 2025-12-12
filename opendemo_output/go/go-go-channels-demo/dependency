@@ -1,0 +1,5 @@
+module channels-demo
+
+go 1.21
+
+// 本项目仅使用 Go 标准库，无需额外依赖。

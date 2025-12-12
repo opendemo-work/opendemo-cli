@@ -1,0 +1,10 @@
+{
+  "name": "regex",
+  "language": "python",
+  "keywords": [
+    "regex"
+  ],
+  "description": "Python regex demo",
+  "difficulty": "beginner",
+  "verified": true
+}

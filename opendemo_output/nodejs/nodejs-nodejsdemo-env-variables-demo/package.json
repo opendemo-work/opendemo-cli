@@ -1,0 +1,16 @@
+{
+  "name": "node-env-demo",
+  "version": "1.0.0",
+  "description": "A demo for managing environment variables with dotenv in Node.js",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node config.js",
+    "secure": "node secure-app.js"
+  },n  "dependencies": {
+    "dotenv": "^16.0.3"
+  },
+  "keywords": ["dotenv", "environment", "config", "nodejs"],
+  "author": "",
+  "license": "MIT"
+}

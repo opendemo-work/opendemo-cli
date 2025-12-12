@@ -1,0 +1,20 @@
+{
+  "name": "NodeJS变量类型演示",
+  "language": "nodejs",
+  "keywords": [
+    "变量",
+    "数据类型",
+    "JavaScript基础"
+  ],
+  "description": "展示Node.js中基本变量类型及其用法的入门级示例",
+  "difficulty": "beginner",
+  "author": "",
+  "created_at": "2025-12-11T13:43:15.226852",
+  "updated_at": "2025-12-11T13:43:15.226852",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false,
+  "aliases": [
+    "nodejs-nodejs变量类型演示"
+  ]
+}

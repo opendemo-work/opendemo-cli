@@ -1,0 +1,19 @@
+{
+  "name": "gRPC-Protobuf-Go-Demo",
+  "language": "go",
+  "keywords": [
+    "gRPC",
+    "Protobuf",
+    "远程调用",
+    "微服务",
+    "Go"
+  ],
+  "description": "一个展示如何使用gRPC和Protobuf进行远程过程调用的Go语言示例",
+  "difficulty": "advanced",
+  "author": "",
+  "created_at": "2025-12-11T14:19:51.870946",
+  "updated_at": "2025-12-11T14:19:51.870946",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false
+}

@@ -1,0 +1,14 @@
+{
+  "name": "symbol-demo",
+  "version": "1.0.0",
+  "description": "Symbol符号与迭代器应用示例",
+  "main": "symbol-unique-key.js",
+  "scripts": {
+    "example1": "node symbol-unique-key.js",
+    "example2": "node custom-iterator.js",
+    "test": "node symbol-unique-key.js && node custom-iterator.js"
+  },
+  "keywords": ["symbol", "iterator", "es6", "metaprogramming"],
+  "author": "",
+  "license": "MIT"
+}

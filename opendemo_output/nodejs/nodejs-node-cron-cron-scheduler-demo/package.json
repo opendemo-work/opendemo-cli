@@ -1,0 +1,17 @@
+{
+  "name": "node-cron-demo",
+  "version": "1.0.0",
+  "description": "A practical demo of using node-cron for task scheduling in Node.js",
+  "main": "cron-basic.js",
+  "scripts": {
+    "start": "node cron-basic.js",
+    "demo:basic": "node cron-basic.js",
+    "demo:advanced": "node cron-advanced.js",
+    "demo:dynamic": "node cron-dynamic.js"
+  },
+  "dependencies": {
+    "node-cron": "^3.0.2"
+  },
+  "author": "",
+  "license": "MIT"
+}

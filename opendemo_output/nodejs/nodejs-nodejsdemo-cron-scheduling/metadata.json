@@ -1,0 +1,22 @@
+{
+  "name": "NodeJS定时任务调度Demo",
+  "language": "nodejs",
+  "keywords": [
+    "定时任务",
+    "任务调度",
+    "cron",
+    "node-schedule",
+    "自动化"
+  ],
+  "description": "使用node-schedule库实现灵活的定时任务调度示例",
+  "difficulty": "intermediate",
+  "author": "",
+  "created_at": "2025-12-11T16:00:06.511025",
+  "updated_at": "2025-12-11T16:00:06.511025",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false,
+  "aliases": [
+    "nodejs-nodejs定时任务调度demo"
+  ]
+}

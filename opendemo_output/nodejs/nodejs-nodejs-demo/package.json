@@ -1,0 +1,11 @@
+{
+  "name": "node-event-emitter-demo",
+  "version": "1.0.0",
+  "description": "Node.js EventEmitter practical examples",
+  "main": "emitter-basic.js",
+  "scripts": {
+    "start": "node emitter-basic.js",
+    "demo:async": "node emitter-async.js"
+  },n  "author": "",
+  "license": "MIT"
+}

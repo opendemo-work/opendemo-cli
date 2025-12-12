@@ -1,0 +1,5 @@
+module retry-demo
+
+go 1.20
+
+// 无外部依赖，仅使用标准库

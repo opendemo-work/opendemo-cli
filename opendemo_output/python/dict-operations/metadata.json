@@ -1,0 +1,11 @@
+{
+  "name": "dict-operations",
+  "language": "python",
+  "keywords": [
+    "dict",
+    "operations"
+  ],
+  "description": "Python dict-operations demo",
+  "difficulty": "beginner",
+  "verified": true
+}

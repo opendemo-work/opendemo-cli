@@ -1,0 +1,14 @@
+{
+  "name": "nodejs-http-demo",
+  "version": "1.0.0",
+  "description": "A simple demo using Node.js built-in http module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "api": "node api-server.js",
+    "client": "node client.js"
+  },
+  "keywords": ["nodejs", "http", "demo"],
+  "author": "Developer",
+  "license": "MIT"
+}

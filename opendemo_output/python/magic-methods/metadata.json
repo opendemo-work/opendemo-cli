@@ -1,0 +1,11 @@
+{
+  "name": "magic-methods",
+  "language": "python",
+  "keywords": [
+    "magic",
+    "methods"
+  ],
+  "description": "Python magic-methods demo",
+  "difficulty": "beginner",
+  "verified": true
+}

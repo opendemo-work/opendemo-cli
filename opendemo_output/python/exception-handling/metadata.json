@@ -1,0 +1,11 @@
+{
+  "name": "exception-handling",
+  "language": "python",
+  "keywords": [
+    "exception",
+    "handling"
+  ],
+  "description": "Python exception-handling demo",
+  "difficulty": "beginner",
+  "verified": true
+}

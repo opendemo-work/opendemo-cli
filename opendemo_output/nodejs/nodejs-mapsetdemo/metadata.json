@@ -1,0 +1,19 @@
+{
+  "name": "MapSetDemo",
+  "language": "nodejs",
+  "keywords": [
+    "map",
+    "set",
+    "es6",
+    "数据结构",
+    "去重"
+  ],
+  "description": "一个展示JavaScript中Map和Set数据结构用法的Node.js示例项目",
+  "difficulty": "beginner",
+  "author": "",
+  "created_at": "2025-12-11T13:57:10.567595",
+  "updated_at": "2025-12-11T13:57:10.567595",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false
+}

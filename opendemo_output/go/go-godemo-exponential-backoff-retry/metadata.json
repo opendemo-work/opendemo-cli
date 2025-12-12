@@ -1,0 +1,22 @@
+{
+  "name": "Go指数退避重试机制Demo",
+  "language": "go",
+  "keywords": [
+    "重试机制",
+    "指数退避",
+    "Go并发",
+    "容错处理",
+    "网络请求"
+  ],
+  "description": "展示在Go中实现指数退避重试机制的最佳实践",
+  "difficulty": "intermediate",
+  "author": "",
+  "created_at": "2025-12-11T14:56:15.030751",
+  "updated_at": "2025-12-11T14:56:15.030751",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false,
+  "aliases": [
+    "go-go指数退避重试机制demo"
+  ]
+}

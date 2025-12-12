@@ -1,0 +1,10 @@
+{
+  "name": "metaclasses",
+  "language": "python",
+  "keywords": [
+    "metaclasses"
+  ],
+  "description": "Python metaclasses demo",
+  "difficulty": "beginner",
+  "verified": true
+}

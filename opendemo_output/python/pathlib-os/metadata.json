@@ -1,0 +1,11 @@
+{
+  "name": "pathlib-os",
+  "language": "python",
+  "keywords": [
+    "pathlib",
+    "os"
+  ],
+  "description": "Python pathlib-os demo",
+  "difficulty": "beginner",
+  "verified": true
+}

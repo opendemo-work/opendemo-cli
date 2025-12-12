@@ -1,0 +1,5 @@
+module variables-demo
+
+go 1.19
+
+// 无外部依赖，仅使用标准库

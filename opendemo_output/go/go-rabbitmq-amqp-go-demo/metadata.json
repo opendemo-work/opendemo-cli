@@ -1,0 +1,19 @@
+{
+  "name": "RabbitMQ_AMQP_Go_Demo",
+  "language": "go",
+  "keywords": [
+    "RabbitMQ",
+    "AMQP",
+    "消息队列",
+    "Go",
+    "异步通信"
+  ],
+  "description": "使用Go实现RabbitMQ AMQP协议的完整示例，涵盖生产者、消费者和工作队列模式。",
+  "difficulty": "advanced",
+  "author": "",
+  "created_at": "2025-12-11T16:46:57.405292",
+  "updated_at": "2025-12-11T16:46:57.405292",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false
+}

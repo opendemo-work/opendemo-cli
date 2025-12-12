@@ -1,0 +1,18 @@
+{
+  "name": "nodejs-swagger-demo",
+  "version": "1.0.0",
+  "description": "A simple Node.js demo integrating Swagger UI with Express",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["swagger", "openapi", "express", "api", "documentation"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.0",
+    "swagger-ui-express": "^4.6.3",
+    "yamljs": "^0.3.0"
+  }
+}

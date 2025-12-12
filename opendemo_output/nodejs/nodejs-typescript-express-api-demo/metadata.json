@@ -1,0 +1,19 @@
+{
+  "name": "TypeScript_Express_API_Demo",
+  "language": "nodejs",
+  "keywords": [
+    "TypeScript",
+    "Express",
+    "REST API",
+    "Node.js",
+    "Backend"
+  ],
+  "description": "一个基于TypeScript和Express的轻量级REST API示例项目",
+  "difficulty": "intermediate",
+  "author": "",
+  "created_at": "2025-12-11T17:35:06.811730",
+  "updated_at": "2025-12-11T17:35:06.811730",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false
+}

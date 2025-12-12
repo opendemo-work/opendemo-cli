@@ -1,0 +1,11 @@
+{
+  "name": "functools-module",
+  "language": "python",
+  "keywords": [
+    "functools",
+    "module"
+  ],
+  "description": "Python functools-module demo",
+  "difficulty": "beginner",
+  "verified": true
+}

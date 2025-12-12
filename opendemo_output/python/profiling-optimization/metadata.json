@@ -1,0 +1,11 @@
+{
+  "name": "profiling-optimization",
+  "language": "python",
+  "keywords": [
+    "profiling",
+    "optimization"
+  ],
+  "description": "Python profiling-optimization demo",
+  "difficulty": "beginner",
+  "verified": true
+}

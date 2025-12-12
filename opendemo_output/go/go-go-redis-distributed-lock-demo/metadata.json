@@ -1,0 +1,22 @@
+{
+  "name": "Go-Redis分布式锁演示",
+  "language": "go",
+  "keywords": [
+    "分布式锁",
+    "Redis",
+    "Go",
+    "并发控制",
+    "Redsync"
+  ],
+  "description": "使用Redsync实现可靠的Redis分布式锁机制",
+  "difficulty": "advanced",
+  "author": "",
+  "created_at": "2025-12-11T16:46:02.541191",
+  "updated_at": "2025-12-11T16:46:02.541191",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false,
+  "aliases": [
+    "go-go-redis分布式锁演示"
+  ]
+}

@@ -1,0 +1,61 @@
+version: '3.7'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.3
+    container_name: elk_go_demo_elasticsearch
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
+    networks:
+      - elk
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.11.3
+    container_name: elk_go_demo_logstash
+    depends_on:
+      - elasticsearch
+    ports:
+      - "8080:8080"  # HTTP输入端口
+      - "5044:5044"  # Beats输入端口
+    environment:
+      - xpack.monitoring.enabled=false
+    volumes:
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    networks:
+      - elk
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.11.3
+    container_name: elk_go_demo_kibana
+    depends_on:
+      - elasticsearch
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=["http://elasticsearch:9200"]
+      - SERVER_NAME=kibana.local
+    networks:
+      - elk
+
+networks:
+  elk:
+    driver: bridge
+
+# logstash.conf 内容需提前创建：
+# input {
+#   http {
+#     port => 8080
+#     codec => json
+#   }
+# }
+# output {
+#   elasticsearch {
+#     hosts => ["http://elasticsearch:9200"]
+#     index => "logstash-go-demo-%{+YYYY.MM.dd}"
+#   }
+#   stdout { codec => rubydebug }
+# }

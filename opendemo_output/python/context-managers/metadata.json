@@ -1,0 +1,11 @@
+{
+  "name": "context-managers",
+  "language": "python",
+  "keywords": [
+    "context",
+    "managers"
+  ],
+  "description": "Python context-managers demo",
+  "difficulty": "beginner",
+  "verified": true
+}

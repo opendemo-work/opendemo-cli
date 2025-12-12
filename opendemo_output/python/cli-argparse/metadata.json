@@ -1,0 +1,11 @@
+{
+  "name": "cli-argparse",
+  "language": "python",
+  "keywords": [
+    "cli",
+    "argparse"
+  ],
+  "description": "Python cli-argparse demo",
+  "difficulty": "beginner",
+  "verified": true
+}

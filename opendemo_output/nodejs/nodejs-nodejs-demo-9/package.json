@@ -1,0 +1,15 @@
+{
+  "name": "nodejs-closures-demo",
+  "version": "1.0.0",
+  "description": "A practical demonstration of closures in Node.js",
+  "main": "closures-counter.js",
+  "scripts": {
+    "demo:counter": "node closures-counter.js",
+    "demo:module": "node closures-module.js",
+    "demo:event": "node closures-event-simulator.js",
+    "demo:all": "npm run demo:counter && npm run demo:module && npm run demo:event"
+  },
+  "keywords": ["closure", "javascript", "nodejs", "scope", "functional-programming"],
+  "author": "",
+  "license": "MIT"
+}

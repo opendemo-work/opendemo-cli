@@ -1,0 +1,12 @@
+{
+  "name": "proxy-reflect-demo",
+  "version": "1.0.0",
+  "description": "Node.js Proxy与Reflect元编程实战演示",
+  "main": "proxy-basic.js",
+  "scripts": {
+    "start": "node proxy-basic.js",
+    "demo:function": "node proxy-function.js",
+    "demo:reactive": "node reactive-system.js"
+  },n  "author": "",
+  "license": "MIT"
+}

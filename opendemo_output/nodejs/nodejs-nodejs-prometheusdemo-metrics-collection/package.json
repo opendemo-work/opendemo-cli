@@ -1,0 +1,21 @@
+{
+  "name": "prometheus-nodejs-demo",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"No tests yet\""
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "prom-client": "^14.0.0"
+  },
+  "keywords": [
+    "prometheus",
+    "monitoring",
+    "metrics",
+    "nodejs"
+  ],
+  "author": "",
+  "license": "MIT"
+}

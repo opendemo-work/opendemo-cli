@@ -1,0 +1,11 @@
+{
+  "name": "nodejs-json-demo",
+  "version": "1.0.0",
+  "description": "Node.js JSON处理实战演示",
+  "main": "json-parser.js",
+  "scripts": {
+    "start": "node json-parser.js",
+    "demo:file": "node json-file-io.js"
+  },n  "author": "",
+  "license": "MIT"
+}

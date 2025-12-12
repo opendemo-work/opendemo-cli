@@ -1,0 +1,17 @@
+{
+  "name": "jwt-auth-demo",
+  "version": "1.0.0",
+  "description": "JWT认证与授权Node.js演示",
+  "main": "auth-validator.js",
+  "scripts": {
+    "start": "node auth-validator.js",
+    "generate": "node auth-generator.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0"
+  },
+  "keywords": ["JWT", "authentication", "Node.js"],
+  "author": "",
+  "license": "MIT"
+}

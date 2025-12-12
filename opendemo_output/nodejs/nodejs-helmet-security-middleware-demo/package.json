@@ -1,0 +1,16 @@
+{
+  "name": "helmet-demo",
+  "version": "1.0.0",
+  "description": "Helmet安全中间件演示项目",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "advanced": "node advanced.js"
+  },n  "dependencies": {
+    "express": "^4.18.0",
+    "helmet": "^7.0.0"
+  },
+  "keywords": ["security", "helmet", "express"],
+  "author": "",
+  "license": "MIT"
+}

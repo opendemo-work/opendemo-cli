@@ -1,0 +1,14 @@
+{
+  "name": "nodejs-variable-types-demo",
+  "version": "1.0.0",
+  "description": "A beginner-friendly demo showing variable types in Node.js",
+  "main": "variables-basics.js",
+  "scripts": {
+    "start": "node variables-basics.js",
+    "demo:scopes": "node variable-scopes.js",
+    "demo:types": "node type-checking.js"
+  },
+  "keywords": ["nodejs", "variables", "types", "tutorial"],
+  "author": "Demo Author",
+  "license": "MIT"
+}

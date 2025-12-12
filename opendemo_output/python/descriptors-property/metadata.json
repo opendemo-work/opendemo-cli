@@ -1,0 +1,11 @@
+{
+  "name": "descriptors-property",
+  "language": "python",
+  "keywords": [
+    "descriptors",
+    "property"
+  ],
+  "description": "Python descriptors-property demo",
+  "difficulty": "beginner",
+  "verified": true
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <title>Socket.IO 聊天测试</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    #messages { height: 300px; border: 1px solid #ccc; overflow-y: scroll; margin-bottom: 10px; padding: 10px; }
+    #input-area { display: flex; gap: 10px; }
+    #message-input { flex: 1; padding: 8px; }
+    button { padding: 8px 16px; }
+  </style>
+</head>
+<body>
+  <h1>Socket.IO 实时聊天</h1>
+  <div id="messages"></div>
+  <div id="input-area">
+    <input type="text" id="message-input" placeholder="输入消息..." />
+    <button onclick="sendMessage()">发送</button>
+  </div>
+
+  <!-- 引入 Socket.IO 客户端库 -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    // 连接到服务器
+    const socket = io();
+
+    // 监听收到的消息
+    socket.on('chatMessage', (msg) => {
+      const messages = document.getElementById('messages');
+      const item = document.createElement('div');
+      item.textContent = msg;
+      messages.appendChild(item);
+      messages.scrollTop = messages.scrollHeight; // 滚动到底部
+    });
+
+    // 发送消息函数
+    function sendMessage() {
+      const input = document.getElementById('message-input');
+      if (input.value.trim()) {
+        socket.emit('chatMessage', input.value);
+        input.value = '';
+      }
+    }
+
+    // 支持回车发送
+    document.getElementById('message-input').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendMessage();
+    });
+  </script>
+</body>
+</html>

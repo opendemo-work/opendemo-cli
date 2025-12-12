@@ -1,0 +1,16 @@
+{
+  "name": "array-indexing",
+  "library": "numpy",
+  "language": "python",
+  "title": "索引与切片",
+  "keywords": ["array", "indexing", "slicing", "索引", "切片", "boolean"],
+  "description": "演示 numpy 数组的索引和切片操作",
+  "difficulty": "beginner",
+  "category": "基础数组操作",
+  "related_features": ["array-creation"],
+  "created_at": "2025-12-12T00:00:00",
+  "updated_at": "2025-12-12T00:00:00",
+  "version": "1.0.0",
+  "dependencies": {"numpy": ">=1.20.0"},
+  "verified": false
+}

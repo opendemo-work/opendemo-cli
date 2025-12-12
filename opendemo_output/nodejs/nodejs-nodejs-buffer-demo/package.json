@@ -1,0 +1,15 @@
+{
+  "name": "buffer-demo",
+  "version": "1.0.0",
+  "description": "Node.js Buffer 操作实战演示",
+  "main": "buffer-string.js",
+  "scripts": {
+    "demo:string": "node buffer-string.js",
+    "demo:stream": "node buffer-stream.js",
+    "demo:concat": "node buffer-concat.js",
+    "demo:all": "npm run demo:string && npm run demo:stream && npm run demo:concat"
+  },
+  "keywords": ["buffer", "binary", "nodejs"],
+  "author": "",
+  "license": "MIT"
+}

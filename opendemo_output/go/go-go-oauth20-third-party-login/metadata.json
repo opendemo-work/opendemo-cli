@@ -1,0 +1,22 @@
+{
+  "name": "Go OAuth2.0 第三方登录示例",
+  "language": "go",
+  "keywords": [
+    "OAuth2.0",
+    "第三方登录",
+    "Go",
+    "身份验证",
+    "Web安全"
+  ],
+  "description": "一个使用Go实现OAuth2.0第三方登录的可执行示例",
+  "difficulty": "advanced",
+  "author": "",
+  "created_at": "2025-12-11T17:52:38.965870",
+  "updated_at": "2025-12-11T17:52:38.965870",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false,
+  "aliases": [
+    "go-go-oauth20-第三方登录示例"
+  ]
+}

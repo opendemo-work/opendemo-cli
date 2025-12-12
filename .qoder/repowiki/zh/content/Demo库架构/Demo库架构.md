@@ -5,11 +5,10 @@
 - [README.md](file://README.md)
 - [opendemo/cli.py](file://opendemo/cli.py)
 - [opendemo/services/storage_service.py](file://opendemo/services/storage_service.py)
-- [opendemo/core/demo_manager.py](file://opendemo/core/demo_manager.py)
-- [opendemo/core/search_engine.py](file://opendemo/core/search_engine.py)
-- [opendemo/core/generator.py](file://opendemo/core/generator.py)
-- [opendemo/core/verifier.py](file://opendemo/core/verifier.py)
-- [opendemo/core/contribution.py](file://opendemo/core/contribution.py)
+- [opendemo/core/demo_repository.py](file://opendemo/core/demo_repository.py)
+- [opendemo/core/demo_search.py](file://opendemo/core/demo_search.py)
+- [opendemo/core/demo_generator.py](file://opendemo/core/demo_generator.py)
+- [opendemo/core/demo_verifier.py](file://opendemo/core/demo_verifier.py)
 - [opendemo/services/config_service.py](file://opendemo/services/config_service.py)
 - [opendemo/utils/logger.py](file://opendemo/utils/logger.py)
 - [opendemo/builtin_demos/python/python-tuple-basics/metadata.json](file://opendemo/builtin_demos/python/python-tuple-basics/metadata.json)
@@ -31,13 +30,13 @@
 10. [附录](#附录)
 
 ## 简介
-本文件面向初学者与贡献者，系统阐述Demo库的双层架构：内置Demo库（只读）与用户Demo库（可写）。围绕storage_service.py中的优先级查找机制，结合demo_manager.py对Demo的加载、保存与元数据管理，解释标准Demo目录结构与各文件职责，并给出实际文件路径示例，帮助快速上手与规范贡献。
+本文面向初学者与贡献者，系统阐述Demo库的双层架构：内置Demo库（只读）与用户Demo库（可写）。围绕storage_service.py中的优先级查找机制，结合demo_repository.py对Demo的加载、保存与元数据管理，解释标准Demo目录结构与各文件职责，并给出实际文件路径示例，帮助快速上手与规范贡献。
 
 ## 项目结构
 OpenDemo CLI采用清晰的分层结构：
 - CLI入口与命令编排：opendemo/cli.py
 - 服务层：配置服务、存储服务、AI服务（未在本文展开）
-- 核心业务：Demo管理、搜索、生成、验证、贡献
+- 核心业务：Demo仓库、搜索、生成、验证
 - 工具与日志：统一日志工具
 - 内置Demo库：opendemo/builtin_demos
 
@@ -51,11 +50,10 @@ CFG["opendemo/services/config_service.py"]
 STG["opendemo/services/storage_service.py"]
 end
 subgraph "核心业务"
-DEMO_MGR["opendemo/core/demo_manager.py"]
-SEARCH["opendemo/core/search_engine.py"]
-GEN["opendemo/core/generator.py"]
-VER["opendemo/core/verifier.py"]
-CONTRIB["opendemo/core/contribution.py"]
+DEMO_REPO["opendemo/core/demo_repository.py"]
+SEARCH["opendemo/core/demo_search.py"]
+GEN["opendemo/core/demo_generator.py"]
+VER["opendemo/core/demo_verifier.py"]
 end
 subgraph "工具"
 LOG["opendemo/utils/logger.py"]
@@ -65,31 +63,28 @@ BUILTIN["opendemo/builtin_demos/"]
 end
 CLI --> CFG
 CLI --> STG
-CLI --> DEMO_MGR
+CLI --> DEMO_REPO
 CLI --> SEARCH
 CLI --> GEN
 CLI --> VER
-CLI --> CONTRIB
-DEMO_MGR --> STG
-SEARCH --> DEMO_MGR
-GEN --> DEMO_MGR
+DEMO_REPO --> STG
+SEARCH --> DEMO_REPO
+GEN --> DEMO_REPO
 VER --> CFG
-CONTRIB --> STG
 STG --> BUILTIN
 ```
 
-图表来源
+**图表来源**
 - [opendemo/cli.py](file://opendemo/cli.py#L1-L120)
 - [opendemo/services/storage_service.py](file://opendemo/services/storage_service.py#L1-L120)
-- [opendemo/core/demo_manager.py](file://opendemo/core/demo_manager.py#L1-L120)
-- [opendemo/core/search_engine.py](file://opendemo/core/search_engine.py#L1-L80)
-- [opendemo/core/generator.py](file://opendemo/core/generator.py#L1-L60)
-- [opendemo/core/verifier.py](file://opendemo/core/verifier.py#L1-L60)
-- [opendemo/core/contribution.py](file://opendemo/core/contribution.py#L1-L60)
+- [opendemo/core/demo_repository.py](file://opendemo/core/demo_repository.py#L1-L120)
+- [opendemo/core/demo_search.py](file://opendemo/core/demo_search.py#L1-L80)
+- [opendemo/core/demo_generator.py](file://opendemo/core/demo_generator.py#L1-L60)
+- [opendemo/core/demo_verifier.py](file://opendemo/core/demo_verifier.py#L1-L60)
 - [opendemo/utils/logger.py](file://opendemo/utils/logger.py#L1-L65)
 - [opendemo/builtin_demos/README.md](file://opendemo/builtin_demos/README.md#L1-L2)
 
-章节来源
+**章节来源**
 - [README.md](file://README.md#L62-L110)
 
 ## 核心组件
@@ -98,28 +93,25 @@ STG --> BUILTIN
   - 用户Demo库：位于用户家目录下的专用路径，可写，用于保存贡献或自定义Demo。
 - 存储服务（StorageService）
   - 负责路径解析、Demo发现、元数据读取、文件读写、复制与删除等。
-- Demo管理器（DemoManager）
-  - 负责Demo对象封装、缓存、加载、创建、复制到输出目录、元数据更新、文件枚举等。
-- 搜索引擎（SearchEngine）
+- Demo仓库（DemoRepository）
+  - 整合了原DemoManager、SearchEngine等组件功能，负责Demo对象封装、缓存、加载、创建、复制到输出目录、元数据更新、文件枚举等。
+- 搜索引擎（DemoSearch）
   - 基于关键字与难度过滤，计算匹配分数并排序。
 - 生成器（DemoGenerator）
-  - 协调AI生成Demo，补充元数据并调用DemoManager保存。
+  - 协调AI生成Demo，补充元数据并调用DemoRepository保存。
 - 验证器（DemoVerifier）
   - 针对Python/Java进行可执行性验证，支持虚拟环境与依赖安装。
-- 贡献管理器（ContributionManager）
-  - 负责验证Demo结构、提示贡献、复制到用户库并生成贡献信息。
 - 配置服务（ConfigService）
   - 提供全局与项目配置合并、读取、设置与校验。
 - 日志工具（Logger）
   - 统一日志输出与文件落盘。
 
-章节来源
+**章节来源**
 - [opendemo/services/storage_service.py](file://opendemo/services/storage_service.py#L1-L120)
-- [opendemo/core/demo_manager.py](file://opendemo/core/demo_manager.py#L1-L120)
-- [opendemo/core/search_engine.py](file://opendemo/core/search_engine.py#L1-L80)
-- [opendemo/core/generator.py](file://opendemo/core/generator.py#L1-L60)
-- [opendemo/core/verifier.py](file://opendemo/core/verifier.py#L1-L60)
-- [opendemo/core/contribution.py](file://opendemo/core/contribution.py#L1-L60)
+- [opendemo/core/demo_repository.py](file://opendemo/core/demo_repository.py#L1-L120)
+- [opendemo/core/demo_search.py](file://opendemo/core/demo_search.py#L1-L80)
+- [opendemo/core/demo_generator.py](file://opendemo/core/demo_generator.py#L1-L60)
+- [opendemo/core/demo_verifier.py](file://opendemo/core/demo_verifier.py#L1-L60)
 - [opendemo/services/config_service.py](file://opendemo/services/config_service.py#L1-L120)
 - [opendemo/utils/logger.py](file://opendemo/utils/logger.py#L1-L65)
 
@@ -135,8 +127,8 @@ sequenceDiagram
 participant U as "用户"
 participant CLI as "CLI(get命令)"
 participant STG as "StorageService"
-participant DEMO_MGR as "DemoManager"
-participant SEARCH as "SearchEngine"
+participant DEMO_REPO as "DemoRepository"
+participant SEARCH as "DemoSearch"
 participant GEN as "DemoGenerator"
 U->>CLI : 输入语言+关键字
 CLI->>CLI : 解析是否强制生成
@@ -147,16 +139,16 @@ CLI-->>U : 展示已存在Demo
 exit
 end
 CLI->>SEARCH : 搜索内置/用户库
-SEARCH->>DEMO_MGR : 加载Demo列表
-DEMO_MGR->>STG : 列举Demo目录
-STG-->>DEMO_MGR : 返回Demo路径集合
-DEMO_MGR-->>SEARCH : 返回Demo对象列表
+SEARCH->>DEMO_REPO : 加载Demo列表
+DEMO_REPO->>STG : 列举Demo目录
+STG-->>DEMO_REPO : 返回Demo路径集合
+DEMO_REPO-->>SEARCH : 返回Demo对象列表
 SEARCH-->>CLI : 返回匹配结果
 opt 命中
-CLI->>DEMO_MGR : 复制到输出目录
-DEMO_MGR->>STG : 复制Demo
-STG-->>DEMO_MGR : 成功/失败
-DEMO_MGR-->>CLI : 输出路径
+CLI->>DEMO_REPO : 复制到输出目录
+DEMO_REPO->>STG : 复制Demo
+STG-->>DEMO_REPO : 成功/失败
+DEMO_REPO-->>CLI : 输出路径
 CLI-->>U : 展示Demo信息
 end
 end
@@ -167,13 +159,13 @@ CLI-->>U : 展示Demo信息
 end
 ```
 
-图表来源
+**图表来源**
 - [opendemo/cli.py](file://opendemo/cli.py#L196-L324)
-- [opendemo/core/search_engine.py](file://opendemo/core/search_engine.py#L26-L66)
-- [opendemo/core/demo_manager.py](file://opendemo/core/demo_manager.py#L111-L131)
+- [opendemo/core/demo_search.py](file://opendemo/core/demo_search.py#L26-L66)
+- [opendemo/core/demo_repository.py](file://opendemo/core/demo_repository.py#L111-L131)
 - [opendemo/services/storage_service.py](file://opendemo/services/storage_service.py#L49-L82)
 
-章节来源
+**章节来源**
 - [opendemo/cli.py](file://opendemo/cli.py#L196-L324)
 
 ## 详细组件分析
@@ -190,13 +182,14 @@ end
   - 内置/用户库次之：未命中输出目录时，在内置与用户库中搜索并匹配。
   - AI生成兜底：未命中且非强制生成时，触发AI生成。
 
-章节来源
+**章节来源**
 - [opendemo/services/storage_service.py](file://opendemo/services/storage_service.py#L30-L48)
 - [opendemo/services/config_service.py](file://opendemo/services/config_service.py#L58-L106)
 - [opendemo/cli.py](file://opendemo/cli.py#L240-L274)
 
-### Demo管理器（DemoManager）
+### Demo仓库（DemoRepository）
 - 职责
+  - 整合了原DemoManager、SearchEngine等组件功能，提供统一的Demo管理接口。
   - 封装Demo对象，提供属性访问与字典序列化。
   - 加载Demo元数据并缓存，避免重复IO。
   - 创建新Demo并保存至内置/用户库输出目录。
@@ -221,29 +214,31 @@ class Demo {
 +verified
 +to_dict()
 }
-class DemoManager {
+class DemoRepository {
 -storage
+-config
+-ai_service
 -_demo_cache
 +load_demo(path) Demo
 +load_all_demos(library, language) Demo[]
 +create_demo(...) Demo
-+update_demo_metadata(demo, updates) bool
-+copy_demo_to_output(demo, output_name) Path
++update_metadata(demo, updates) bool
++copy_to_output(demo, output_name) Path
 +get_demo_files(demo) Dict[]
 }
-DemoManager --> Demo : "封装/返回"
-DemoManager --> StorageService : "依赖"
+DemoRepository --> Demo : "封装/返回"
+DemoRepository --> StorageService : "依赖"
 ```
 
-图表来源
-- [opendemo/core/demo_manager.py](file://opendemo/core/demo_manager.py#L16-L120)
-- [opendemo/core/demo_manager.py](file://opendemo/core/demo_manager.py#L132-L201)
-- [opendemo/core/demo_manager.py](file://opendemo/core/demo_manager.py#L252-L328)
+**图表来源**
+- [opendemo/core/demo_repository.py](file://opendemo/core/demo_repository.py#L16-L120)
+- [opendemo/core/demo_repository.py](file://opendemo/core/demo_repository.py#L132-L201)
+- [opendemo/core/demo_repository.py](file://opendemo/core/demo_repository.py#L252-L328)
 
-章节来源
-- [opendemo/core/demo_manager.py](file://opendemo/core/demo_manager.py#L16-L120)
-- [opendemo/core/demo_manager.py](file://opendemo/core/demo_manager.py#L132-L201)
-- [opendemo/core/demo_manager.py](file://opendemo/core/demo_manager.py#L252-L328)
+**章节来源**
+- [opendemo/core/demo_repository.py](file://opendemo/core/demo_repository.py#L16-L120)
+- [opendemo/core/demo_repository.py](file://opendemo/core/demo_repository.py#L132-L201)
+- [opendemo/core/demo_repository.py](file://opendemo/core/demo_repository.py#L252-L328)
 
 ### 存储服务（StorageService）
 - 职责
@@ -253,7 +248,7 @@ DemoManager --> StorageService : "依赖"
   - 复制/删除Demo目录。
   - 获取输出目录并确保其存在。
 - 优先级查找支撑
-  - list_demos支持按库类型（内置/用户/全部）与语言过滤，为SearchEngine提供数据源。
+  - list_demos支持按库类型（内置/用户/全部）与语言过滤，为DemoSearch提供数据源。
 
 ```mermaid
 flowchart TD
@@ -264,33 +259,33 @@ Scan --> ReturnPaths["返回Demo路径列表"]
 ReturnPaths --> End(["结束"])
 ```
 
-图表来源
+**图表来源**
 - [opendemo/services/storage_service.py](file://opendemo/services/storage_service.py#L49-L82)
 - [opendemo/services/storage_service.py](file://opendemo/services/storage_service.py#L84-L105)
 
-章节来源
+**章节来源**
 - [opendemo/services/storage_service.py](file://opendemo/services/storage_service.py#L1-L120)
 - [opendemo/services/storage_service.py](file://opendemo/services/storage_service.py#L120-L200)
 
-### 搜索引擎（SearchEngine）
+### 搜索引擎（DemoSearch）
 - 职责
   - 在Demo集合上按语言、关键字与难度进行过滤与排序。
   - 计算匹配分数，综合名称、关键字、描述与全文文本。
-- 与DemoManager协作
-  - 通过DemoManager加载Demo列表，避免重复扫描。
+- 与DemoRepository协作
+  - 通过DemoRepository加载Demo列表，避免重复扫描。
 
-章节来源
-- [opendemo/core/search_engine.py](file://opendemo/core/search_engine.py#L26-L66)
-- [opendemo/core/search_engine.py](file://opendemo/core/search_engine.py#L67-L130)
+**章节来源**
+- [opendemo/core/demo_search.py](file://opendemo/core/demo_search.py#L26-L66)
+- [opendemo/core/demo_search.py](file://opendemo/core/demo_search.py#L67-L130)
 
 ### 生成器（DemoGenerator）
 - 职责
   - 调用AI服务生成Demo数据。
   - 补充元数据（作者、时间戳、版本、验证标记）。
-  - 通过DemoManager创建Demo并返回结果。
+  - 通过DemoRepository创建Demo并返回结果。
 
-章节来源
-- [opendemo/core/generator.py](file://opendemo/core/generator.py#L31-L103)
+**章节来源**
+- [opendemo/core/demo_generator.py](file://opendemo/core/demo_generator.py#L31-L103)
 
 ### 验证器（DemoVerifier）
 - 职责
@@ -299,26 +294,17 @@ ReturnPaths --> End(["结束"])
 - 与配置服务协作
   - 读取验证开关、方法与超时配置。
 
-章节来源
-- [opendemo/core/verifier.py](file://opendemo/core/verifier.py#L31-L60)
-- [opendemo/core/verifier.py](file://opendemo/core/verifier.py#L61-L129)
+**章节来源**
+- [opendemo/core/demo_verifier.py](file://opendemo/core/demo_verifier.py#L31-L60)
+- [opendemo/core/demo_verifier.py](file://opendemo/core/demo_verifier.py#L61-L129)
 - [opendemo/services/config_service.py](file://opendemo/services/config_service.py#L147-L169)
-
-### 贡献管理器（ContributionManager）
-- 职责
-  - 验证Demo结构（必需文件、代码目录与文件数量、README长度）。
-  - 提示用户是否贡献，复制到用户库并生成贡献信息模板。
-
-章节来源
-- [opendemo/core/contribution.py](file://opendemo/core/contribution.py#L28-L83)
-- [opendemo/core/contribution.py](file://opendemo/core/contribution.py#L120-L147)
 
 ### 配置服务（ConfigService）
 - 职责
   - 默认配置、全局与项目配置合并、读取与设置、初始化与校验。
   - 用户目录与内置库路径的默认值处理。
 
-章节来源
+**章节来源**
 - [opendemo/services/config_service.py](file://opendemo/services/config_service.py#L16-L49)
 - [opendemo/services/config_service.py](file://opendemo/services/config_service.py#L76-L120)
 - [opendemo/services/config_service.py](file://opendemo/services/config_service.py#L147-L169)
@@ -327,17 +313,16 @@ ReturnPaths --> End(["结束"])
 - 职责
   - 统一日志格式与输出，支持控制台与文件落盘。
 
-章节来源
+**章节来源**
 - [opendemo/utils/logger.py](file://opendemo/utils/logger.py#L13-L65)
 
 ## 依赖关系分析
 - 组件耦合
-  - CLI依赖配置、存储、Demo管理、搜索、生成、验证与贡献模块。
-  - DemoManager依赖StorageService进行文件系统操作。
-  - SearchEngine依赖DemoManager加载Demo。
-  - Generator依赖AI服务与DemoManager。
-  - Verifier依赖ConfigService。
-  - ContributionManager依赖ConfigService与StorageService。
+  - CLI依赖配置、存储、Demo仓库、搜索、生成、验证模块。
+  - DemoRepository依赖StorageService进行文件系统操作。
+  - DemoSearch依赖DemoRepository加载Demo。
+  - DemoGenerator依赖AI服务与DemoRepository。
+  - DemoVerifier依赖ConfigService。
 - 外部依赖
   - Python标准库（pathlib、json、shutil、subprocess等）。
   - 第三方库（click、rich等，用于CLI与输出格式化）。
@@ -346,34 +331,31 @@ ReturnPaths --> End(["结束"])
 graph LR
 CLI["cli.py"] --> CFG["config_service.py"]
 CLI --> STG["storage_service.py"]
-CLI --> DEMO_MGR["demo_manager.py"]
-CLI --> SEARCH["search_engine.py"]
-CLI --> GEN["generator.py"]
-CLI --> VER["verifier.py"]
-CLI --> CONTRIB["contribution.py"]
-DEMO_MGR --> STG
-SEARCH --> DEMO_MGR
-GEN --> DEMO_MGR
+CLI --> DEMO_REPO["demo_repository.py"]
+CLI --> SEARCH["demo_search.py"]
+CLI --> GEN["demo_generator.py"]
+CLI --> VER["demo_verifier.py"]
+DEMO_REPO --> STG
+SEARCH --> DEMO_REPO
+GEN --> DEMO_REPO
 VER --> CFG
-CONTRIB --> STG
 ```
 
-图表来源
+**图表来源**
 - [opendemo/cli.py](file://opendemo/cli.py#L1-L60)
-- [opendemo/core/demo_manager.py](file://opendemo/core/demo_manager.py#L74-L86)
-- [opendemo/core/search_engine.py](file://opendemo/core/search_engine.py#L14-L25)
-- [opendemo/core/generator.py](file://opendemo/core/generator.py#L15-L30)
-- [opendemo/core/verifier.py](file://opendemo/core/verifier.py#L19-L30)
-- [opendemo/core/contribution.py](file://opendemo/core/contribution.py#L14-L27)
+- [opendemo/core/demo_repository.py](file://opendemo/core/demo_repository.py#L74-L86)
+- [opendemo/core/demo_search.py](file://opendemo/core/demo_search.py#L14-L25)
+- [opendemo/core/demo_generator.py](file://opendemo/core/demo_generator.py#L15-L30)
+- [opendemo/core/demo_verifier.py](file://opendemo/core/demo_verifier.py#L19-L30)
 - [opendemo/services/storage_service.py](file://opendemo/services/storage_service.py#L16-L29)
 - [opendemo/services/config_service.py](file://opendemo/services/config_service.py#L16-L38)
 
-章节来源
+**章节来源**
 - [opendemo/cli.py](file://opendemo/cli.py#L1-L60)
 
 ## 性能考量
 - 缓存优化
-  - DemoManager对已加载的Demo进行缓存，避免重复读取元数据与构造对象。
+  - DemoRepository对已加载的Demo进行缓存，避免重复读取元数据与构造对象。
 - I/O优化
   - StorageService在列举Demo时使用递归扫描并仅匹配包含metadata.json的目录，减少无效遍历。
 - 并发与异步
@@ -396,14 +378,14 @@ CONTRIB --> STG
 - 日志定位
   - 使用统一日志工具输出错误堆栈，定位异常发生点。
 
-章节来源
+**章节来源**
 - [opendemo/services/config_service.py](file://opendemo/services/config_service.py#L243-L271)
-- [opendemo/core/contribution.py](file://opendemo/core/contribution.py#L48-L83)
-- [opendemo/core/verifier.py](file://opendemo/core/verifier.py#L188-L203)
+- [opendemo/core/demo_repository.py](file://opendemo/core/demo_repository.py#L48-L83)
+- [opendemo/core/demo_verifier.py](file://opendemo/core/demo_verifier.py#L188-L203)
 - [opendemo/utils/logger.py](file://opendemo/utils/logger.py#L13-L65)
 
 ## 结论
-本架构通过双层Demo库与清晰的服务分层，实现了“优先使用已生成Demo”的高效体验，并在未命中时无缝衔接内置/用户库搜索与AI生成。DemoManager与StorageService共同保障了Demo的标准化管理与持久化，SearchEngine与Generator分别承担检索与生成的核心能力，Verifer与ContributionManager完善了质量与贡献闭环。遵循标准Demo目录结构与元数据规范，有助于贡献者快速上手并产出高质量Demo。
+本架构通过双层Demo库与清晰的服务分层，实现了“优先使用已生成Demo”的高效体验，并在未命中时无缝衔接内置/用户库搜索与AI生成。DemoRepository与StorageService共同保障了Demo的标准化管理与持久化，DemoSearch与DemoGenerator分别承担检索与生成的核心能力，DemoVerifier完善了质量闭环。遵循标准Demo目录结构与元数据规范，有助于贡献者快速上手并产出高质量Demo。
 
 [本节为总结性内容，不直接分析具体文件]
 
@@ -425,7 +407,7 @@ CONTRIB --> STG
 - tests/（可选）
   - 作用：测试文件目录，便于扩展自动化测试。
 
-章节来源
+**章节来源**
 - [opendemo/builtin_demos/python/python-tuple-basics/metadata.json](file://opendemo/builtin_demos/python/python-tuple-basics/metadata.json#L1-L14)
 - [opendemo/builtin_demos/python/python-tuple-basics/README.md](file://opendemo/builtin_demos/python/python-tuple-basics/README.md#L1-L89)
 - [opendemo/builtin_demos/python/python-tuple-basics/requirements.txt](file://opendemo/builtin_demos/python/python-tuple-basics/requirements.txt#L1-L2)
@@ -442,7 +424,7 @@ CONTRIB --> STG
   - 路径示例：opendemo_output/python/python-tuple-basics
   - 用途：用户执行与查看Demo的临时工作区。
 
-章节来源
+**章节来源**
 - [opendemo/services/storage_service.py](file://opendemo/services/storage_service.py#L30-L48)
 - [opendemo/services/config_service.py](file://opendemo/services/config_service.py#L58-L106)
 - [opendemo/cli.py](file://opendemo/cli.py#L240-L274)

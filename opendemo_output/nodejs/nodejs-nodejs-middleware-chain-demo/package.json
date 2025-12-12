@@ -1,0 +1,16 @@
+{
+  "name": "express-middleware-demo",
+  "version": "1.0.0",
+  "description": "A demo of Express middleware chain in Node.js",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["nodejs", "express", "middleware", "demo"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.0"
+  }
+}

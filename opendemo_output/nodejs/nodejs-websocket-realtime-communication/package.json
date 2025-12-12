@@ -1,0 +1,17 @@
+{
+  "name": "websocket-demo",
+  "version": "1.0.0",
+  "description": "WebSocket实时通信演示",
+  "main": "server-ws.js",
+  "scripts": {
+    "start:ws": "node server-ws.js",
+    "start:socketio": "node server-socketio.js"
+  },n  "dependencies": {
+    "ws": "^8.17.0",
+    "socket.io": "^4.7.5",
+    "express": "^4.18.2"
+  },
+  "keywords": ["websocket", "realtime", "nodejs"],
+  "author": "",
+  "license": "MIT"
+}

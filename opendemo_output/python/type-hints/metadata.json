@@ -1,0 +1,11 @@
+{
+  "name": "type-hints",
+  "language": "python",
+  "keywords": [
+    "type",
+    "hints"
+  ],
+  "description": "Python type-hints demo",
+  "difficulty": "beginner",
+  "verified": true
+}

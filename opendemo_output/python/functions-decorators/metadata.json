@@ -1,0 +1,11 @@
+{
+  "name": "functions-decorators",
+  "language": "python",
+  "keywords": [
+    "functions",
+    "decorators"
+  ],
+  "description": "Python functions-decorators demo",
+  "difficulty": "beginner",
+  "verified": true
+}

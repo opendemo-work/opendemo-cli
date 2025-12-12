@@ -1,0 +1,12 @@
+{
+  "name": "ioredis-nodejs-demo",
+  "version": "1.0.0",
+  "main": "basic-operations.js",
+  "scripts": {
+    "start": "node basic-operations.js",
+    "hash": "node hash-operations.js",
+    "pool": "node connection-pool.js"
+  },n  "dependencies": {
+    "ioredis": "^5.3.2"
+  }
+}

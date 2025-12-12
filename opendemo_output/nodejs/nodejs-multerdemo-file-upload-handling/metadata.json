@@ -1,0 +1,22 @@
+{
+  "name": "Multer文件上传处理Demo",
+  "language": "nodejs",
+  "keywords": [
+    "Multer",
+    "文件上传",
+    "Express",
+    "中间件",
+    "Node.js"
+  ],
+  "description": "一个展示如何使用Multer在Node.js中处理文件上传的完整可运行示例。",
+  "difficulty": "intermediate",
+  "author": "",
+  "created_at": "2025-12-11T17:49:25.803886",
+  "updated_at": "2025-12-11T17:49:25.803886",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false,
+  "aliases": [
+    "nodejs-multer文件上传处理demo"
+  ]
+}

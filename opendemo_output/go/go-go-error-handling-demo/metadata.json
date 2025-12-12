@@ -1,0 +1,19 @@
+{
+  "name": "go-error-handling-demo",
+  "language": "go",
+  "keywords": [
+    "error handling",
+    "Go",
+    "best practices",
+    "custom errors",
+    "panic recovery"
+  ],
+  "description": "一个展示Go中错误处理最佳实践的可执行示例",
+  "difficulty": "beginner",
+  "author": "",
+  "created_at": "2025-12-11T13:28:22.554436",
+  "updated_at": "2025-12-11T13:28:22.554436",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false
+}

@@ -1,0 +1,11 @@
+{
+  "name": "tuple-basics",
+  "language": "python",
+  "keywords": [
+    "tuple",
+    "basics"
+  ],
+  "description": "Python tuple-basics demo",
+  "difficulty": "beginner",
+  "verified": true
+}

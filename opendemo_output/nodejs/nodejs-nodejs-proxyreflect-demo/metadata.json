@@ -1,0 +1,22 @@
+{
+  "name": "Node.js Proxy与Reflect元编程实战演示",
+  "language": "nodejs",
+  "keywords": [
+    "Proxy",
+    "Reflect",
+    "元编程",
+    "拦截器",
+    "数据绑定"
+  ],
+  "description": "通过实际示例展示JavaScript中Proxy和Reflect在元编程中的高级应用",
+  "difficulty": "advanced",
+  "author": "",
+  "created_at": "2025-12-11T14:40:36.200250",
+  "updated_at": "2025-12-11T14:40:36.200250",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false,
+  "aliases": [
+    "nodejs-nodejs-proxy与reflect元编程实战演示"
+  ]
+}

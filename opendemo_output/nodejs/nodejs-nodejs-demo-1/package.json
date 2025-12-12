@@ -1,0 +1,15 @@
+{
+  "name": "nodejs-functions-demo",
+  "version": "1.0.0",
+  "description": "A beginner-friendly demo for Node.js functions",
+  "main": "functions/basic.js",
+  "scripts": {
+    "start": "node functions/basic.js",
+    "basic": "node functions/basic.js",
+    "higher": "node functions/higherOrder.js",
+    "async": "node functions/async.js"
+  },
+  "keywords": ["nodejs", "functions", "async", "tutorial"],
+  "author": "",
+  "license": "MIT"
+}

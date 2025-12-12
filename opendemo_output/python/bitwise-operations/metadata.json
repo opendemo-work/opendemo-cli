@@ -1,0 +1,11 @@
+{
+  "name": "bitwise-operations",
+  "language": "python",
+  "keywords": [
+    "bitwise",
+    "operations"
+  ],
+  "description": "Python bitwise-operations demo",
+  "difficulty": "beginner",
+  "verified": true
+}

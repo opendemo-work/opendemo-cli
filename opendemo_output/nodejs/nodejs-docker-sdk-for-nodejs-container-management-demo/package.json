@@ -1,0 +1,17 @@
+{
+  "name": "docker-sdk-demo",
+  "version": "1.0.0",
+  "description": "Node.js demo for managing Docker containers using Docker SDK",
+  "main": "container-manager.js",
+  "scripts": {
+    "start": "node container-manager.js",
+    "list": "node list-containers.js",
+    "inspect": "node image-inspect.js"
+  },
+  "dependencies": {
+    "dockerode": "^3.3.0"
+  },
+  "keywords": ["docker", "sdk", "container", "nodejs", "devops"],
+  "author": "",
+  "license": "MIT"
+}

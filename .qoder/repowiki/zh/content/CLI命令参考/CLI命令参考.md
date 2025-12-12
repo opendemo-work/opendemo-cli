@@ -4,16 +4,8 @@
 **本文引用的文件**
 - [opendemo/cli.py](file://opendemo/cli.py)
 - [ABOUT.md](file://ABOUT.md)
-- [USAGE_GUIDE.md](file://USAGE_GUIDE.md)
-- [README.md](file://README.md)
-- [opendemo/core/demo_manager.py](file://opendemo/core/demo_manager.py)
-- [opendemo/core/search_engine.py](file://opendemo/core/search_engine.py)
-- [opendemo/core/generator.py](file://opendemo/core/generator.py)
-- [opendemo/core/contribution.py](file://opendemo/core/contribution.py)
-- [opendemo/services/ai_service.py](file://opendemo/services/ai_service.py)
+- [opendemo/core/demo_repository.py](file://opendemo/core/demo_repository.py)
 - [opendemo/services/config_service.py](file://opendemo/services/config_service.py)
-- [opendemo/services/storage_service.py](file://opendemo/services/storage_service.py)
-- [opendemo/utils/formatters.py](file://opendemo/utils/formatters.py)
 </cite>
 
 ## 目录

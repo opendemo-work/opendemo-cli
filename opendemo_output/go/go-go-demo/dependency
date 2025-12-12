@@ -1,0 +1,4 @@
+module functions-demo
+go 1.19
+
+# 无外部依赖，仅使用Go标准库

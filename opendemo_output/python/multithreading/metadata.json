@@ -1,0 +1,10 @@
+{
+  "name": "multithreading",
+  "language": "python",
+  "keywords": [
+    "multithreading"
+  ],
+  "description": "Python multithreading demo",
+  "difficulty": "beginner",
+  "verified": true
+}

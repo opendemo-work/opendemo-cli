@@ -1,0 +1,11 @@
+{
+  "name": "iterators-generators",
+  "language": "python",
+  "keywords": [
+    "iterators",
+    "generators"
+  ],
+  "description": "Python iterators-generators demo",
+  "difficulty": "beginner",
+  "verified": true
+}

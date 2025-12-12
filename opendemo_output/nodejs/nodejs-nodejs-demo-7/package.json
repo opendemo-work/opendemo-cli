@@ -1,0 +1,19 @@
+{
+  "name": "nodejs-destructuring-demo",
+  "version": "1.0.0",
+  "description": "A practical demo of ES6 destructuring in Node.js",
+  "main": "example1.js",
+  "scripts": {
+    "start": "node example1.js",
+    "demo": "npm run example1 && npm run example2 && npm run example3",
+    "example1": "node example1.js",
+    "example2": "node example2.js",
+    "example3": "node example3.js"
+  },
+  "keywords": ["destructuring", "es6", "javascript", "nodejs"],
+  "author": "Developer",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

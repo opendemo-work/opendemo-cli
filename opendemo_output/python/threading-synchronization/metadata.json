@@ -1,0 +1,11 @@
+{
+  "name": "threading-synchronization",
+  "language": "python",
+  "keywords": [
+    "threading",
+    "synchronization"
+  ],
+  "description": "Python threading-synchronization demo",
+  "difficulty": "beginner",
+  "verified": true
+}

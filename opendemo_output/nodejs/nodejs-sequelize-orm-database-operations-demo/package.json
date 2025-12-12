@@ -1,0 +1,17 @@
+{
+  "name": "sequelize-demo",
+  "version": "1.0.0",
+  "description": "A simple Sequelize ORM demo with PostgreSQL",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": ["sequelize", "orm", "postgresql", "nodejs"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "sequelize": "^6.37.0",
+    "pg": "^8.11.0",
+    "pg-hstore": "^2.3.4"
+  }
+}

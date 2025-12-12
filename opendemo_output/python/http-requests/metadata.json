@@ -1,0 +1,11 @@
+{
+  "name": "http-requests",
+  "language": "python",
+  "keywords": [
+    "http",
+    "requests"
+  ],
+  "description": "Python http-requests demo",
+  "difficulty": "beginner",
+  "verified": true
+}

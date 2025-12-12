@@ -1,0 +1,11 @@
+{
+  "name": "modules-packages",
+  "language": "python",
+  "keywords": [
+    "modules",
+    "packages"
+  ],
+  "description": "Python modules-packages demo",
+  "difficulty": "beginner",
+  "verified": true
+}

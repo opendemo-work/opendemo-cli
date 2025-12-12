@@ -38,5 +38,5 @@ Thumbs.db
 
 # Project specific
 .opendemo/
-opendemo_output/
+# opendemo_output/
 *.local.yaml

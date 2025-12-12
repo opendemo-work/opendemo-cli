@@ -1,0 +1,20 @@
+{
+  "name": "Go变量与类型演示",
+  "language": "go",
+  "keywords": [
+    "变量",
+    "数据类型",
+    "基础语法"
+  ],
+  "description": "通过实际示例展示Go语言中变量和基本数据类型的使用方法。",
+  "difficulty": "beginner",
+  "author": "",
+  "created_at": "2025-12-11T13:27:18.030921",
+  "updated_at": "2025-12-11T13:27:18.030921",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false,
+  "aliases": [
+    "go-go变量与类型演示"
+  ]
+}

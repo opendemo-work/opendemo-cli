@@ -1,0 +1,5 @@
+module strings-demo
+
+go 1.19
+
+// 本项目仅使用Go标准库，无外部依赖

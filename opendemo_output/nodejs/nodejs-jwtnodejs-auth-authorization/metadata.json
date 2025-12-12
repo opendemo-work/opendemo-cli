@@ -1,0 +1,22 @@
+{
+  "name": "JWT认证与授权Node.js演示",
+  "language": "nodejs",
+  "keywords": [
+    "JWT",
+    "jsonwebtoken",
+    "认证",
+    "授权",
+    "Node.js"
+  ],
+  "description": "一个展示使用jsonwebtoken库实现JWT认证和授权的完整Node.js示例",
+  "difficulty": "advanced",
+  "author": "",
+  "created_at": "2025-12-11T14:39:36.012382",
+  "updated_at": "2025-12-11T14:39:36.012382",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false,
+  "aliases": [
+    "nodejs-jwt认证与授权nodejs演示"
+  ]
+}

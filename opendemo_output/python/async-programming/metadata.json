@@ -1,0 +1,11 @@
+{
+  "name": "async-programming",
+  "language": "python",
+  "keywords": [
+    "async",
+    "programming"
+  ],
+  "description": "Python async-programming demo",
+  "difficulty": "beginner",
+  "verified": true
+}

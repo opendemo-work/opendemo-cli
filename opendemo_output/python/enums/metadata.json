@@ -1,0 +1,10 @@
+{
+  "name": "enums",
+  "language": "python",
+  "keywords": [
+    "enums"
+  ],
+  "description": "Python enums demo",
+  "difficulty": "beginner",
+  "verified": true
+}

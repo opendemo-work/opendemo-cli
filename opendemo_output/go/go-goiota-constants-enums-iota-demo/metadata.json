@@ -1,0 +1,22 @@
+{
+  "name": "Go常量枚举与iota演示",
+  "language": "go",
+  "keywords": [
+    "constants",
+    "enums",
+    "iota",
+    "go basics",
+    "type safety"
+  ],
+  "description": "使用iota演示Go中模拟枚举的惯用方式",
+  "difficulty": "beginner",
+  "author": "",
+  "created_at": "2025-12-11T14:07:23.001942",
+  "updated_at": "2025-12-11T14:07:23.001942",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false,
+  "aliases": [
+    "go-go常量枚举与iota演示"
+  ]
+}

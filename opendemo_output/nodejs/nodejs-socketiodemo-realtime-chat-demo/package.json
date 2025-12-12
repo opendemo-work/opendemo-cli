@@ -1,0 +1,16 @@
+{
+  "name": "socket-chat-demo",
+  "version": "1.0.0",
+  "description": "基于Socket.io的实时聊天室示例",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.0",
+    "socket.io": "^4.7.0"
+  },
+  "keywords": ["socket.io", "chat", "realtime", "websocket"],
+  "author": "",
+  "license": "MIT"
+}

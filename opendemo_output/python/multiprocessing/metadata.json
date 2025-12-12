@@ -1,0 +1,10 @@
+{
+  "name": "multiprocessing",
+  "language": "python",
+  "keywords": [
+    "multiprocessing"
+  ],
+  "description": "Python multiprocessing demo",
+  "difficulty": "beginner",
+  "verified": true
+}

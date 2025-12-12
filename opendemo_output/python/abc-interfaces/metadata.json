@@ -1,0 +1,11 @@
+{
+  "name": "abc-interfaces",
+  "language": "python",
+  "keywords": [
+    "abc",
+    "interfaces"
+  ],
+  "description": "Python abc-interfaces demo",
+  "difficulty": "beginner",
+  "verified": true
+}

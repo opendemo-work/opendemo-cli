@@ -1,0 +1,22 @@
+{
+  "name": "Go多阶段Docker构建演示",
+  "language": "go",
+  "keywords": [
+    "Go",
+    "Docker",
+    "多阶段构建",
+    "容器化",
+    "最佳实践"
+  ],
+  "description": "展示如何使用Go和Docker多阶段构建创建高效容器镜像",
+  "difficulty": "intermediate",
+  "author": "",
+  "created_at": "2025-12-11T17:46:51.285161",
+  "updated_at": "2025-12-11T17:46:51.285161",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false,
+  "aliases": [
+    "go-go多阶段docker构建演示"
+  ]
+}

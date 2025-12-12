@@ -1,0 +1,17 @@
+{
+  "name": "nodejs-logging-demo",
+  "version": "1.0.0",
+  "description": "A demo showing structured logging with Winston and Bunyan in Node.js",
+  "main": "winston-logger.js",
+  "scripts": {
+    "start": "node winston-logger.js",
+    "bunyan": "node bunyan-logger.js"
+  },
+  "dependencies": {
+    "winston": "^3.8.2",
+    "bunyan": "^1.8.15"
+  },
+  "keywords": ["logging", "winston", "bunyan", "structured-logging", "nodejs"],
+  "author": "",
+  "license": "MIT"
+}

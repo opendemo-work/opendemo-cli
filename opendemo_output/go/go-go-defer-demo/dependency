@@ -1,0 +1,5 @@
+module defer-demo
+
+go 1.19
+
+// 无外部依赖

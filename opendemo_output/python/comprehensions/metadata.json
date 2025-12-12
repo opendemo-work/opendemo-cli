@@ -1,0 +1,10 @@
+{
+  "name": "comprehensions",
+  "language": "python",
+  "keywords": [
+    "comprehensions"
+  ],
+  "description": "Python comprehensions demo",
+  "difficulty": "beginner",
+  "verified": true
+}

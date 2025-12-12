@@ -1,0 +1,11 @@
+{
+  "name": "set-operations",
+  "language": "python",
+  "keywords": [
+    "set",
+    "operations"
+  ],
+  "description": "Python set-operations demo",
+  "difficulty": "beginner",
+  "verified": true
+}

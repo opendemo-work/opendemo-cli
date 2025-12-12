@@ -1,0 +1,11 @@
+{
+  "name": "collections-module",
+  "language": "python",
+  "keywords": [
+    "collections",
+    "module"
+  ],
+  "description": "Python collections-module demo",
+  "difficulty": "beginner",
+  "verified": true
+}

@@ -1,0 +1,14 @@
+{
+  "name": "nodejs-variables-demo",
+  "version": "1.0.0",
+  "description": "A beginner-friendly demo showing variable declarations in Node.js using var, let, and const.",
+  "main": "code/variables-var.js",
+  "scripts": {
+    "demo-var": "node code/variables-var.js",
+    "demo-let-const": "node code/variables-let-const.js",
+    "demo-scopes": "node code/example-scopes.js",
+    "demo-all": "npm run demo-var && npm run demo-let-const && npm run demo-scopes"
+  },
+  "author": "NodeJS Tutor",
+  "license": "MIT"
+}

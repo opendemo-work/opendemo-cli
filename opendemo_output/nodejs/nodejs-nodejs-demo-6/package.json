@@ -1,0 +1,13 @@
+{
+  "name": "nodejs-circuit-breaker-demo",
+  "version": "1.0.0",
+  "main": "circuit-breaker-demo.js",
+  "scripts": {
+    "start": "node circuit-breaker-demo.js"
+  },
+  "dependencies": {
+    "circuit-breaker-js": "^1.0.4"
+  },
+  "author": "Developer",
+  "license": "MIT"
+}

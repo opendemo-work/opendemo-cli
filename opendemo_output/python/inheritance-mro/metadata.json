@@ -1,0 +1,11 @@
+{
+  "name": "inheritance-mro",
+  "language": "python",
+  "keywords": [
+    "inheritance",
+    "mro"
+  ],
+  "description": "Python inheritance-mro demo",
+  "difficulty": "beginner",
+  "verified": true
+}

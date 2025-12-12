@@ -1,0 +1,22 @@
+{
+  "name": "Go并发编程实战：Goroutines详解",
+  "language": "go",
+  "keywords": [
+    "goroutines",
+    "并发",
+    "go通道",
+    "并发控制",
+    "context"
+  ],
+  "description": "通过多个实用场景演示Go中goroutines的正确使用方式。",
+  "difficulty": "intermediate",
+  "author": "",
+  "created_at": "2025-12-11T13:26:59.616110",
+  "updated_at": "2025-12-11T13:26:59.616110",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false,
+  "aliases": [
+    "go-go并发编程实战goroutines详解"
+  ]
+}

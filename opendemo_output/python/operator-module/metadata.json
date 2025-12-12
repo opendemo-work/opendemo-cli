@@ -1,0 +1,11 @@
+{
+  "name": "operator-module",
+  "language": "python",
+  "keywords": [
+    "operator",
+    "module"
+  ],
+  "description": "Python operator-module demo",
+  "difficulty": "beginner",
+  "verified": true
+}

@@ -1,0 +1,11 @@
+{
+  "name": "socket-networking",
+  "language": "python",
+  "keywords": [
+    "socket",
+    "networking"
+  ],
+  "description": "Python socket-networking demo",
+  "difficulty": "beginner",
+  "verified": true
+}

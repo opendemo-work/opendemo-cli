@@ -1,0 +1,10 @@
+{
+  "name": "datetime",
+  "language": "python",
+  "keywords": [
+    "datetime"
+  ],
+  "description": "Python datetime demo",
+  "difficulty": "beginner",
+  "verified": true
+}

@@ -1,0 +1,11 @@
+{
+  "name": "scope-closures",
+  "language": "python",
+  "keywords": [
+    "scope",
+    "closures"
+  ],
+  "description": "Python scope-closures demo",
+  "difficulty": "beginner",
+  "verified": true
+}

@@ -1,0 +1,5 @@
+module: reflect-demo
+language: go
+go_version: 1.19+
+dependencies: []
+standard_library_only: true

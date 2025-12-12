@@ -1,0 +1,10 @@
+# 本项目无外部依赖
+# 使用Go标准库：
+# - fmt
+# - time
+# - context
+# - sync (隐式通过channel和goroutine使用)
+
+# 推荐Go版本：1.20+
+# 可通过以下命令验证环境：
+# go version

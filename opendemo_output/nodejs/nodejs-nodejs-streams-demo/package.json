@@ -1,0 +1,13 @@
+{
+  "name": "nodejs-streams-demo",
+  "version": "1.0.0",
+  "description": "A practical demo of Node.js streams for file processing and transformation",
+  "main": "copy-stream.js",
+  "scripts": {
+    "copy": "node copy-stream.js",
+    "transform": "node transform-stream.js"
+  },
+  "keywords": ["nodejs", "streams", "file-processing"],
+  "author": "",
+  "license": "MIT"
+}

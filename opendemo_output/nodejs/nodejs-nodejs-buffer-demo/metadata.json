@@ -1,0 +1,22 @@
+{
+  "name": "Node.js Buffer 操作实战演示",
+  "language": "nodejs",
+  "keywords": [
+    "buffer",
+    "binary data",
+    "stream",
+    "encoding",
+    "nodejs core"
+  ],
+  "description": "展示 Node.js 中 Buffer 的常见用法和最佳实践",
+  "difficulty": "intermediate",
+  "author": "",
+  "created_at": "2025-12-11T13:52:18.421326",
+  "updated_at": "2025-12-11T13:52:18.421326",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false,
+  "aliases": [
+    "nodejs-nodejs-buffer-操作实战演示"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "itertools-module",
+  "language": "python",
+  "keywords": [
+    "itertools",
+    "module"
+  ],
+  "description": "Python itertools-module demo",
+  "difficulty": "beginner",
+  "verified": true
+}

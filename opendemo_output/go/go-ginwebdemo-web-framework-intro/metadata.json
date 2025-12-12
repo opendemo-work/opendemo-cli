@@ -1,0 +1,22 @@
+{
+  "name": "Gin框架Web开发入门Demo",
+  "language": "go",
+  "keywords": [
+    "Gin",
+    "Web开发",
+    "REST API",
+    "Go语言",
+    "HTTP服务器"
+  ],
+  "description": "一个基于Gin框架的轻量级Web服务入门示例",
+  "difficulty": "intermediate",
+  "author": "",
+  "created_at": "2025-12-11T16:44:36.848399",
+  "updated_at": "2025-12-11T16:44:36.848399",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false,
+  "aliases": [
+    "go-gin框架web开发入门demo"
+  ]
+}

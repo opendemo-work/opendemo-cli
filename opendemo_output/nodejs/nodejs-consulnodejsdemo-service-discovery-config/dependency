@@ -1,0 +1,18 @@
+{
+  "name": "consul-demo",
+  "version": "1.0.0",
+  "description": "Consul集成示例",
+  "main": "register-service.js",
+  "scripts": {
+    "start:register": "node code/register-service.js",
+    "start:discover": "node code/discover-service.js",
+    "start:watch": "node code/watch-config.js"
+  },
+  "dependencies": {
+    "consul": "^1.2.0"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "string-operations",
+  "language": "python",
+  "keywords": [
+    "string",
+    "operations"
+  ],
+  "description": "Python string-operations demo",
+  "difficulty": "beginner",
+  "verified": true
+}

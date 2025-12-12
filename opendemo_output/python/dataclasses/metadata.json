@@ -1,0 +1,10 @@
+{
+  "name": "dataclasses",
+  "language": "python",
+  "keywords": [
+    "dataclasses"
+  ],
+  "description": "Python dataclasses demo",
+  "difficulty": "beginner",
+  "verified": true
+}

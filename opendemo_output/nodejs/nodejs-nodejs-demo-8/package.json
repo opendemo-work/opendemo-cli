@@ -1,0 +1,14 @@
+{
+  "name": "nodejs-error-handling-demo",
+  "version": "1.0.0",
+  "description": "A practical demo of error handling in Node.js",
+  "main": "sync-error.js",
+  "scripts": {
+    "start": "node sync-error.js",
+    "async": "node async-error.js",
+    "promise": "node promise-chain.js"
+  },
+  "keywords": ["nodejs", "error", "handling", "demo"],
+  "author": "Developer",
+  "license": "MIT"
+}
