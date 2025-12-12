@@ -1,0 +1,18 @@
+{
+  "name": "statistics",
+  "language": "python",
+  "keywords": [
+    "statistics",
+    "数据分析",
+    "统计计算",
+    "python"
+  ],
+  "description": "使用Python标准库statistics模块进行基础统计分析的演示示例",
+  "difficulty": "beginner",
+  "author": "",
+  "created_at": "2025-12-13T01:56:29.843653",
+  "updated_at": "2025-12-13T01:56:29.843653",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false
+}

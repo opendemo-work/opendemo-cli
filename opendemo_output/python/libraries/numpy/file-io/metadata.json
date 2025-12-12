@@ -1,0 +1,19 @@
+{
+  "name": "file-io",
+  "language": "python",
+  "keywords": [
+    "文件读写",
+    "save",
+    "load",
+    "savetxt",
+    "数据持久化"
+  ],
+  "description": "演示Python中常见的文件读写操作，包括文本和结构化数据的保存与加载。",
+  "difficulty": "beginner",
+  "author": "",
+  "created_at": "2025-12-13T01:05:42.552628",
+  "updated_at": "2025-12-13T01:05:42.552628",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false
+}

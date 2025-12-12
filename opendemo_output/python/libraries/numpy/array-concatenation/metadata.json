@@ -1,0 +1,19 @@
+{
+  "name": "array-concatenation",
+  "language": "python",
+  "keywords": [
+    "NumPy",
+    "数组拼接",
+    "数组分割",
+    "stack",
+    "split"
+  ],
+  "description": "演示如何使用NumPy进行数组的拼接（concatenate、stack）和分割（split）操作。",
+  "difficulty": "beginner",
+  "author": "",
+  "created_at": "2025-12-13T01:03:05.872188",
+  "updated_at": "2025-12-13T01:03:05.872188",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false
+}

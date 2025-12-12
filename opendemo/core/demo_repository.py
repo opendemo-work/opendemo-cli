@@ -179,7 +179,9 @@ class DemoRepository:
         if custom_folder_name:
             demo_dir_name = custom_folder_name
         else:
-            demo_dir_name = self._generate_safe_name(name, language)
+            # 库demo不添加语言前缀
+            include_prefix = library_name is None
+            demo_dir_name = self._generate_safe_name(name, language, include_language_prefix=include_prefix)
         
         # 确定保存路径
         if save_to_user_library:
@@ -777,13 +779,14 @@ class DemoRepository:
     
     # ==================== 内部辅助方法 ====================
     
-    def _generate_safe_name(self, name: str, language: str) -> str:
+    def _generate_safe_name(self, name: str, language: str, include_language_prefix: bool = True) -> str:
         """
         生成安全的demo目录名
         
         Args:
             name: demo名称
             language: 编程语言
+            include_language_prefix: 是否包含语言前缀，库demo设为False
             
         Returns:
             目录名（纯ASCII英文）
@@ -799,7 +802,11 @@ class DemoRepository:
         # 确保名称不为空
         if not safe_name:
             safe_name = 'demo'
-        return f"{language.lower()}-{safe_name}"
+        
+        # 库demo不添加语言前缀
+        if include_language_prefix:
+            return f"{language.lower()}-{safe_name}"
+        return safe_name
     
     def _get_file_description(self, file_path: Path) -> str:
         """

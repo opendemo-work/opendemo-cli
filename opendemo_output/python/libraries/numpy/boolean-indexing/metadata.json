@@ -1,0 +1,17 @@
+{
+  "name": "boolean-indexing",
+  "language": "python",
+  "keywords": [
+    "布尔索引",
+    "数据筛选",
+    "NumPy"
+  ],
+  "description": "演示Python中布尔索引在数组和数据集中的高效数据筛选应用",
+  "difficulty": "beginner",
+  "author": "",
+  "created_at": "2025-12-13T01:53:30.482184",
+  "updated_at": "2025-12-13T01:53:30.482184",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false
+}

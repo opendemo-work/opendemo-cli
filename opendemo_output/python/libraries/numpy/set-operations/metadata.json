@@ -1,0 +1,19 @@
+{
+  "name": "set-operations",
+  "language": "python",
+  "keywords": [
+    "集合",
+    "set operations",
+    "去重",
+    "交集并集",
+    "数据处理"
+  ],
+  "description": "通过实际场景演示Python中集合的基本与高级操作。",
+  "difficulty": "beginner",
+  "author": "",
+  "created_at": "2025-12-13T02:09:37.656841",
+  "updated_at": "2025-12-13T02:09:37.656841",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false
+}

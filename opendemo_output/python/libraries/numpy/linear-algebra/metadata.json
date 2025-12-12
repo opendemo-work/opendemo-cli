@@ -1,0 +1,19 @@
+{
+  "name": "linear-algebra",
+  "language": "python",
+  "keywords": [
+    "线性代数",
+    "NumPy",
+    "矩阵运算",
+    "向量计算",
+    "科学计算"
+  ],
+  "description": "使用NumPy进行常见线性代数运算的Python实战示例",
+  "difficulty": "beginner",
+  "author": "",
+  "created_at": "2025-12-13T01:50:36.274900",
+  "updated_at": "2025-12-13T01:50:36.274900",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false
+}

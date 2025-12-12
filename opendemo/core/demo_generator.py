@@ -72,6 +72,12 @@ class DemoGenerator:
         metadata['verified'] = False
         
         # 创建demo
+        # 对于库demo，优先使用topic作为文件夹名（避免中文名称过滤后为空）
+        folder_name = custom_folder_name
+        if not folder_name and library_name:
+            # 库demo使用topic作为文件夹名
+            folder_name = topic.lower().replace(' ', '-').replace('_', '-')
+        
         demo = self.repository.create_demo(
             name=metadata.get('name', f"{language}-{topic}"),
             language=language,
@@ -81,7 +87,7 @@ class DemoGenerator:
             difficulty=difficulty,
             author=author,
             save_to_user_library=save_to_user_library,
-            custom_folder_name=custom_folder_name,
+            custom_folder_name=folder_name,
             library_name=library_name
         )
         
