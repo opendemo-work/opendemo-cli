@@ -18,10 +18,12 @@ from opendemo.core.search_engine import SearchEngine
 from opendemo.core.generator import DemoGenerator
 from opendemo.core.verifier import DemoVerifier
 from opendemo.core.contribution import ContributionManager
+from opendemo.core.library_detector import LibraryDetector
+from opendemo.core.library_manager import LibraryManager
 from opendemo.utils.formatters import (
     print_success, print_error, print_warning, print_info,
     print_demo_result, print_search_results, print_config_list,
-    print_progress
+    print_progress, print_library_info
 )
 from opendemo.utils.logger import setup_logger, get_logger
 
@@ -193,6 +195,127 @@ def _display_output_demo(demo_info: Dict[str, Any], demo_path: Path, language: s
     console.print(f"\n[bold]如需重新生成:[/bold] opendemo get {language} {demo_info['name']} new")
 
 
+def _handle_library_command(
+    library_command: Dict[str, Any],
+    library_manager,
+    demo_manager,
+    storage,
+    verify: bool,
+    verifier,
+    language: str
+):
+    """
+    处理库命令
+    
+    Args:
+        library_command: 库命令信息
+        library_manager: 库管理器
+        demo_manager: Demo管理器
+        storage: 存储服务
+        verify: 是否验证
+        verifier: 验证器
+        language: 编程语言
+    """
+    library_name = library_command['library']
+    feature_keywords = library_command['feature_keywords']
+    
+    # 如果没有功能关键字，展示库的功能列表
+    if not feature_keywords:
+        library_info = library_manager.get_library_info(language, library_name)
+        if library_info:
+            print_library_info(library_info)
+        else:
+            print_error(f"未找到库 {library_name} 的信息")
+            sys.exit(1)
+        return
+    
+    # 如果有功能关键字，搜索并匹配功能
+    feature_keyword = feature_keywords[0]  # 使用第一个关键字
+    
+    # 先尝试精确匹配
+    feature_demo = library_manager.get_feature_demo(language, library_name, feature_keyword)
+    
+    if feature_demo:
+        # 找到精确匹配的功能 demo
+        print_success(f"在库 {library_name} 中找到功能: {feature_keyword}")
+        
+        # 复制到输出目录
+        output_path = library_manager.copy_feature_to_output(language, library_name, feature_keyword)
+        
+        if output_path:
+            _display_demo_result(feature_demo, output_path, demo_manager, verify, verifier, language)
+        else:
+            print_error("复制demo失败")
+            sys.exit(1)
+        return
+    
+    # 没有精确匹配，尝试模糊搜索
+    search_results = library_manager.search_library_feature(language, library_name, feature_keyword)
+    
+    if search_results:
+        # 显示搜索结果
+        if len(search_results) == 1:
+            # 只有一个结果，直接获取
+            feature_info, score = search_results[0]
+            feature_name = feature_info['name']
+            
+            print_success(f"在库 {library_name} 中找到匹配的功能: {feature_name}")
+            
+            feature_demo = library_manager.get_feature_demo(language, library_name, feature_name)
+            if feature_demo:
+                output_path = library_manager.copy_feature_to_output(language, library_name, feature_name)
+                if output_path:
+                    _display_demo_result(feature_demo, output_path, demo_manager, verify, verifier, language)
+                else:
+                    print_error("复制demo失败")
+                    sys.exit(1)
+            else:
+                print_error(f"未找到功能 {feature_name} 的demo")
+                sys.exit(1)
+        else:
+            # 多个结果，展示列表让用户选择
+            print_info(f"在库 {library_name} 中找到 {len(search_results)} 个相关功能：\n")
+            
+            from rich.console import Console
+            from rich.table import Table
+            from rich import box
+            
+            console = Console()
+            table = Table(show_header=True, header_style="bold magenta", box=box.ROUNDED)
+            table.add_column("#", style="dim", width=4)
+            table.add_column("功能名称", min_width=20)
+            table.add_column("标题", min_width=15)
+            table.add_column("描述", min_width=30)
+            table.add_column("难度", width=12)
+            
+            for i, (feature_info, score) in enumerate(search_results[:10], 1):
+                name = feature_info['name']
+                title = feature_info.get('title', name)
+                description = feature_info.get('description', '')
+                difficulty = feature_info.get('difficulty', 'beginner')
+                
+                difficulty_style = {
+                    'beginner': 'green',
+                    'intermediate': 'yellow',
+                    'advanced': 'red'
+                }.get(difficulty.lower(), 'white')
+                
+                table.add_row(
+                    str(i),
+                    name,
+                    title,
+                    description[:50] + '...' if len(description) > 50 else description,
+                    f"[{difficulty_style}]{difficulty}[/{difficulty_style}]"
+                )
+            
+            console.print(table)
+            console.print(f"\n使用 [bold]'opendemo get python {library_name} <功能名称>'[/bold] 获取具体功能\n")
+    else:
+        print_warning(f"在库 {library_name} 中未找到匹配 '{feature_keyword}' 的功能")
+        print_info(f"使用 'opendemo get python {library_name}' 查看所有可用功能")
+        sys.exit(1)
+
+
 @cli.command()
 @click.argument('language')
 @click.argument('keywords', nargs=-1, required=True)
@@ -205,6 +328,8 @@ def get(language, keywords, verify):
         opendemo get python logging new   # 强制重新生成
         opendemo get python 列表 操作
         opendemo get java 继承 --verify
+        opendemo get python numpy         # 显示numpy库的功能列表
+        opendemo get python numpy array-creation  # 获取numpy库的array-creation功能demo
     """
     logger = get_logger(__name__)
     
@@ -223,8 +348,29 @@ def get(language, keywords, verify):
     generator = DemoGenerator(ai_service, demo_manager, config)
     verifier = DemoVerifier(config)
     
-    # 检查是否有 'new' 参数，表示强制重新生成
+    # 初始化库相关服务
+    library_detector = LibraryDetector(storage)
+    library_manager = LibraryManager(storage, demo_manager)
+    
+    # 检查是否为库命令
     keywords_list = list(keywords)
+    library_command = library_detector.parse_library_command(language, keywords_list)
+    
+    if library_command:
+        # 处理库命令
+        _handle_library_command(
+            library_command, 
+            library_manager, 
+            demo_manager,
+            storage,
+            verify,
+            verifier,
+            language
+        )
+        return
+    
+    # 原有的 demo 获取逻辑
+    # 检查是否有 'new' 参数，表示强制重新生成
     force_new = False
     if keywords_list and keywords_list[-1].lower() == 'new':
         force_new = True
@@ -420,8 +566,26 @@ def new(language, topic, difficulty, verify):
     verifier = DemoVerifier(config)
     contribution_manager = ContributionManager(config, storage)
     
+    # 初始化库相关服务（传入AI服务用于智能判断库名）
+    library_detector = LibraryDetector(storage, ai_service)
+    
     # 合并主题
     topic_str = ' '.join(topic)
+    
+    # 检查是否为库demo请求（使用新的检测方法，支持未注册的库）
+    topic_keywords = list(topic)
+    library_name = library_detector.detect_library_for_new_command(language, topic_keywords)
+    
+    if library_name:
+        # 识别为库demo
+        feature_keywords = topic_keywords[1:] if len(topic_keywords) > 1 else []
+        if feature_keywords:
+            # 使用功能关键字作为主题
+            topic_str = ' '.join(feature_keywords)
+        else:
+            # 没有功能关键字，使用库名作为主题
+            topic_str = library_name
+        print_info(f"识别为库demo: {library_name}")
     
     print_progress(f"生成 {language} - {topic_str} 的demo (难度: {difficulty})")
     
@@ -430,7 +594,8 @@ def new(language, topic, difficulty, verify):
         language, 
         topic_str, 
         difficulty=difficulty,
-        save_to_user_library=False
+        save_to_user_library=False,
+        library_name=library_name
     )
     
     if not result:

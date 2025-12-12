@@ -34,7 +34,8 @@ class DemoGenerator:
         topic: str,
         difficulty: str = 'beginner',
         save_to_user_library: bool = False,
-        custom_folder_name: str = None
+        custom_folder_name: str = None,
+        library_name: str = None
     ) -> Optional[Dict[str, Any]]:
         """
         生成demo
@@ -45,6 +46,7 @@ class DemoGenerator:
             difficulty: 难度级别
             save_to_user_library: 是否保存到用户库
             custom_folder_name: 自定义文件夹名称
+            library_name: 库名称，如"numpy"，用于库demo生成
             
         Returns:
             生成结果字典,包含demo路径和信息
@@ -80,7 +82,8 @@ class DemoGenerator:
             difficulty=difficulty,
             author=author,
             save_to_user_library=save_to_user_library,
-            custom_folder_name=custom_folder_name
+            custom_folder_name=custom_folder_name,
+            library_name=library_name
         )
         
         if not demo:

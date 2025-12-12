@@ -6,6 +6,7 @@
 
 import json
 import shutil
+from datetime import datetime
 from pathlib import Path
 from typing import List, Dict, Any, Optional
 from opendemo.utils.logger import get_logger
@@ -273,4 +274,101 @@ class StorageService:
             return True
         except Exception as e:
             logger.error(f"Failed to create directory {dir_path}: {e}")
+            return False
+    
+    def check_migration_status(self) -> bool:
+        """
+        检查是否已执行过库demo迁移
+        
+        Returns:
+            True表示已迁移，False表示未迁移
+        """
+        migration_marker = self.get_output_directory() / '.migration_completed'
+        return migration_marker.exists()
+    
+    def migrate_builtin_libraries(self) -> bool:
+        """
+        将内置库demo迁移到输出目录
+        
+        Returns:
+            迁移是否成功
+        """
+        # 检查是否已迁移
+        if self.check_migration_status():
+            logger.info("Library migration already completed, skipping...")
+            return True
+        
+        logger.info("Starting builtin library migration...")
+        migrated_libraries = []
+        
+        try:
+            # 扫描所有语言的libraries目录
+            for language_dir in self.builtin_library_path.iterdir():
+                if not language_dir.is_dir():
+                    continue
+                
+                language = language_dir.name
+                libraries_dir = language_dir / 'libraries'
+                
+                if not libraries_dir.exists():
+                    continue
+                
+                # 遍历每个库
+                for library_dir in libraries_dir.iterdir():
+                    if not library_dir.is_dir() or library_dir.name.startswith('_'):
+                        continue
+                    
+                    library_name = library_dir.name
+                    feature_count = 0
+                    
+                    # 遍历库中的每个功能demo
+                    for feature_dir in library_dir.iterdir():
+                        if not feature_dir.is_dir() or feature_dir.name.startswith('_'):
+                            continue
+                        
+                        # 检查是否有metadata.json
+                        if not (feature_dir / 'metadata.json').exists():
+                            continue
+                        
+                        feature_name = feature_dir.name
+                        
+                        # 构建目标路径
+                        target_path = (
+                            self.get_output_directory() / 
+                            language / 
+                            'libraries' / 
+                            library_name / 
+                            feature_name
+                        )
+                        
+                        # 复制demo
+                        if self.copy_demo(feature_dir, target_path):
+                            feature_count += 1
+                            logger.info(f"Migrated {language}/{library_name}/{feature_name}")
+                        else:
+                            logger.warning(f"Failed to migrate {language}/{library_name}/{feature_name}")
+                    
+                    if feature_count > 0:
+                        migrated_libraries.append({
+                            'language': language,
+                            'library': library_name,
+                            'feature_count': feature_count
+                        })
+            
+            # 创建迁移标记文件
+            migration_data = {
+                'migrated_at': datetime.now().isoformat(),
+                'migrated_libraries': migrated_libraries,
+                'version': '1.0'
+            }
+            
+            migration_marker = self.get_output_directory() / '.migration_completed'
+            with open(migration_marker, 'w', encoding='utf-8') as f:
+                json.dump(migration_data, f, ensure_ascii=False, indent=2)
+            
+            logger.info(f"Migration completed: {len(migrated_libraries)} libraries migrated")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Failed to migrate builtin libraries: {e}")
             return False

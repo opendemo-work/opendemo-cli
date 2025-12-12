@@ -1,104 +1,72 @@
-# Open Demo CLI - 完整使用手册
+# Open Demo CLI
 
-## 项目简介
-
-Open Demo CLI 是一个智能化的编程学习辅助命令行工具，帮助开发者快速获取高质量、可执行的编程语言Demo代码。支持Python、Go、Node.js和Java多种语言，支持本地Demo库搜索和AI智能生成，是学习编程的得力助手。
+> 智能化编程学习辅助CLI工具 - 快速获取高质量、可执行的Demo代码
 
 ---
 
 ## 目录
 
-1. [项目文件结构](#项目文件结构)
-2. [安装与配置](#安装与配置)
-3. [CLI命令详解](#cli命令详解)
-4. [Demo库说明](#demo库说明)
-5. [配置管理](#配置管理)
-6. [常见问题](#常见问题)
+- [项目简介](#项目简介)
+- [快速开始](#快速开始)
+- [命令详解](#命令详解)
+- [Demo库](#demo库)
+- [配置管理](#配置管理)
+- [项目结构](#项目结构)
+- [技术架构](#技术架构)
+- [测试与质量](#测试与质量)
+- [常见问题](#常见问题)
+- [开发指南](#开发指南)
+- [许可证](#许可证)
 
 ---
 
-## 项目文件结构
+## 项目简介
 
-```
-opendemo/
-│
-├── 📄 文档文件
-│   ├── ABOUT.md              # 本文件 - 完整使用手册
-│   ├── README.md             # 项目简介
-│   ├── USAGE_GUIDE.md        # 详细使用指南
-│   ├── PROJECT_SUMMARY.md    # 项目开发总结
-│   ├── TEST_REPORT.md        # CLI功能测试报告
-│   └── LICENSE               # MIT开源许可证
-│
-├── 📦 核心源码
-│   └── opendemo/             # Python主包
-│       ├── __init__.py       # 包初始化
-│       ├── cli.py            # CLI命令入口 (search/get/new/config)
-│       │
-│       ├── core/             # 核心业务逻辑
-│       │   ├── demo_manager.py    # Demo管理器 - 加载、保存、组织Demo
-│       │   ├── search_engine.py   # 搜索引擎 - 关键字匹配和排序
-│       │   ├── generator.py       # 生成器 - 协调AI生成Demo
-│       │   ├── verifier.py        # 验证器 - 验证Demo可执行性
-│       │   └── contribution.py    # 贡献管理 - Demo质量检查
-│       │
-│       ├── services/         # 服务层
-│       │   ├── ai_service.py      # AI服务 - 调用LLM API生成代码
-│       │   ├── config_service.py  # 配置服务 - 管理全局/项目配置
-│       │   └── storage_service.py # 存储服务 - 文件系统操作
-│       │
-│       ├── utils/            # 工具模块
-│       │   ├── formatters.py      # 输出格式化 - Rich彩色表格
-│       │   └── logger.py          # 日志工具
-│       │
-│       └── builtin_demos/    # 内置Demo库（只读）
-│           ├── python/       # Python内置Demo
-│           ├── go/           # Go内置Demo
-│           └── nodejs/       # Node.js内置Demo
-│
-├── 📂 Demo输出目录
-│   └── opendemo_output/      # 生成的Demo保存位置
-│       ├── python/           # Python Demo (51个)
-│       │   ├── logging/
-│       │   ├── async-programming/
-│       │   └── ...
-│       ├── go/               # Go Demo (20个)
-│       │   ├── go-go并发编程.../
-│       │   └── ...
-│       └── nodejs/           # Node.js Demo (2个)
-│           └── ...
-│
-├── ⚙️ 配置文件
-│   ├── pyproject.toml        # 项目配置和依赖声明
-│   ├── .gitignore            # Git忽略规则
-│   └── start.py              # 快速启动脚本
-│
-└── 🧪 测试
-    └── tests/                # 单元测试目录
-```
+Open Demo CLI 是一个帮助开发者快速获取编程语言Demo代码的命令行工具。
+
+### 核心特性
+
+| 特性 | 说明 |
+|------|------|
+| 🚀 **快速获取** | 通过简单命令获取完整示例代码 |
+| 📚 **AI智能生成** | 本地未找到时自动调用AI生成 |
+| 📦 **第三方库支持** | AI智能识别第三方库，自动组织到libraries目录 |
+| ✅ **可选验证** | 自动验证生成代码的可执行性 |
+| 🔍 **智能搜索** | 快速搜索本地Demo库 |
+| 🌍 **社区贡献** | 支持将优质Demo贡献到公共库 |
+
+### 支持的语言
+
+| 语言 | Demo数量 | 特色 |
+|------|---------|------|
+| Python | 51 | 基础语法、并发、标准库、网络 |
+| Go | 89 | 含完整DevOps/SRE支持 |
+| Node.js | 67 | 含完整DevOps/SRE支持 |
+| Java | 待扩充 | - |
+| **总计** | **207** | 多语言全覆盖 |
 
 ---
 
-## 安装与配置
+## 快速开始
 
-### 1. 安装
+### 安装
 
 ```bash
 # 克隆项目
 git clone https://github.com/opendemo/opendemo.git
 cd opendemo
 
-# 安装（开发模式）
+# 安装
 pip install -e .
 ```
 
-### 2. 验证安装
+### 验证安装
 
 ```bash
 python -m opendemo.cli --help
 ```
 
-### 3. 配置AI服务（可选，用于生成新Demo）
+### 配置AI服务（可选）
 
 ```bash
 # 初始化配置
@@ -106,14 +74,31 @@ python -m opendemo.cli config init
 
 # 设置API密钥
 python -m opendemo.cli config set ai.api_key YOUR_API_KEY
+python -m opendemo.cli config set ai.api_endpoint YOUR_ENDPOINT
+```
 
-# 设置API端点（如使用阿里云百炼等服务）
-python -m opendemo.cli config set ai.api_endpoint https://your-api-endpoint/v1/chat/completions
+### 基础用法
+
+```bash
+# 搜索Demo
+opendemo search python              # 列出所有Python Demo
+opendemo search go                  # 列出所有Go Demo
+opendemo search python async        # 按关键字过滤
+
+# 获取Demo
+opendemo get python logging         # 获取已有Demo
+opendemo get go goroutines          # 获取Go并发Demo
+opendemo get nodejs express         # 获取Express框架Demo
+
+# 创建新Demo
+opendemo new python 网络爬虫        # 编程主题
+opendemo new python numpy           # 第三方库（自动识别）
+opendemo new go gin 中间件           # 指定库+主题
 ```
 
 ---
 
-## CLI命令详解
+## 命令详解
 
 ### 命令概览
 
@@ -127,35 +112,33 @@ python -m opendemo.cli config set ai.api_endpoint https://your-api-endpoint/v1/c
 ### search - 搜索Demo
 
 ```bash
-# 查看所有支持的语言
-python -m opendemo.cli search
+# 查看支持的语言
+opendemo search
 
-# 列出所有Python Demo（扫描 opendemo_output/python 目录）
-python -m opendemo.cli search python
+# 列出特定语言的Demo
+opendemo search python
+opendemo search go
+opendemo search nodejs
 
-# 列出所有Go Demo
-python -m opendemo.cli search go
-
-# 列出所有Node.js Demo
-python -m opendemo.cli search nodejs
-
-# 按关键字过滤
-python -m opendemo.cli search python async
-python -m opendemo.cli search python thread
+# 关键字过滤
+opendemo search python async
+opendemo search go prometheus
 ```
 
 **输出示例：**
 ```
-找到 51 个匹配的demo:
+可用的语言:
+  - python: 51 个demo
+  - go: 89 个demo
+  - nodejs: 67 个demo
 
-┌──────┬───────────────────────┬────────────┬───────────────────────┬──────────────┐
-│ #    │ 名称                  │ 语言       │ 关键字                │ 难度         │
-├──────┼───────────────────────┼────────────┼───────────────────────┼──────────────┤
-│ 1    │ abc-interfaces        │ python     │ abc, interfaces       │ beginner     │
-│ 2    │ async-programming     │ python     │ async, programming    │ beginner     │
-│ 3    │ logging               │ python     │ logging               │ beginner     │
-│ ... │ ...                   │ ...        │ ...                   │ ...          │
-└──────┴───────────────────────┴────────────┴───────────────────────┴──────────────┘
+找到 51 个匹配的demo:
+╭───┬───────────────────┬────────┬──────────────────┬──────────╮
+│ # │ 名称              │ 语言   │ 关键字           │ 难度     │
+├───┼───────────────────┼────────┼──────────────────┼──────────┤
+│ 1 │ async-programming │ python │ async            │ beginner │
+│ 2 │ logging           │ python │ logging          │ beginner │
+╰───┴───────────────────┴────────┴──────────────────┴──────────╯
 ```
 
 ### get - 获取Demo
@@ -163,135 +146,140 @@ python -m opendemo.cli search python thread
 **匹配优先级：**
 1. **精确匹配** - 关键字完全等于文件夹名称
 2. **语义匹配** - 关键字被包含在文件夹名称中
-3. **AI生成** - 本地未找到时调用AI生成（需配置API）
+3. **AI生成** - 本地未找到时调用AI生成
 
 ```bash
-# 精确匹配已有Demo
-python -m opendemo.cli get python logging
+# 精确匹配
+opendemo get python logging
 
-# 语义匹配（list → list-operations）
-python -m opendemo.cli get python list
+# 语义匹配 (list → list-operations)
+opendemo get python list
 
-# 强制重新生成（添加-new后缀）
-python -m opendemo.cli get python logging new
+# 强制重新生成
+opendemo get python logging new
 ```
 
 **输出示例：**
 ```
 >>> 搜索 python - logging 的demo...
 [OK] 在输出目录中找到匹配的demo: logging
-[OK] Demo已存在!
 
 名称: logging
-语言: python
-路径: opendemo_output\python\logging
-关键字: logging
-描述: Python logging demo
+路径: opendemo_output/python/logging
 
 包含文件:
   - code/logging_demo.py
 
 快速开始:
-  1. cd opendemo_output\python\logging
+  1. cd opendemo_output/python/logging
   2. python code/logging_demo.py
-
-如需重新生成: opendemo get python logging new
 ```
 
 ### new - 创建新Demo
 
-使用AI生成全新的Demo（需要配置API密钥）：
-
 ```bash
-# 生成新Demo
-python -m opendemo.cli new python 网络爬虫
+# 编程主题Demo → 输出到语言根目录
+opendemo new python 网络爬虫
+opendemo new go 并发编程 --difficulty intermediate
 
-# 指定难度级别
-python -m opendemo.cli new python 设计模式 --difficulty intermediate
+# 第三方库Demo → 自动识别，输出到 libraries 目录
+opendemo new python numpy           # → python/libraries/numpy/
+opendemo new python pandas 数据分析  # → python/libraries/pandas/
+opendemo new go gin 中间件           # → go/libraries/gin/
+opendemo new nodejs express 路由     # → nodejs/libraries/express/
 
-# 生成并验证
-python -m opendemo.cli new python 异步IO --verify
+# 带验证
+opendemo new python 异步IO --verify
 ```
+
+**第三方库智能识别规则：**
+- 第三方库：numpy, pandas, requests, flask, gin, express 等
+- 标准库模块：logging, os, json 等 → 视为编程主题
+- 中文关键字：数据处理、异步编程 等 → 视为编程主题
 
 ### config - 配置管理
 
 ```bash
-# 初始化配置文件
-python -m opendemo.cli config init
+# 初始化配置
+opendemo config init
 
-# 查看所有配置
-python -m opendemo.cli config list
+# 查看配置
+opendemo config list
+opendemo config get ai.model
 
-# 获取特定配置
-python -m opendemo.cli config get ai.model
-
-# 设置配置项
-python -m opendemo.cli config set ai.api_key sk-xxx
-python -m opendemo.cli config set output_directory ./my_demos
+# 设置配置
+opendemo config set ai.api_key sk-xxx
+opendemo config set enable_verification true
 ```
 
 ---
 
-## Demo库说明
+## Demo库
 
-### 现有Python Demo（51个）
+### Demo统计
 
-| 分类 | Demo名称 | 说明 |
-|------|----------|------|
-| **基础语法** | control-flow, comprehensions, lambda-expressions | 控制流、推导式、匿名函数 |
-| **数据类型** | list-operations, dict-operations, set-operations, tuple-basics, string-operations | 列表、字典、集合、元组、字符串 |
-| **函数与类** | functions-decorators, oop-classes, magic-methods, dataclasses | 函数装饰器、面向对象、魔术方法 |
-| **高级特性** | iterators-generators, context-managers, descriptors-property, metaclasses | 迭代器、上下文管理器、描述符 |
-| **并发编程** | multithreading, multiprocessing, async-programming, threading-synchronization | 多线程、多进程、异步编程 |
-| **标准库** | collections-module, functools-module, itertools-module, operator-module | 常用标准库模块 |
-| **文件与IO** | file-operations, pathlib-os, json-yaml, serialization-pickle | 文件操作、路径、序列化 |
-| **网络与数据库** | http-requests, socket-networking, database-sqlite | HTTP请求、Socket、SQLite |
-| **调试与测试** | logging, debugging, unit-testing, profiling-optimization | 日志、调试、测试、性能 |
-| **其他** | regex, datetime, enums, type-hints, exception-handling | 正则、时间、枚举、类型提示 |
+| 语言 | 数量 | 分类 |
+|------|------|------|
+| **Python** | 51 | 基础语法、数据类型、函数与类、高级特性、并发编程、标准库、文件IO、网络、调试测试 |
+| **Go** | 89 | 基础语法(15+)、并发编程(12+)、DevOps/SRE(25+)、网络编程(12+)、工程实践(18+) |
+| **Node.js** | 67 | 基础语法(15+)、异步编程(10+)、DevOps/SRE(20+)、安全认证(8+)、工程实践(14+) |
 
-### 现有Go Demo（89个）
+### DevOps/SRE Demo亮点
 
-| 分类 | Demo数量 | 示例 |
-|------|---------|------|
-| **基础语法** | 15+ | 变量、函数、结构体、接口、切片 |
-| **并发编程** | 12+ | goroutines、channels、sync原语、context、worker pool |
-| **DevOps/SRE** | 25+ | Prometheus、健康检查、限流熔断、优雅关闭、OpenTelemetry、Kafka、Docker SDK |
-| **网络编程** | 12+ | HTTP服务器、RESTful API、gRPC、WebSocket、TCP、负载均衡 |
-| **工程实践** | 18+ | 单元测试、基准测试、pprof、依赖注入、Swagger、OAuth2.0 |
+**Go语言：**
+- Prometheus指标采集、健康检查、限流熔断、优雅关闭
+- gRPC服务、Kafka/RabbitMQ消息队列、Docker SDK
+- OpenTelemetry分布式追踪、Consul服务发现
+- Gin/GORM、JWT/OAuth2.0、Swagger
 
-### 现有Node.js Demo（67个）
-
-| 分类 | Demo数量 | 示例 |
-|------|---------|------|
-| **基础语法** | 15+ | 变量、函数、闭包、解构赋值 |
-| **异步编程** | 10+ | Promise、async/await、回调、Generator |
-| **DevOps/SRE** | 20+ | Express、健康检查、Cluster、PM2、Prometheus、Kafka、Docker SDK |
-| **安全认证** | 8+ | JWT、OAuth2.0、Passport、Helmet安全中间件 |
-| **工程实践** | 14+ | Jest测试、日志管理、进程管理、GraphQL、Swagger |
+**Node.js：**
+- Express/NestJS框架、Cluster多进程、PM2部署
+- 健康检查、优雅关闭、Prometheus监控
+- JWT认证、Kafka消息队列、Docker SDK
+- Socket.io实时通信、GraphQL API
 
 ### Demo目录结构
 
-每个Demo遵循统一结构：
-
 ```
-opendemo_output/python/logging/
-├── metadata.json       # Demo元数据（名称、关键字、难度等）
-├── code/               # 代码文件目录
-│   └── logging_demo.py # 可执行的Demo代码
-└── requirements.txt    # Python依赖（如需要）
+opendemo_output/
+├── python/
+│   ├── logging/              # 编程主题Demo
+│   │   ├── metadata.json
+│   │   ├── code/
+│   │   └── requirements.txt
+│   └── libraries/            # 第三方库Demo
+│       ├── numpy/
+│       └── pandas/
+├── go/
+│   ├── go-goroutines.../
+│   └── libraries/
+│       └── gin/
+└── nodejs/
+    ├── nodejs-express.../
+    └── libraries/
+        └── axios/
 ```
 
 ### 运行Demo
 
+**Python:**
 ```bash
-# 进入Demo目录
 cd opendemo_output/python/logging
-
-# 安装依赖（如果有requirements.txt）
 pip install -r requirements.txt
-
-# 运行Demo
 python code/logging_demo.py
+```
+
+**Go:**
+```bash
+cd opendemo_output/go/go-goroutines
+go run .
+```
+
+**Node.js:**
+```bash
+cd opendemo_output/nodejs/nodejs-express
+npm install
+node code/main.js
 ```
 
 ---
@@ -300,8 +288,10 @@ python code/logging_demo.py
 
 ### 配置文件位置
 
-- **全局配置**: `~/.opendemo/config.yaml`
-- **项目配置**: `./.opendemo.yaml`（当前目录）
+| 类型 | 路径 |
+|------|------|
+| 全局配置 | `~/.opendemo/config.yaml` |
+| 项目配置 | `./.opendemo.yaml` |
 
 ### 主要配置项
 
@@ -312,11 +302,135 @@ python code/logging_demo.py
 | `default_language` | 默认编程语言 | `python` |
 | `enable_verification` | 是否启用自动验证 | `false` |
 | `ai.provider` | AI服务提供商 | `openai` |
-| `ai.api_key` | API密钥 | 无 |
+| `ai.api_key` | API密钥 | - |
 | `ai.api_endpoint` | API端点URL | OpenAI默认 |
 | `ai.model` | 使用的模型 | `gpt-4` |
 | `ai.temperature` | 温度参数 | `0.7` |
-| `display.color_output` | 彩色输出 | `true` |
+| `ai.max_tokens` | 最大token数 | `4000` |
+
+---
+
+## 项目结构
+
+```
+opendemo/
+├── opendemo/                 # 主包
+│   ├── cli.py                # CLI入口
+│   ├── core/                 # 核心业务逻辑
+│   │   ├── demo_manager.py   # Demo管理器
+│   │   ├── search_engine.py  # 搜索引擎
+│   │   ├── generator.py      # 生成器
+│   │   ├── verifier.py       # 验证器
+│   │   ├── library_detector.py # 库名检测器
+│   │   ├── library_manager.py  # 库管理器
+│   │   └── contribution.py   # 贡献管理
+│   ├── services/             # 服务层
+│   │   ├── ai_service.py     # AI服务
+│   │   ├── config_service.py # 配置服务
+│   │   └── storage_service.py # 存储服务
+│   ├── utils/                # 工具模块
+│   │   ├── formatters.py     # 输出格式化
+│   │   └── logger.py         # 日志工具
+│   └── builtin_demos/        # 内置Demo库
+├── opendemo_output/          # Demo输出目录
+├── scripts/                  # 批量生成脚本
+├── tests/                    # 测试文件
+├── pyproject.toml            # 项目配置
+└── ABOUT.md                  # 本文件
+```
+
+---
+
+## 技术架构
+
+### 架构设计
+
+```
+CLI层 → 业务逻辑层 → 服务层 → 数据层
+```
+
+| 层级 | 模块 | 职责 |
+|------|------|------|
+| CLI层 | cli.py | Click框架实现命令行界面 |
+| 业务逻辑层 | core/ | Demo管理、搜索、生成、验证 |
+| 服务层 | services/ | AI服务、配置服务、存储服务 |
+| 数据层 | 文件系统 | Demo库、配置文件 |
+
+### 技术栈
+
+| 技术 | 用途 |
+|------|------|
+| Python 3.8+ | 核心语言 |
+| Click | CLI框架 |
+| Rich | 彩色输出美化 |
+| PyYAML | 配置管理 |
+| Requests | HTTP请求 |
+| OpenAI API | AI代码生成 |
+
+### 核心模块
+
+| 模块 | 功能 |
+|------|------|
+| **ConfigService** | 全局/项目配置管理，YAML存储 |
+| **StorageService** | 双层Demo库架构，文件系统抽象 |
+| **DemoManager** | Demo加载/保存，元数据管理 |
+| **SearchEngine** | 关键字匹配，相关性评分 |
+| **AIService** | OpenAI API集成，Prompt构建，关键字分类 |
+| **DemoVerifier** | 虚拟环境隔离，依赖安装，代码执行验证 |
+| **LibraryDetector** | AI智能识别第三方库，启发式回退 |
+
+### 验证器实现
+
+**Go验证流程：**
+```
+环境检查(go version) → 模块初始化(go mod init) 
+→ 依赖管理(go mod tidy) → 编译检查(go build) → 运行验证(go run)
+```
+
+**Node.js验证流程：**
+```
+环境检查(node --version) → 依赖安装(npm install) 
+→ 智能主文件查找 → 运行验证(node/npm start)
+```
+
+---
+
+## 测试与质量
+
+### 单元测试
+
+| 测试模块 | 用例数 | 状态 |
+|---------|--------|------|
+| test_config_service.py | 10 | ✅ 通过 |
+| test_demo_manager.py | 10 | ✅ 通过 |
+| test_search_engine.py | 13 | ✅ 通过 |
+| **总计** | **33** | **✅ 全部通过** |
+
+### 代码质量
+
+| 检查项 | 状态 |
+|--------|------|
+| 语法检查 | ✅ 所有17个Python文件通过 |
+| 静态分析 | ✅ 无编译错误、类型错误 |
+| 模块导入 | ✅ CLI和核心模块正常 |
+| 异常处理 | ✅ 使用`except Exception:`规范 |
+
+### CLI功能测试
+
+| 功能 | Python | Go | Node.js |
+|------|--------|----|---------|
+| search命令 | ✅ | ✅ | ✅ |
+| get命令 | ✅ | ✅ | ✅ |
+| new命令 | ✅ | ✅ | ✅ |
+| 匹配逻辑 | ✅ | ✅ | ✅ |
+
+### 批量生成工具
+
+| 脚本 | Demo数量 | 用途 |
+|------|---------|------|
+| generate_minimal_demos.py | 40 | 快速验证 |
+| quick_generate.py | 44 | 快速生成 |
+| generate_demos.py | 49 | 完整生成 |
 
 ---
 
@@ -324,64 +438,99 @@ python code/logging_demo.py
 
 ### Q1: 如何使用AI生成功能？
 
-需要配置API密钥和端点：
+配置API密钥和端点：
 ```bash
-python -m opendemo.cli config set ai.api_key YOUR_KEY
-python -m opendemo.cli config set ai.api_endpoint YOUR_ENDPOINT
+opendemo config set ai.api_key YOUR_KEY
+opendemo config set ai.api_endpoint YOUR_ENDPOINT
 ```
 
 ### Q2: Demo保存在哪里？
 
-默认保存在 `opendemo_output/<语言>/` 目录下，可通过配置修改：
-```bash
-python -m opendemo.cli config set output_directory /path/to/output
-```
+- **编程主题Demo**：`opendemo_output/<语言>/<主题名>/`
+- **第三方库Demo**：`opendemo_output/<语言>/libraries/<库名>/`
 
-### Q3: 如何查看某个Demo的代码？
+### Q3: 如何运行验证？
 
 ```bash
-# 方法1: 使用get命令查看路径，然后打开
-python -m opendemo.cli get python logging
+# 全局启用
+opendemo config set enable_verification true
 
-# 方法2: 直接进入目录查看
-cd opendemo_output/python/logging/code
-cat logging_demo.py
+# 单次验证
+opendemo new python 装饰器 --verify
 ```
 
-### Q4: 搜索结果为空怎么办？
+### Q4: 搜索结果为空？
 
-1. 确认Demo目录存在: `opendemo_output/python/`
-2. 确认Demo有 `metadata.json` 文件
-3. 尝试使用更宽泛的关键字
+1. 确认Demo目录存在
+2. 确认Demo有`metadata.json`文件
+3. 尝试更宽泛的关键字
 
-### Q5: 如何贡献新的Demo？
+### Q5: 验证环境要求？
 
-使用 `new` 命令创建Demo后，系统会询问是否贡献到公共库：
-```bash
-python -m opendemo.cli new python 你的主题
-# 按提示选择是否贡献
-```
+- Go：安装`go`命令
+- Node.js：安装`node`和`npm`命令
 
 ---
 
-## 文档索引
+## 开发指南
+
+### 开发环境
+
+```bash
+git clone https://github.com/opendemo/opendemo.git
+cd opendemo
+pip install -e ".[dev]"
+```
+
+### 运行测试
+
+```bash
+python -m pytest tests/
+```
+
+### 代码格式化
+
+```bash
+black opendemo/
+```
+
+### 添加新语言支持
+
+1. 在`cli.py`中添加到`SUPPORTED_LANGUAGES`
+2. 在`verifier.py`中实现`_verify_<language>()`方法
+3. 在`builtin_demos/`下创建对应目录
+
+### 扩展计划
+
+| 阶段 | 计划 |
+|------|------|
+| 短期 v1.x | Java支持、更多配置选项 |
+| 中期 v2.x | Web界面、TypeScript/Rust、IDE插件 |
+| 长期 v3.x+ | 智能推荐、多模态支持、企业版 |
+
+---
+
+## 许可证
+
+本项目采用 **MIT License** 开源许可证。
+
+---
+
+## 文档说明
 
 | 文档 | 说明 |
 |------|------|
-| [ABOUT.md](ABOUT.md) | 完整使用手册（本文件） |
-| [README.md](README.md) | 项目简介 |
-| [USAGE_GUIDE.md](USAGE_GUIDE.md) | 详细使用指南 |
-| [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md) | 项目开发总结 |
-| [TEST_REPORT.md](TEST_REPORT.md) | CLI功能测试报告 |
-| [LICENSE](LICENSE) | MIT开源许可证 |
+| **ABOUT.md** | 完整项目文档（本文件） |
+| README.md | 项目简介（GitHub入口） |
+| LICENSE | MIT开源许可证 |
 
 ---
 
-## 技术支持
+## 联系方式
 
-- **问题反馈**: GitHub Issues
+- **问题反馈**: [GitHub Issues](https://github.com/opendemo/opendemo/issues)
 - **项目仓库**: https://github.com/opendemo/opendemo
 
 ---
 
-*最后更新: 2025-12-11*
+*最后更新: 2025-12-12*

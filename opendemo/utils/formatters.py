@@ -185,3 +185,71 @@ def print_progress(message: str):
         message: 消息内容
     """
     console.print(f"[cyan]>>>[/cyan] {message}...", style="cyan")
+
+
+def print_library_info(library_info: Dict[str, Any]):
+    """
+    打印库信息和功能列表
+    
+    Args:
+        library_info: 库信息字典，包含 metadata 和 features
+    """
+    metadata = library_info.get('metadata', {})
+    features = library_info.get('features', [])
+    
+    # 打印库头部信息
+    display_name = metadata.get('display_name', metadata.get('name', 'Unknown'))
+    description = metadata.get('description', '')
+    version = metadata.get('version', '')
+    install_cmd = metadata.get('install_command', '')
+    official_url = metadata.get('official_url', '')
+    
+    console.print(f"\n📚 [bold cyan]{display_name}[/bold cyan] - {description}")
+    if version:
+        console.print(f"版本：{version}")
+    if install_cmd:
+        console.print(f"安装：[yellow]{install_cmd}[/yellow]")
+    if official_url:
+        console.print(f"文档：[link]{official_url}[/link]")
+    
+    console.print("\n[bold]功能模块列表：[/bold]\n")
+    
+    # 按分类分组
+    categories_dict = {}
+    for feature in features:
+        category = feature.get('category', '未分类')
+        if category not in categories_dict:
+            categories_dict[category] = []
+        categories_dict[category].append(feature)
+    
+    # 按分类展示
+    index = 1
+    for category, category_features in sorted(categories_dict.items()):
+        console.print(f"【{category}】")
+        for feature in sorted(category_features, key=lambda x: x['name']):
+            name = feature['name']
+            title = feature.get('title', name)
+            description = feature.get('description', '')
+            difficulty = feature.get('difficulty', 'beginner')
+            
+            # 难度颜色
+            difficulty_style = {
+                'beginner': 'green',
+                'intermediate': 'yellow',
+                'advanced': 'red'
+            }.get(difficulty.lower(), 'white')
+            
+            difficulty_text = f"[{difficulty_style}]({difficulty})[/{difficulty_style}]"
+            console.print(f"  {index}. [bold]{name}[/bold]  {title} {difficulty_text}")
+            if description:
+                console.print(f"     {description}")
+            index += 1
+        console.print()
+    
+    # 提示信息
+    library_name = metadata.get('name', '')
+    console.print("[bold]提示：[/bold]")
+    console.print(f"  - 获取具体功能：opendemo get python {library_name} <功能名>")
+    console.print(f"  - 搜索相关功能：opendemo get python {library_name} <关键字>")
+    console.print(f"  - 查看全部：opendemo search python {library_name}")
+    console.print()

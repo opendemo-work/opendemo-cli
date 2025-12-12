@@ -139,7 +139,8 @@ class DemoManager:
         difficulty: str = 'beginner',
         author: str = '',
         save_to_user_library: bool = False,
-        custom_folder_name: str = None
+        custom_folder_name: str = None,
+        library_name: Optional[str] = None
     ) -> Optional[Demo]:
         """
         创建新demo
@@ -154,6 +155,7 @@ class DemoManager:
             author: 作者
             save_to_user_library: 是否保存到用户库
             custom_folder_name: 自定义文件夹名称
+            library_name: 库名称，如"numpy"，用于库demo生成
             
         Returns:
             创建的Demo对象,失败返回None
@@ -169,6 +171,10 @@ class DemoManager:
             base_path = self.storage.user_library_path / language.lower()
         else:
             base_path = self.storage.get_output_directory() / language.lower()
+        
+        # 如果是库demo，追加libraries和库名层级
+        if library_name:
+            base_path = base_path / 'libraries' / library_name
         
         demo_path = base_path / demo_dir_name
         

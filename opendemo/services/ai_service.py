@@ -326,3 +326,225 @@ class AIService:
         except Exception as e:
             logger.error(f"API key validation failed: {e}")
             return False
+    
+    def classify_keyword(
+        self,
+        language: str,
+        keyword: str
+    ) -> Dict[str, Any]:
+        """
+        使用AI判断关键字是库名还是编程主题
+        
+        Args:
+            language: 编程语言
+            keyword: 待判断的关键字
+            
+        Returns:
+            包含分类结果的字典:
+            {
+                'is_library': True/False,
+                'confidence': 0.0-1.0,
+                'library_name': '库名' 或 None,
+                'description': '描述'
+            }
+        """
+        self._load_config()
+        
+        if not self._api_key:
+            logger.warning("AI API key not configured, using heuristic detection")
+            return self._heuristic_classify(language, keyword)
+        
+        prompt = f"""你是一个编程语言库/包识别专家。
+
+请判断以下关键字在 {language} 语言中是一个“库/包/框架名称”还是一个“编程主题/概念”。
+
+关键字: "{keyword}"
+语言: {language}
+
+判断标准:
+- 库/包/框架名称: 像 numpy, pandas, requests, django, flask, spring, gin, express 这类可以通过包管理器安装的第三方库
+- 编程主题/概念: 像 "异步编程", "数据处理", "HTTP请求", "设计模式", "logging", "threading" 这类描述编程概念或功能的词
+
+注意:
+- 标准库模块（如 Python 的 os, sys, json）视为“编程主题”，不是第三方库
+- 中文关键字通常是“编程主题”
+- 英文单词要仔细判断是否为常见的第三方库
+
+请以JSON格式返回:
+{{
+  "is_library": true/false,
+  "confidence": 0.0-1.0,
+  "library_name": "库名称"或null,
+  "description": "简短解释"
+}}
+
+只返回JSON，不要其他文字。"""
+        
+        try:
+            headers = {
+                'Content-Type': 'application/json',
+                'Authorization': f'Bearer {self._api_key}'
+            }
+            
+            data = {
+                'model': self._model,
+                'messages': [
+                    {
+                        'role': 'system',
+                        'content': '你是一个编程语言库识别专家，只返回JSON格式结果。'
+                    },
+                    {
+                        'role': 'user',
+                        'content': prompt
+                    }
+                ],
+                'temperature': 0.1,  # 低温度以获得更稳定的结果
+                'max_tokens': 200
+            }
+            
+            timeout = self.config.get('ai.timeout', 30)
+            
+            logger.info(f"Classifying keyword '{keyword}' for language {language}")
+            
+            response = requests.post(
+                self._api_endpoint,
+                headers=headers,
+                json=data,
+                timeout=timeout
+            )
+            
+            response.raise_for_status()
+            result = response.json()
+            content = result['choices'][0]['message']['content'].strip()
+            
+            # 解析JSON响应
+            return self._parse_classify_response(content, keyword)
+            
+        except Exception as e:
+            logger.warning(f"AI classification failed: {e}, using heuristic detection")
+            return self._heuristic_classify(language, keyword)
+    
+    def _parse_classify_response(
+        self,
+        response: str,
+        keyword: str
+    ) -> Dict[str, Any]:
+        """
+        解析分类AI响应
+        
+        Args:
+            response: AI响应内容
+            keyword: 原始关键字
+            
+        Returns:
+            解析后的分类结果
+        """
+        try:
+            # 尝试提取JSON
+            response = response.strip()
+            if response.startswith('```'):
+                start = response.find('\n') + 1
+                end = response.rfind('```')
+                if end > start:
+                    response = response[start:end].strip()
+            
+            data = json.loads(response)
+            
+            return {
+                'is_library': data.get('is_library', False),
+                'confidence': data.get('confidence', 0.5),
+                'library_name': data.get('library_name') if data.get('is_library') else None,
+                'description': data.get('description', '')
+            }
+            
+        except json.JSONDecodeError as e:
+            logger.error(f"Failed to parse classify response: {e}")
+            return {
+                'is_library': False,
+                'confidence': 0.0,
+                'library_name': None,
+                'description': 'Failed to parse AI response'
+            }
+    
+    def _heuristic_classify(
+        self,
+        language: str,
+        keyword: str
+    ) -> Dict[str, Any]:
+        """
+        启发式关键字分类（当AI不可用时使用）
+        
+        Args:
+            language: 编程语言
+            keyword: 待分类的关键字
+            
+        Returns:
+            分类结果
+        """
+        kw = keyword.lower().strip()
+        
+        # 检查是否包含中文
+        has_chinese = any('\u4e00' <= char <= '\u9fff' for char in kw)
+        if has_chinese:
+            return {
+                'is_library': False,
+                'confidence': 0.9,
+                'library_name': None,
+                'description': '包含中文，判断为编程主题'
+            }
+        
+        # 常见的第三方库列表（按语言分类）
+        common_libraries = {
+            'python': {
+                'numpy', 'pandas', 'requests', 'flask', 'django', 'fastapi',
+                'scikit-learn', 'sklearn', 'tensorflow', 'pytorch', 'torch',
+                'matplotlib', 'seaborn', 'sqlalchemy', 'celery', 'redis',
+                'beautifulsoup', 'bs4', 'scrapy', 'selenium', 'pytest',
+                'pydantic', 'httpx', 'aiohttp', 'uvicorn', 'gunicorn',
+                'pillow', 'opencv', 'cv2', 'boto3', 'pymongo', 'psycopg2'
+            },
+            'java': {
+                'spring', 'spring-boot', 'springboot', 'hibernate', 'mybatis',
+                'junit', 'mockito', 'lombok', 'jackson', 'gson', 'okhttp',
+                'retrofit', 'netty', 'kafka', 'rabbitmq', 'redis', 'jedis',
+                'elasticsearch', 'log4j', 'slf4j', 'logback', 'guava'
+            },
+            'go': {
+                'gin', 'echo', 'fiber', 'beego', 'gorm', 'cobra', 'viper',
+                'zap', 'logrus', 'testify', 'wire', 'fx', 'grpc', 'protobuf'
+            },
+            'nodejs': {
+                'express', 'koa', 'fastify', 'nest', 'nestjs', 'next',
+                'react', 'vue', 'angular', 'axios', 'lodash', 'moment',
+                'mongoose', 'sequelize', 'typeorm', 'prisma', 'jest',
+                'mocha', 'webpack', 'vite', 'socket.io', 'redis', 'bull'
+            }
+        }
+        
+        lang_libs = common_libraries.get(language.lower(), set())
+        
+        if kw in lang_libs:
+            return {
+                'is_library': True,
+                'confidence': 0.95,
+                'library_name': kw,
+                'description': f'{kw} 是 {language} 常见的第三方库'
+            }
+        
+        # 检查是否符合库名特征（全小写、无空格、合理长度）
+        if (len(kw) >= 2 and len(kw) <= 30 and 
+            kw[0].isalpha() and 
+            all(c.isalnum() or c in '-_' for c in kw)):
+            return {
+                'is_library': True,
+                'confidence': 0.6,
+                'library_name': kw,
+                'description': f'符合库名特征，可能是库名'
+            }
+        
+        return {
+            'is_library': False,
+            'confidence': 0.7,
+            'library_name': None,
+            'description': '不符合库名特征，判断为编程主题'
+        }

@@ -6,6 +6,7 @@
 
 - 🚀 **快速获取Demo**: 通过简单命令获取特定编程语言和主题的完整示例代码
 - 📚 **AI智能生成**: 本地库未找到时,自动调用AI生成高质量demo
+- 📦 **第三方库支持**: AI智能识别第三方库，自动组织到libraries目录
 - ✅ **可选验证**: 自动验证生成的代码可执行性,确保质量
 - 🔍 **智能搜索**: 在本地demo库中快速搜索相关示例
 - 🌍 **社区贡献**: 支持将优质demo贡献到公共库
@@ -70,6 +71,21 @@ opendemo new go 并发编程 --difficulty intermediate
 opendemo new nodejs async-await --difficulty intermediate
 ```
 
+**第三方库Demo（自动识别并组织到libraries目录）:**
+```bash
+# AI会自动识别第三方库，并将demo输出到 libraries 目录
+opendemo new python numpy                    # → opendemo_output/python/libraries/numpy/
+opendemo new python requests HTTP请求       # → opendemo_output/python/libraries/requests/
+opendemo new python pandas 数据分析          # → opendemo_output/python/libraries/pandas/
+opendemo new java spring-boot web服务       # → opendemo_output/java/libraries/spring-boot/
+opendemo new go gin 中间件                   # → opendemo_output/go/libraries/gin/
+opendemo new nodejs express 路由             # → opendemo_output/nodejs/libraries/express/
+
+# 普通编程主题（中文或标准库）输出到语言根目录
+opendemo new python 数据处理               # → opendemo_output/python/
+opendemo new python logging                 # → opendemo_output/python/ (标准库)
+```
+
 **配置管理:**
 ```bash
 opendemo config set ai.api_key YOUR_API_KEY
@@ -88,7 +104,9 @@ opendemo/
 │   │   ├── demo_manager.py
 │   │   ├── search_engine.py
 │   │   ├── generator.py
-│   │   └── verifier.py
+│   │   ├── verifier.py
+│   │   ├── library_detector.py  # 库名检测器
+│   │   └── library_manager.py   # 库管理器
 │   ├── services/          # 服务层
 │   │   ├── ai_service.py
 │   │   ├── config_service.py
@@ -101,6 +119,17 @@ opendemo/
 │       ├── go/
 │       ├── nodejs/
 │       └── java/
+├── opendemo_output/       # 输出目录
+│   ├── python/
+│   │   ├── libraries/         # 第三方库Demo
+│   │   │   ├── numpy/
+│   │   │   ├── requests/
+│   │   │   └── pandas/
+│   │   └── <普通主题demo>/    # 编程主题Demo
+│   ├── go/
+│   │   └── libraries/
+│   └── nodejs/
+│       └── libraries/
 ├── tests/                 # 测试文件
 ├── pyproject.toml         # 项目配置
 └── README.md              # 说明文档
