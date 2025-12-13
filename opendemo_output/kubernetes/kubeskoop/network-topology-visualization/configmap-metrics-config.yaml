@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: metrics-config
+  labels:
+    app: topology-collector
+# 用于存储采集规则或配置文件
+# 实际可包含Prometheus relabel rules或过滤策略
+data:
+  edges.json: |
+    [
+      {"source": "frontend", "target": "product-svc", "protocol": "HTTP"},
+      {"source": "product-svc", "target": "redis", "protocol": "TCP"}
+    ]
+  config.yaml: |
+    scrape_interval: 30s
+    topology_enabled: true
+    include_namespaces:
+      - default
+      - production

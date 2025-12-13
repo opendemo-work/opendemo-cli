@@ -1,0 +1,4 @@
+kubectl >= v1.20
+helm >= v3.5
+prometheus-community/kube-prometheus-stack
+grafana/grafana

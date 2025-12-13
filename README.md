@@ -4,7 +4,7 @@
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Demos](https://img.shields.io/badge/Demos-235-orange.svg)](#demo-statistics)
+[![Demos](https://img.shields.io/badge/Demos-247-orange.svg)](#demo-statistics)
 
 ---
 
@@ -74,12 +74,13 @@ opendemo config set ai.api_endpoint YOUR_ENDPOINT
 
 ## 📊 Demo统计
 
-| 语言 | 基础Demo | 第三方库 | 总计 | 测试状态 |
-|------|----------|----------|------|----------|
-| 🐍 **Python** | 51 | numpy(25) | 76 | ✅ 全部通过 |
-| 🐹 **Go** | 92 | - | 92 | ✅ 全部通过 |
+| 语言 | 基础Demo | 第三方库/工具 | 总计 | 测试状态 |
+|---------|----------|----------|------|----------|
+| 🐍 **Python** | 51 | iterator(1), numpy(25) | 77 | ✅ 全部通过 |
+| 🐹 **Go** | 92 | context(1) | 93 | ✅ 全部通过 |
 | 🟢 **Node.js** | 67 | - | 67 | ✅ 全部通过 |
-| **总计** | **210** | **25** | **235** | ✅ |
+| ⎈ **Kubernetes** | 0 | kubeskoop(10) | 10 | ✅ 全部通过 |
+| **总计** | **210** | **37** | **247** | ✅ |
 
 ---
 
@@ -424,6 +425,30 @@ opendemo config set ai.api_endpoint YOUR_ENDPOINT
 
 ---
 
+### ⎈ Kubernetes (10个)
+
+<details>
+<summary><b>📝 KubeSkoop网络诊断工具 (10个)</b> - 点击展开</summary>
+
+> 路径: `opendemo_output/kubernetes/kubeskoop/`
+
+| # | Demo名称 | 功能说明 | 状态 |
+|---|---------|---------|------|
+| 1 | `helm-basic-installation-guide` | Helm基础安装与使用 | ✅ |
+| 2 | `pod-connectivity-diagnosis` | Pod连通性诊断 | ✅ |
+| 3 | `service-access-diagnosis` | Service访问诊断 | ✅ |
+| 4 | `event-probes-configuration` | 事件探针配置 | ✅ |
+| 5 | `metric-probes-configuration` | 指标探针配置 | ✅ |
+| 6 | `packet-capture-demo` | 网络报文捕获 | ✅ |
+| 7 | `latency-detection-configuration` | 延迟检测配置 | ✅ |
+| 8 | `network-topology-visualization` | 网络拓扑可视化 | ✅ |
+| 9 | `prometheus-integration` | Prometheus集成 | ✅ |
+| 10 | `loki-event-sink-configuration` | Loki事件接收配置 | ✅ |
+
+</details>
+
+---
+
 ## ⚙️ 配置说明
 
 ### 配置文件
@@ -453,8 +478,8 @@ opendemo/
 ├── opendemo/              # 主包
 │   ├── cli.py             # CLI入口 (Click)
 │   ├── core/              # 业务逻辑
-│   │   ├── demo_manager.py
-│   │   ├── search_engine.py
+│   │   ├── demo_repository.py
+│   │   ├── demo_search.py
 │   │   ├── demo_generator.py
 │   │   └── demo_verifier.py
 │   └── services/          # 服务层
@@ -466,7 +491,9 @@ opendemo/
 │   │   └── libraries/     # 第三方库
 │   │       └── numpy/
 │   ├── go/
-│   └── nodejs/
+│   ├── nodejs/
+│   └── kubernetes/        # Kubernetes工具Demo
+│       └── kubeskoop/     # KubeSkoop网络诊断
 └── tests/                 # 测试文件
 ```
 

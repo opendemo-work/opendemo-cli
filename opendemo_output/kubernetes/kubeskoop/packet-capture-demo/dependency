@@ -1,0 +1,5 @@
+kubectl >= 1.20
+docker >= 20.10
+minikube >= 1.25 (optional)
+corfr/tcpdump:latest
+nginx:1.25

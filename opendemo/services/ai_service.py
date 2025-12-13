@@ -518,6 +518,12 @@ class AIService:
                 'react', 'vue', 'angular', 'axios', 'lodash', 'moment',
                 'mongoose', 'sequelize', 'typeorm', 'prisma', 'jest',
                 'mocha', 'webpack', 'vite', 'socket.io', 'redis', 'bull'
+            },
+            'kubernetes': {
+                'kubeskoop', 'istio', 'cilium', 'linkerd', 'calico',
+                'flannel', 'weave', 'helm', 'kustomize', 'argocd',
+                'flux', 'prometheus-operator', 'grafana', 'loki',
+                'falco', 'kubevirt', 'knative', 'cert-manager'
             }
         }
         

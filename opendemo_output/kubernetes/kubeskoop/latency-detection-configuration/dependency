@@ -1,0 +1,4 @@
+prometheus-operator: v0.50.0
+kubectl: '>=1.20'
+minikube: '>=1.15'
+helm: '>=3.0'

@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-startup
+  labels:
+    app: demo-startup
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-startup
+  template:
+    metadata:
+      labels:
+        app: demo-startup
+    spec:
+      containers:
+      - name: demo-container
+        image: gcr.io/google-samples/simple-app:1.0
+        ports:
+        - containerPort: 8080
+        # startupProbe 用于启动耗时较长的应用
+        startupProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          failureThreshold: 30  # 最大尝试30次
+          periodSeconds: 10     # 每10秒检查一次（总共最多5分钟）
+        # 当 startupProbe 成功后，才启用以下探针
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5

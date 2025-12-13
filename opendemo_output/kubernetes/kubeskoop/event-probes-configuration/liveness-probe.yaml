@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: liveness-demo
+  annotations:
+    # 注解可用于记录探针设计意图
+    probe-design/reason: "检测临时文件存在以模拟健康检查"
+spec:
+  containers:
+  - name: liveness-container
+    image: busybox
+    args:
+    - /bin/sh
+    - -c
+    - >-
+      touch /tmp/healthy &&
+      sleep 30 &&
+      rm -f /tmp/healthy &&
+      sleep 600
+    livenessProbe:
+      exec:
+        command:
+        - cat
+        - /tmp/healthy
+      initialDelaySeconds: 5
+      periodSeconds: 5
+      failureThreshold: 3
+      timeoutSeconds: 1
+    # 最佳实践：设置资源限制
+    resources:
+      limits:
+        memory: "64Mi"
+        cpu: "250m"
+      requests:
+        memory: "32Mi"
+        cpu: "100m"

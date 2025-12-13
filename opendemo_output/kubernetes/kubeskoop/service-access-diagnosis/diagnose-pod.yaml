@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: diagnose-pod
+spec:
+  containers:
+  - name: diagnoser
+    image: busybox:1.35
+    command: ["sleep", "3600"]  # 让Pod长时间运行以便执行诊断命令
+    resources:
+      limits:
+        memory: "32Mi"
+        cpu: "100m"
+---
+# 创建一个包含基本网络工具的诊断Pod
+# 使用busybox镜像因其小巧且包含curl/nslookup等实用程序
+# sleep 3600确保Pod持续运行1小时，便于调试操作

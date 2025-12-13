@@ -1,0 +1,21 @@
+# 项目依赖声明
+
+## 必需工具
+- kubectl >= v1.20
+- Kubernetes 集群（可通过 minikube、kind、GKE、EKS 等提供）
+
+## 容器镜像依赖
+- nginx:1.21
+  - 来源: Docker Hub
+  - 用途: 提供HTTP服务用于测试
+- radial/busyboxplus:curl
+  - 来源: Docker Hub
+  - 用途: 包含curl、wget、ping等网络诊断工具
+
+## 网络要求
+- 集群内Pod网络必须正常工作
+- 允许Pod间默认通信（无NetworkPolicy阻止）
+
+## 可选工具
+- minikube >= v1.0
+- curl (本地用于验证)

@@ -1,0 +1,14 @@
+# 项目依赖声明
+
+## 必需工具
+- kubectl >= v1.20
+- curl
+
+## 可选环境
+- minikube >= v1.19 (用于本地测试)
+
+## 镜像依赖
+- python:3.9-alpine
+- busybox:1.35
+
+> 所有镜像均来自Docker Hub公共仓库，无需私有凭证即可拉取。

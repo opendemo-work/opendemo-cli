@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: example-app-monitor
+  labels:
+    app: example-app
+spec:
+  selector:
+    matchLabels:
+      app: example-app  # 匹配目标 Service 的标签
+  namespaceSelector:
+    any: true  # 允许从任意命名空间选择 Service
+  endpoints:
+    - port: metrics  # 对应 Service 中定义的端口名称
+      interval: 15s   # 抓取间隔
+      path: /stats    # 指标路径（注意：hello-kubernetes 使用 /stats 而非 /metrics）

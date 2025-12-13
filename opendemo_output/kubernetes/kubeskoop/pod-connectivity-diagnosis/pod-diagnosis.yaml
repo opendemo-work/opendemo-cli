@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-server
+  labels:
+    app: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.21
+    ports:
+    - containerPort: 80
+      name: http
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: diagnosis-client
+  labels:
+    app: diagnostic
+spec:
+  containers:
+  - name: client
+    image: radial/busyboxplus:curl
+    command: ['sh', '-c', 'echo Client Pod is running && sleep 3600']

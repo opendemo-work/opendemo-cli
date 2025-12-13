@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: network-topology-collector
+  labels:
+    app: topology-collector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: topology-collector
+  template:
+    metadata:
+      labels:
+        app: topology-collector
+    spec:
+      # 使用轻量级容器模拟拓扑数据采集行为
+      containers:
+      - name: collector
+        image: busybox
+        command:
+        - sh
+        - -c
+        - |
+          echo "[INFO] 启动网络拓扑模拟采集器..."
+          echo "[DATA] edge{src=product-svc,dst=redis,type=TCP,port=6379}"
+          echo "[DATA] edge{src=frontend,dst=product-svc,type=HTTP,port=8080}"
+          while true; do
+            sleep 60
+            echo "[HEARTBEAT] 拓扑采集器运行中..."
+          done
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+          requests:
+            cpu: 50m
+            memory: 50Mi
+        # 实际生产环境应挂载eBPF程序或Sidecar代理

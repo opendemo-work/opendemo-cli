@@ -1,0 +1,13 @@
+# 项目依赖声明文件
+
+# 工具依赖
+kubectl >= 1.20
+helm >= 3.8
+minikube >= 1.25
+
+# 可选：Helm 仓库依赖（在此未使用）
+# repositories:
+#   - name: bitnami
+#     url: https://charts.bitnami.com/bitnami
+
+# 注意：本项目不依赖外部Chart，仅使用本地Chart示例。

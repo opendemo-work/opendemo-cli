@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-server
+  labels:
+    app: web-server
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: web-server
+  template:
+    metadata:
+      labels:
+        app: web-server
+    spec:
+      containers:
+      - name: web-container
+        image: python:3.9-alpine
+        command: ["/bin/sh"]
+        args: ["-c", "echo 'Hello, Kubernetes! This is web-server pod.' > /tmp/index.html && python -m http.server 8080 --bind 0.0.0.0 --directory /tmp"]
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            memory: "64Mi"
+            cpu: "250m"
+---
+# 这个Deployment创建两个副本的简单HTTP服务器
+# 使用Python内置服务器快速搭建演示服务
+# 标签app=web-server用于被Service选择器匹配

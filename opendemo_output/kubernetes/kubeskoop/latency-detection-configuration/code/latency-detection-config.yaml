@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+---
+# 部署一个简单的HTTP服务用于生成延迟指标
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpbin
+  namespace: monitoring
+  labels:
+    app: httpbin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: httpbin
+  template:
+    metadata:
+      labels:
+        app: httpbin
+      # 注解用于Prometheus自动发现
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io/path: /metrics
+        prometheus.io/port: '80'
+    spec:
+      containers:
+      - name: httpbin
+        image: kennethreitz/httpbin
+        ports:
+        - containerPort: 80
+---
+# 暴露服务以便内部调用
+apiVersion: v1
+kind: Service
+metadata:
+  name: httpbin
+  namespace: monitoring
+  labels:
+    app: httpbin
+spec:
+  selector:
+    app: httpbin
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

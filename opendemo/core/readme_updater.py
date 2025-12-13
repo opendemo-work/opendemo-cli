@@ -11,7 +11,7 @@ from typing import Dict, List, Optional, Any
 from opendemo.utils.logger import get_logger
 
 # 支持的语言列表
-SUPPORTED_LANGUAGES = ['python', 'go', 'nodejs', 'java']
+SUPPORTED_LANGUAGES = ['python', 'go', 'nodejs', 'java', 'kubernetes']
 
 # 语言显示配置
 LANGUAGE_CONFIG = {
@@ -19,6 +19,7 @@ LANGUAGE_CONFIG = {
     'go': {'emoji': '🐹', 'name': 'Go'},
     'nodejs': {'emoji': '🟢', 'name': 'Node.js'},
     'java': {'emoji': '☕', 'name': 'Java'},
+    'kubernetes': {'emoji': '⎈', 'name': 'Kubernetes'},
 }
 
 
@@ -46,6 +47,7 @@ class ReadmeUpdater:
             {
                 'python': {'base': 51, 'libraries': {'numpy': 25}},
                 'go': {'base': 92, 'libraries': {}},
+                'kubernetes': {'base': 0, 'tools': {'kubeskoop': 10}},
                 ...
             }
         """
@@ -55,30 +57,41 @@ class ReadmeUpdater:
             lang_dir = self.output_dir / lang.lower()
             
             if not lang_dir.exists():
-                stats[lang] = {'base': 0, 'libraries': {}}
+                stats[lang] = {'base': 0, 'libraries': {}, 'tools': {}}
                 continue
             
             base_count = 0
             libraries = {}
+            tools = {}  # 用于kubernetes工具
             
-            for item in lang_dir.iterdir():
-                if item.is_dir():
-                    if item.name == 'libraries':
-                        # 统计第三方库demo
-                        for lib_dir in item.iterdir():
-                            if lib_dir.is_dir():
-                                lib_demos = sum(1 for d in lib_dir.iterdir() if d.is_dir())
-                                if lib_demos > 0:
-                                    libraries[lib_dir.name] = lib_demos
-                    else:
-                        # 检查是否有metadata.json来确认是有效的demo
-                        if (item / 'metadata.json').exists():
-                            base_count += 1
+            # 对kubernetes特殊处理
+            if lang.lower() == 'kubernetes':
+                # kubernetes目录结构: kubernetes/<tool_name>/<demo>/
+                for tool_dir in lang_dir.iterdir():
+                    if tool_dir.is_dir():
+                        tool_demos = sum(1 for d in tool_dir.iterdir() if d.is_dir())
+                        if tool_demos > 0:
+                            tools[tool_dir.name] = tool_demos
+            else:
+                # 其他语言的统计逻辑
+                for item in lang_dir.iterdir():
+                    if item.is_dir():
+                        if item.name == 'libraries':
+                            # 统计第三方库demo
+                            for lib_dir in item.iterdir():
+                                if lib_dir.is_dir():
+                                    lib_demos = sum(1 for d in lib_dir.iterdir() if d.is_dir())
+                                    if lib_demos > 0:
+                                        libraries[lib_dir.name] = lib_demos
                         else:
-                            # 兼容：即使没有metadata.json也算作demo
-                            base_count += 1
+                            # 检查是否有metadata.json来确认是有效的demo
+                            if (item / 'metadata.json').exists():
+                                base_count += 1
+                            else:
+                                # 兼容：即使没有metadata.json也算作demo
+                                base_count += 1
             
-            stats[lang] = {'base': base_count, 'libraries': libraries}
+            stats[lang] = {'base': base_count, 'libraries': libraries, 'tools': tools}
         
         return stats
     
@@ -87,19 +100,22 @@ class ReadmeUpdater:
         计算各类总数
         
         Returns:
-            {'base_total': 210, 'lib_total': 25, 'grand_total': 235}
+            {'base_total': 210, 'lib_total': 25, 'tool_total': 10, 'grand_total': 245}
         """
         base_total = 0
         lib_total = 0
+        tool_total = 0
         
         for lang, data in stats.items():
             base_total += data.get('base', 0)
             lib_total += sum(data.get('libraries', {}).values())
+            tool_total += sum(data.get('tools', {}).values())
         
         return {
             'base_total': base_total,
             'lib_total': lib_total,
-            'grand_total': base_total + lib_total
+            'tool_total': tool_total,
+            'grand_total': base_total + lib_total + tool_total
         }
     
     def generate_stats_table(self, stats: Dict[str, Dict[str, Any]]) -> str:
@@ -114,24 +130,34 @@ class ReadmeUpdater:
         lines = [
             "## 📊 Demo统计",
             "",
-            "| 语言 | 基础Demo | 第三方库 | 总计 | 测试状态 |",
-            "|------|----------|----------|------|----------|"
+            "| 语言 | 基础Demo | 第三方库/工具 | 总计 | 测试状态 |",
+            "|---------|----------|----------|------|----------|"
         ]
         
-        for lang in ['python', 'go', 'nodejs']:
+        for lang in ['python', 'go', 'nodejs', 'kubernetes']:
             config = LANGUAGE_CONFIG.get(lang, {'emoji': '', 'name': lang})
-            data = stats.get(lang, {'base': 0, 'libraries': {}})
+            data = stats.get(lang, {'base': 0, 'libraries': {}, 'tools': {}})
             
             base = data.get('base', 0)
             libs = data.get('libraries', {})
+            tools = data.get('tools', {})
             lib_total = sum(libs.values())
-            total = base + lib_total
+            tool_total = sum(tools.values())
+            total = base + lib_total + tool_total
             
-            # 格式化第三方库信息
-            if libs:
-                lib_info = ', '.join(f"{name}({count})" for name, count in libs.items())
+            # 格式化第三方库/工具信息
+            if lang.lower() == 'kubernetes':
+                # kubernetes显示工具信息
+                if tools:
+                    lib_info = ', '.join(f"{name}({count})" for name, count in tools.items())
+                else:
+                    lib_info = '-'
             else:
-                lib_info = '-'
+                # 其他语言显示库信息
+                if libs:
+                    lib_info = ', '.join(f"{name}({count})" for name, count in libs.items())
+                else:
+                    lib_info = '-'
             
             lines.append(
                 f"| {config['emoji']} **{config['name']}** | {base} | {lib_info} | {total} | ✅ 全部通过 |"
@@ -139,7 +165,7 @@ class ReadmeUpdater:
         
         # 总计行
         lines.append(
-            f"| **总计** | **{totals['base_total']}** | **{totals['lib_total']}** | **{totals['grand_total']}** | ✅ |"
+            f"| **总计** | **{totals['base_total']}** | **{totals['lib_total'] + totals['tool_total']}** | **{totals['grand_total']}** | ✅ |"
         )
         
         return '\n'.join(lines)

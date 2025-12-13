@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: both-probes-demo
+spec:
+  containers:
+  - name: app-container
+    image: gcr.io/google-samples/hello-app:1.0
+    ports:
+    - containerPort: 8080
+    # 就绪探针：检查应用是否准备好接收请求
+    readinessProbe:
+      httpGet:
+        path: /
+        port: 8080
+      initialDelaySeconds: 3
+      periodSeconds: 5
+    # 存活探针：检查应用是否仍处于运行状态
+    livenessProbe:
+      httpGet:
+        path: /
+        port: 8080
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      failureThreshold: 3
+    resources:
+      limits:
+        memory: "64Mi"
+        cpu: "200m"
+      requests:
+        memory: "32Mi"
+        cpu: "100m"

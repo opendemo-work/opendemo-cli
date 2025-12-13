@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: httpbin-monitor
+  namespace: monitoring
+  labels:
+    release: prometheus # 必须与Prometheus实例的matchLabel一致
+spec:
+  selector:
+    matchLabels:
+      app: httpbin
+  namespaceSelector:
+    matchNames:
+      - monitoring
+  endpoints:
+  - port: 80
+    path: /metrics
+    interval: 15s
+    # 可选：配置Bearer Token用于认证
+    # bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token

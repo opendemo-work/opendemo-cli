@@ -1,0 +1,55 @@
+# promtail-config.yaml
+# Promtail Helm Chart 配置文件
+
+# 指定Loki后端地址
+client:
+  # 使用Kubernetes服务名访问Loki
+  url: http://loki:3100/loki/api/v1/push
+
+# 日志采集配置
+config:
+  # 系统级日志位置（由Kubernetes定义）
+  positions:
+    filename: /run/promtail/positions.yaml
+
+  # 定义日志抓取任务
+  scrape_configs:
+    - job_name: kubernetes-pods
+      # 动态发现所有Pod的日志文件
+      kubernetes_sd_configs:
+        - role: pod
+
+      # Relabel机制：提取元数据作为日志标签
+      relabel_configs:
+        - source_labels: [__meta_kubernetes_pod_label_app]
+          target_label: job
+        - source_labels: [__meta_kubernetes_namespace]
+          target_label: namespace
+        - source_labels: [__meta_kubernetes_pod_name]
+          target_label: pod
+        - action: labelmap
+          regex: __meta_kubernetes_pod_label_(.+)
+          replacement: label_$1
+
+      # 日志读取路径模板
+      pipeline_stages:
+        - file:
+            path: /var/log/pods/*/*/*.log
+
+# 资源配置
+resources: {}
+
+# 运行在每个节点上
+daemonset:
+  enabled: true
+
+# 挂载宿主机日志目录
+extraVolumes:
+  - name: pods-log-directory
+    hostPath:
+      path: /var/log/pods
+
+extraVolumeMounts:
+  - name: pods-log-directory
+    mountPath: /var/log/pods
+    readOnly: true

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-liveness
+  labels:
+    app: demo-liveness
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-liveness
+  template:
+    metadata:
+      labels:
+        app: demo-liveness
+    spec:
+      containers:
+      - name: demo-container
+        image: gcr.io/google-samples/simple-app:1.0
+        ports:
+        - containerPort: 8080
+        livenessProbe:  # 健康存活探针
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 10  # 容器启动后延迟10秒开始检查
+          periodSeconds: 5         # 每5秒检查一次
+          timeoutSeconds: 3        # 超时时间3秒
+          failureThreshold: 3      # 失败3次则判定为不健康，触发重启

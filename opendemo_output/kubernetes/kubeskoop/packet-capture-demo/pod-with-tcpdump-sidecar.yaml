@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: packet-capture-demo
+  labels:
+    app: packet-capture-demo
+spec:
+  # 最佳实践：启用进程命名空间共享以便调试
+  shareProcessNamespace: true
+  # 使用非主机网络以增强隔离性
+  hostNetwork: false
+  containers:
+  - name: main-app
+    image: nginx:1.25
+    ports:
+    - containerPort: 80
+    # 最小化权限：不启用特权模式
+    securityContext:
+      runAsNonRoot: true
+      capabilities:
+        drop:
+        - ALL
+  - name: tcpdump-sidecar
+    image: corfr/tcpdump:latest
+    # 通过共享卷导出抓包数据
+    volumeMounts:
+    - name: captures
+      mountPath: /captures
+    # 允许网络嗅探能力，但不赋予完整特权
+    securityContext:
+      capabilities:
+        add:
+        - NET_RAW
+        - NET_ADMIN
+    # 健康检查确保工具可用
+    livenessProbe:
+      exec:
+        command:
+        - /usr/sbin/tcpdump
+        - -c1
+        - -i
+        - eth0
+      initialDelaySeconds: 30
+      periodSeconds: 60
+  # 使用临时卷在容器间共享数据
+  volumes:
+  - name: captures
+    emptyDir: {}
+  # 最佳实践：设置重启策略
+  restartPolicy: OnFailure

@@ -1,0 +1,42 @@
+# loki-values.yaml
+# Loki Helm Chart 自定义配置文件
+
+# 全局设置
+commonLabels:
+  demo: loki-event-sink
+
+# Loki主配置
+loki:
+  # 关闭身份验证以简化本地演示
+  auth_enabled: false
+
+  # 单副本模式（适用于开发）
+  ingester:
+    replication_factor: 1
+
+  # 使用内存存储索引（非生产）
+  schemaConfig:
+    configs:
+      - from: "2020-10-24"
+        store: boltdb-shipper
+        object_store: filesystem
+        schema: v11
+        index:
+          prefix: index_
+          period: 24h
+
+  # 本地文件系统作为对象存储
+  storage:
+    type: filesystem
+
+  # 启用HTTP API
+  http_server:
+    port: 3100
+
+  # 资源限制（可根据环境调整）
+  resources: {}
+
+# 服务暴露方式
+service:
+  type: ClusterIP
+  port: 3100

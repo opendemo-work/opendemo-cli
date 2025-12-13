@@ -190,8 +190,14 @@ class DemoRepository:
             base_path = self.storage.get_output_directory() / language.lower()
         
         # 如果是库demo，追加libraries和库名层级
+        # 对kubernetes进行特殊处理：直接使用 kubernetes/<tool_name>/ 结构
         if library_name:
-            base_path = base_path / 'libraries' / library_name
+            if language.lower() == 'kubernetes':
+                # kubernetes工具直接生成到 kubernetes/<tool_name>/
+                base_path = base_path / library_name
+            else:
+                # 其他语言生成到 <language>/libraries/<library_name>/
+                base_path = base_path / 'libraries' / library_name
         
         demo_path = base_path / demo_dir_name
         
@@ -417,6 +423,28 @@ class DemoRepository:
         
         libraries = []
         
+        # kubernetes 特殊处理：直接扫描 kubernetes/ 目录下的工具子目录
+        if language.lower() == 'kubernetes':
+            # 从输出目录扫描 kubernetes 工具
+            output_k8s_path = self.storage.get_output_directory() / 'kubernetes'
+            if output_k8s_path.exists():
+                for item in output_k8s_path.iterdir():
+                    if item.is_dir() and not item.name.startswith('_') and not item.name.startswith('.'):
+                        # 检查子目录下是否有包含 metadata.json 的 demo
+                        has_demos = any(
+                            (sub / 'metadata.json').exists() 
+                            for sub in item.iterdir() 
+                            if sub.is_dir()
+                        )
+                        if has_demos and item.name not in libraries:
+                            libraries.append(item.name)
+            
+            # 缓存结果
+            self._supported_libraries_cache[language] = libraries
+            logger.info(f"Found {len(libraries)} kubernetes tools: {libraries}")
+            return libraries
+        
+        # 其他语言使用标准 libraries 目录结构
         # 从内置库目录扫描
         builtin_library_path = self.storage.builtin_library_path / language.lower() / 'libraries'
         if builtin_library_path.exists():
@@ -494,6 +522,25 @@ class DemoRepository:
         else:
             features = []
             
+            # kubernetes 特殊处理：使用 kubernetes/<tool_name>/ 结构
+            if language.lower() == 'kubernetes':
+                output_tool_dir = (
+                    self.storage.get_output_directory() / 
+                    'kubernetes' / 
+                    library
+                )
+                if output_tool_dir.exists():
+                    features.extend(self._scan_library_features(output_tool_dir))
+                
+                # 缓存结果
+                self._library_features_cache[cache_key] = features
+                
+                # 按分类过滤
+                if category:
+                    features = [f for f in features if f.get('category') == category]
+                return features
+            
+            # 其他语言使用标准 libraries 目录结构
             # 从内置库扫描
             builtin_library_dir = (
                 self.storage.builtin_library_path / 
@@ -555,6 +602,21 @@ class DemoRepository:
         Returns:
             Demo 对象，未找到返回 None
         """
+        # kubernetes 特殊处理：使用 kubernetes/<tool_name>/<demo_name> 结构
+        if language.lower() == 'kubernetes':
+            output_demo_path = (
+                self.storage.get_output_directory() / 
+                'kubernetes' / 
+                library / 
+                feature
+            )
+            if output_demo_path.exists():
+                demo = self.load_demo(output_demo_path)
+                if demo:
+                    return demo
+            return None
+        
+        # 其他语言使用标准 libraries 目录结构
         # 优先从输出目录查找
         output_demo_path = (
             self.storage.get_output_directory() / 
@@ -618,7 +680,12 @@ class DemoRepository:
             return None
         
         output_dir = self.storage.get_output_directory()
-        target_path = output_dir / language.lower() / 'libraries' / library / feature
+        
+        # kubernetes 特殊处理：使用 kubernetes/<tool_name>/<demo_name> 结构
+        if language.lower() == 'kubernetes':
+            target_path = output_dir / 'kubernetes' / library / feature
+        else:
+            target_path = output_dir / language.lower() / 'libraries' / library / feature
         
         if self.storage.copy_demo(demo.path, target_path):
             return target_path

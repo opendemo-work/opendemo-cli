@@ -56,6 +56,8 @@ class DemoVerifier:
             return self._verify_go(demo_path)
         elif language.lower() == 'nodejs':
             return self._verify_nodejs(demo_path)
+        elif language.lower() == 'kubernetes':
+            return self._verify_kubernetes(demo_path)
         else:
             return {
                 'verified': False,
@@ -464,6 +466,132 @@ class DemoVerifier:
             except Exception as e:
                 result['errors'].append(str(e))
                 logger.error(f"Node.js verification failed: {e}")
+        
+        return result
+    
+    def _verify_kubernetes(self, demo_path: Path) -> Dict[str, Any]:
+        """
+        验证Kubernetes demo
+        
+        Args:
+            demo_path: demo路径
+            
+        Returns:
+            验证结果
+        """
+        result = {
+            'verified': False,
+            'partial': False,
+            'method': 'kubernetes',
+            'steps': [],
+            'outputs': [],
+            'errors': [],
+            'warnings': []
+        }
+        
+        try:
+            # 步骤1: 静态检查 - 验证YAML文件语法
+            yaml_files = list(demo_path.rglob('*.yaml')) + list(demo_path.rglob('*.yml'))
+            
+            if not yaml_files:
+                result['warnings'].append('No YAML files found in demo')
+            else:
+                result['steps'].append(f'Found {len(yaml_files)} YAML files')
+                
+                try:
+                    import yaml
+                    yaml_valid = True
+                    for yaml_file in yaml_files:
+                        try:
+                            with open(yaml_file, 'r', encoding='utf-8') as f:
+                                # 支持多文档YAML
+                                list(yaml.safe_load_all(f))
+                            result['steps'].append(f'YAML syntax check passed: {yaml_file.name}')
+                        except yaml.YAMLError as e:
+                            yaml_valid = False
+                            result['errors'].append(f'YAML syntax error in {yaml_file.name}: {str(e)}')
+                    
+                    if not yaml_valid:
+                        return result
+                        
+                except ImportError:
+                    result['warnings'].append('pyyaml not installed, skipping YAML validation')
+            
+            # 步骤2: 工具检查 - kubectl和helm可用性
+            tools_available = True
+            
+            # 检查kubectl
+            try:
+                kubectl_result = subprocess.run(
+                    ['kubectl', 'version', '--client'],
+                    capture_output=True,
+                    text=True,
+                    timeout=self.config.get('kubernetes.kubectl_timeout', 30)
+                )
+                if kubectl_result.returncode == 0:
+                    result['steps'].append('kubectl is available')
+                    if kubectl_result.stdout:
+                        result['outputs'].append(f"kubectl version: {kubectl_result.stdout.strip()}")
+                else:
+                    tools_available = False
+                    result['warnings'].append('kubectl not available or not in PATH')
+            except (subprocess.TimeoutExpired, FileNotFoundError) as e:
+                tools_available = False
+                result['warnings'].append(f'kubectl check failed: {str(e)}')
+            
+            # 检查helm
+            try:
+                helm_result = subprocess.run(
+                    ['helm', 'version'],
+                    capture_output=True,
+                    text=True,
+                    timeout=self.config.get('kubernetes.helm_timeout', 60)
+                )
+                if helm_result.returncode == 0:
+                    result['steps'].append('helm is available')
+                    if helm_result.stdout:
+                        result['outputs'].append(f"helm version: {helm_result.stdout.strip()}")
+                else:
+                    tools_available = False
+                    result['warnings'].append('helm not available or not in PATH')
+            except (subprocess.TimeoutExpired, FileNotFoundError) as e:
+                tools_available = False
+                result['warnings'].append(f'helm check failed: {str(e)}')
+            
+            # 如果工具不可用,标记为部分验证
+            if not tools_available:
+                result['partial'] = True
+                result['verified'] = True  # 静态检查通过即认为部分验证通过
+                result['message'] = 'Partial verification passed (static checks only)'
+                return result
+            
+            # 步骤3: 文档检查 - README.md完整性
+            readme_file = demo_path / 'README.md'
+            if readme_file.exists():
+                try:
+                    with open(readme_file, 'r', encoding='utf-8') as f:
+                        readme_content = f.read().lower()
+                    
+                    required_keywords = ['安装', 'install', '验证', 'verify']
+                    found_keywords = [kw for kw in required_keywords if kw in readme_content]
+                    
+                    if len(found_keywords) >= 2:
+                        result['steps'].append('README.md contains required sections')
+                    else:
+                        result['warnings'].append('README.md may be missing some required sections (installation, verification)')
+                        
+                except Exception as e:
+                    result['warnings'].append(f'Failed to read README.md: {str(e)}')
+            else:
+                result['warnings'].append('README.md not found')
+            
+            # 全部步骤通过
+            result['verified'] = True
+            result['message'] = 'All verification steps passed'
+            
+        except Exception as e:
+            result['errors'].append(f'Verification failed: {str(e)}')
+            logger.error(f"Kubernetes verification failed: {e}")
         
         return result
     

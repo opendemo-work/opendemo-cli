@@ -1,0 +1,16 @@
+# 项目依赖声明
+
+## 工具依赖
+- kubectl >= 1.20
+- minikube >= 1.25
+
+## 镜像依赖
+- busybox (官方镜像)
+- gcr.io/google-samples/hello-app:1.0 (Google 示例应用)
+
+## 网络要求
+- 可访问 GCR 镜像仓库（gcr.io）
+
+## 可选工具
+- kubectx / kubens（多上下文管理）
+- lens（图形化 Kubernetes IDE）

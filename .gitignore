@@ -40,3 +40,4 @@ Thumbs.db
 .opendemo/
 # opendemo_output/
 *.local.yaml
+check/

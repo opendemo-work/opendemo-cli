@@ -1,0 +1,4 @@
+prometheus-operator: 0.60.0+
+helm: v3.5+
+kubectl: v1.20+
+container-image: paulbouwer/hello-kubernetes:1.8
