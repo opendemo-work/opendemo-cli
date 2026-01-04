@@ -90,7 +90,6 @@ CHINESE_TO_ENGLISH = {
     "生产者消费者": "producer-consumer",
     "分布式追踪": "distributed-tracing",
     "实时通信": "realtime-communication",
-    
     # Node.js
     "拦截器实战演示": "interceptor-demo",
     "队列异步任务处理": "queue-async-tasks",
@@ -159,26 +158,26 @@ def get_english_name(chinese_name: str) -> str:
     else:
         prefix = ""
         rest = chinese_name
-    
+
     # 如果没有中文，直接返回
-    if not re.search(r'[\u4e00-\u9fff]', rest):
+    if not re.search(r"[\u4e00-\u9fff]", rest):
         return chinese_name
-    
+
     # 尝试从映射表中匹配
     for cn, en in CHINESE_TO_ENGLISH.items():
         if cn in rest:
             # 保留非中文部分
-            rest_cleaned = re.sub(r'[\u4e00-\u9fff]+', '', rest).strip('-')
+            rest_cleaned = re.sub(r"[\u4e00-\u9fff]+", "", rest).strip("-")
             if rest_cleaned:
                 return f"{prefix}{rest_cleaned}-{en}".replace("--", "-")
             else:
                 return f"{prefix}{en}"
-    
+
     # 如果没找到精确匹配，使用通用替换
     # 移除所有中文，保留英文和数字
-    english_part = re.sub(r'[\u4e00-\u9fff]+', '', rest)
-    english_part = english_part.strip('-').replace('--', '-')
-    
+    english_part = re.sub(r"[\u4e00-\u9fff]+", "", rest)
+    english_part = english_part.strip("-").replace("--", "-")
+
     if english_part:
         return f"{prefix}{english_part}-demo"
     else:
@@ -190,17 +189,17 @@ def update_metadata(demo_path: Path, new_folder_name: str, old_folder_name: str)
     metadata_file = demo_path / "metadata.json"
     if metadata_file.exists():
         try:
-            with open(metadata_file, 'r', encoding='utf-8') as f:
+            with open(metadata_file, "r", encoding="utf-8") as f:
                 metadata = json.load(f)
-            
+
             # 添加原始中文名称作为别名
-            if 'aliases' not in metadata:
-                metadata['aliases'] = []
-            if old_folder_name not in metadata['aliases']:
-                metadata['aliases'].append(old_folder_name)
-            
+            if "aliases" not in metadata:
+                metadata["aliases"] = []
+            if old_folder_name not in metadata["aliases"]:
+                metadata["aliases"].append(old_folder_name)
+
             # 保存更新后的metadata
-            with open(metadata_file, 'w', encoding='utf-8') as f:
+            with open(metadata_file, "w", encoding="utf-8") as f:
                 json.dump(metadata, f, ensure_ascii=False, indent=2)
         except Exception as e:
             print(f"  警告: 更新metadata失败: {e}")
@@ -209,29 +208,27 @@ def update_metadata(demo_path: Path, new_folder_name: str, old_folder_name: str)
 def rename_demos(output_dir: Path) -> dict:
     """重命名所有中文文件夹，返回映射表"""
     mapping = {"go": [], "nodejs": [], "python": []}
-    
+
     for lang in ["go", "nodejs"]:
         lang_dir = output_dir / lang
         if not lang_dir.exists():
             continue
-        
+
         for demo_dir in lang_dir.iterdir():
             if not demo_dir.is_dir():
                 continue
-            
+
             old_name = demo_dir.name
             # 检查是否包含中文
-            if not re.search(r'[\u4e00-\u9fff]', old_name):
+            if not re.search(r"[\u4e00-\u9fff]", old_name):
                 # 不包含中文，直接添加到映射
-                mapping[lang].append({
-                    "folder": old_name,
-                    "chinese_name": "",  # 从metadata获取
-                    "description": ""
-                })
+                mapping[lang].append(
+                    {"folder": old_name, "chinese_name": "", "description": ""}  # 从metadata获取
+                )
                 continue
-            
+
             new_name = get_english_name(old_name)
-            
+
             # 确保新名称唯一
             new_path = lang_dir / new_name
             counter = 1
@@ -239,39 +236,33 @@ def rename_demos(output_dir: Path) -> dict:
                 new_name = f"{get_english_name(old_name)}-{counter}"
                 new_path = lang_dir / new_name
                 counter += 1
-            
+
             print(f"重命名: {old_name} -> {new_name}")
-            
+
             # 更新metadata
             update_metadata(demo_dir, new_name, old_name)
-            
+
             # 执行重命名
             try:
                 demo_dir.rename(new_path)
-                mapping[lang].append({
-                    "folder": new_name,
-                    "chinese_name": old_name,
-                    "description": ""
-                })
+                mapping[lang].append(
+                    {"folder": new_name, "chinese_name": old_name, "description": ""}
+                )
             except Exception as e:
                 print(f"  错误: 重命名失败 - {e}")
-                mapping[lang].append({
-                    "folder": old_name,
-                    "chinese_name": old_name,
-                    "description": ""
-                })
-    
+                mapping[lang].append(
+                    {"folder": old_name, "chinese_name": old_name, "description": ""}
+                )
+
     # 处理Python (通常已经是英文)
     python_dir = output_dir / "python"
     if python_dir.exists():
         for demo_dir in python_dir.iterdir():
             if demo_dir.is_dir():
-                mapping["python"].append({
-                    "folder": demo_dir.name,
-                    "chinese_name": "",
-                    "description": ""
-                })
-    
+                mapping["python"].append(
+                    {"folder": demo_dir.name, "chinese_name": "", "description": ""}
+                )
+
     return mapping
 
 
@@ -280,12 +271,12 @@ def get_demo_info(demo_path: Path) -> dict:
     metadata_file = demo_path / "metadata.json"
     if metadata_file.exists():
         try:
-            with open(metadata_file, 'r', encoding='utf-8') as f:
+            with open(metadata_file, "r", encoding="utf-8") as f:
                 metadata = json.load(f)
             return {
                 "name": metadata.get("name", ""),
                 "description": metadata.get("description", ""),
-                "keywords": metadata.get("keywords", [])
+                "keywords": metadata.get("keywords", []),
             }
         except:
             pass
@@ -295,51 +286,57 @@ def get_demo_info(demo_path: Path) -> dict:
 def generate_mapping_table(output_dir: Path) -> dict:
     """生成完整的映射表"""
     mapping = {"go": [], "nodejs": [], "python": []}
-    
+
     for lang in ["go", "nodejs", "python"]:
         lang_dir = output_dir / lang
         if not lang_dir.exists():
             continue
-        
+
         for demo_dir in sorted(lang_dir.iterdir()):
             if not demo_dir.is_dir():
                 continue
-            
+
             info = get_demo_info(demo_dir)
-            mapping[lang].append({
-                "folder": demo_dir.name,
-                "name": info["name"],
-                "description": info["description"][:50] + "..." if len(info.get("description", "")) > 50 else info.get("description", "")
-            })
-    
+            mapping[lang].append(
+                {
+                    "folder": demo_dir.name,
+                    "name": info["name"],
+                    "description": (
+                        info["description"][:50] + "..."
+                        if len(info.get("description", "")) > 50
+                        else info.get("description", "")
+                    ),
+                }
+            )
+
     return mapping
 
 
 if __name__ == "__main__":
     workspace = Path(__file__).parent.parent
     output_dir = workspace / "opendemo_output"
-    
+
     print("=" * 60)
     print("批量重命名中文文件夹为英文")
     print("=" * 60)
-    
+
     # 执行重命名
     rename_demos(output_dir)
-    
+
     print("\n" + "=" * 60)
     print("生成映射表...")
     print("=" * 60)
-    
+
     # 生成最终映射表
     mapping = generate_mapping_table(output_dir)
-    
+
     # 保存映射表
     mapping_file = workspace / "data" / "demo_mapping.json"
-    with open(mapping_file, 'w', encoding='utf-8') as f:
+    with open(mapping_file, "w", encoding="utf-8") as f:
         json.dump(mapping, f, ensure_ascii=False, indent=2)
-    
+
     print(f"\n映射表已保存到: {mapping_file}")
-    
+
     # 统计
     print("\n统计:")
     for lang, demos in mapping.items():

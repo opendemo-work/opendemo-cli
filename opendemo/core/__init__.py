@@ -12,13 +12,13 @@ DemoManager = DemoRepository
 SearchEngine = DemoSearch
 
 __all__ = [
-    'DemoRepository',
-    'Demo',
-    'DemoSearch',
-    'DemoGenerator',
-    'DemoVerifier',
-    'ReadmeUpdater',
-    'QualityChecker',
-    'DemoManager',  # Alias
-    'SearchEngine',  # Alias
+    "DemoRepository",
+    "Demo",
+    "DemoSearch",
+    "DemoGenerator",
+    "DemoVerifier",
+    "ReadmeUpdater",
+    "QualityChecker",
+    "DemoManager",  # Alias
+    "SearchEngine",  # Alias
 ]
