@@ -86,7 +86,7 @@ opendemo config set ai.api_endpoint YOUR_ENDPOINT
 
 ## 📚 Demo完整清单
 
-### 🐍 Python (76个)
+### 🐍 Python (77个)
 
 <details>
 <summary><b>基础语法 (51个)</b> - 点击展开</summary>
