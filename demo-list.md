@@ -1,6 +1,6 @@
 # Demo 列表
 
-> 自动生成于 2026-01-13 13:00:57
+> 自动生成于 2026-01-14 11:55:59
 
 本文件记录了所有可用的 Demo，由 CLI 操作后自动更新。
 
@@ -11,8 +11,8 @@
 | 🐍 Python | 51 | 26 | 77 |
 | 🐹 Go | 92 | 1 | 93 |
 | 🟢 Node.js | 67 | 0 | 67 |
-| ⎈ Kubernetes | 0 | 69 | 69 |
-| **总计** | - | - | **306** |
+| ⎈ Kubernetes | 0 | 70 | 70 |
+| **总计** | - | - | **307** |
 
 ## 📑 目录
 
@@ -23,6 +23,7 @@
   - [context](#go-context)
 - [🟢 Node.js](#nodejs)
 - [⎈ Kubernetes](#kubernetes)
+  - [fluid](#kubernetes-fluid)
   - [kubeflow](#kubernetes-kubeflow)
   - [kubeskoop](#kubernetes-kubeskoop)
   - [operator-framework](#kubernetes-operator-framework)
@@ -316,6 +317,13 @@
 
 ### 工具 Demo
 
+#### fluid
+<a name="kubernetes-fluid"></a>
+
+| # | 名称 | 描述 | 目录 |
+|---|------|------|------|
+| 1 | kubernetes-data-orchestration-caching-demo | 演示在Kubernetes中使用ConfigMap和EmptyDir进行数据编排与临时缓存的实践示例 | `data-orchestration-caching-demo` |
+
 #### kubeflow
 <a name="kubernetes-kubeflow"></a>
 
@@ -411,4 +419,4 @@
 
 ---
 
-*本文件由 opendemo CLI 自动生成，最后更新: 2026-01-13 13:00:57*
+*本文件由 opendemo CLI 自动生成，最后更新: 2026-01-14 11:55:59*

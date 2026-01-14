@@ -1,0 +1,19 @@
+{
+  "name": "kubernetes-data-orchestration-caching-demo",
+  "language": "kubernetes",
+  "keywords": [
+    "data-orchestration",
+    "caching",
+    "kubernetes",
+    "volume",
+    "configmap"
+  ],
+  "description": "演示在Kubernetes中使用ConfigMap和EmptyDir进行数据编排与临时缓存的实践示例",
+  "difficulty": "beginner",
+  "author": "",
+  "created_at": "2026-01-14T11:55:58.725658",
+  "updated_at": "2026-01-14T11:55:58.725658",
+  "version": "1.0.0",
+  "dependencies": {},
+  "verified": false
+}

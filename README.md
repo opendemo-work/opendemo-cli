@@ -4,7 +4,7 @@
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Demos](https://img.shields.io/badge/Demos-291-orange.svg)](#demo-statistics)
+[![Demos](https://img.shields.io/badge/Demos-307-orange.svg)](#demo-statistics)
 
 ---
 
@@ -80,8 +80,8 @@ opendemo config set ai.api_endpoint YOUR_ENDPOINT
 | 🐍 **Python** | 51 | iterator(1), numpy(25) | 77 | ✅ 全部通过 |
 | 🐹 **Go** | 92 | context(1) | 93 | ✅ 全部通过 |
 | 🟢 **Node.js** | 67 | - | 67 | ✅ 全部通过 |
-| ⎈ **Kubernetes** | 0 | kubeflow(42), kubeskoop(10), velero(15), operator-framework(2) | 69 | ✅ 全部通过 |
-| **总计** | **210** | **96** | **306** | ✅ |
+| ⎈ **Kubernetes** | 0 | fluid(1), kubeflow(42), kubeskoop(10), operator-framework(2), velero(15) | 70 | ✅ 全部通过 |
+| **总计** | **210** | **97** | **307** | ✅ |
 
 ---
 
