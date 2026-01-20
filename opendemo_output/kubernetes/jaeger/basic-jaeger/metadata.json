@@ -1,0 +1,13 @@
+{
+  "name": "basic-jaeger",
+  "language": "kubernetes",
+  "keywords": ["jaeger", "distributed-tracing", "opentracing", "kubernetes", "observability"],
+  "description": "Kubernetes 中部署 Jaeger 进行分布式追踪的基础案例",
+  "difficulty": "intermediate",
+  "author": "opendemo-cli",
+  "created_at": "2024-01-20T00:00:00Z",
+  "updated_at": "2024-01-20T00:00:00Z",
+  "version": "1.0.0",
+  "verified": false,
+  "category": "tracing"
+}

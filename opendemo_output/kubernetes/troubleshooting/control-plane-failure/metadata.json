@@ -1,0 +1,18 @@
+{
+  "name": "control-plane-failure",
+  "title": "Kubernetes控制平面故障排查实战",
+  "language": "kubernetes",
+  "keywords": ["kubernetes", "control-plane", "api-server", "etcd", "controller-manager", "scheduler", "troubleshooting"],
+  "description": "全面的Kubernetes控制平面故障排查指南，包含API Server、etcd、Controller Manager、Scheduler等控制平面组件的故障排查方法和解决方案。",
+  "difficulty": "advanced",
+  "author": "Kubernetes专家团队",
+  "created_at": "2026-01-20T00:00:00Z",
+  "updated_at": "2026-01-20T00:00:00Z",
+  "version": "1.0.0",
+  "verified": true,
+  "category": "故障排查",
+  "library": "troubleshooting",
+  "tags": ["故障排查", "控制平面", "API Server", "etcd", "Controller Manager", "Scheduler"],
+  "requires": ["kubectl", "ssh", "etcdctl"],
+  "estimated_time": "60分钟"
+}

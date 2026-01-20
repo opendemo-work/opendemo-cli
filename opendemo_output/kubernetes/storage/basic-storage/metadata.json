@@ -1,0 +1,18 @@
+{
+  "name": "basic-storage",
+  "title": "Kubernetes存储实战指南",
+  "language": "kubernetes",
+  "keywords": ["kubernetes", "storage", "volume", "persistent-volume", "pvc", "storage-class", "dynamic-provisioning"],
+  "description": "全面的Kubernetes存储实战指南，涵盖卷、持久卷、持久卷声明、存储类、动态卷供应和存储故障排查等内容。",
+  "difficulty": "intermediate",
+  "author": "Kubernetes专家团队",
+  "created_at": "2026-01-20T00:00:00Z",
+  "updated_at": "2026-01-20T00:00:00Z",
+  "version": "1.0.0",
+  "verified": true,
+  "category": "存储",
+  "library": "storage",
+  "tags": ["存储", "Volume", "Persistent Volume", "PVC", "Storage Class", "动态卷供应"],
+  "requires": ["kubernetes", "kubectl", "storage-backend"],
+  "estimated_time": "90分钟"
+}

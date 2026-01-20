@@ -1,0 +1,13 @@
+{
+  "name": "basic-rbac",
+  "language": "kubernetes",
+  "keywords": ["rbac", "role", "rolebinding", "clusterrole", "clusterrolebinding", "kubernetes"],
+  "description": "Kubernetes 基于角色的访问控制（RBAC）基础案例，展示如何管理资源访问权限",
+  "difficulty": "intermediate",
+  "author": "opendemo-cli",
+  "created_at": "2024-01-20T00:00:00Z",
+  "updated_at": "2024-01-20T00:00:00Z",
+  "version": "1.0.0",
+  "verified": false,
+  "category": "rbac"
+}

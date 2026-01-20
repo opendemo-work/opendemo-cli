@@ -1,0 +1,12 @@
+apiVersion: example.com/v1
+kind: App
+metadata:
+  name: sample-app
+spec:
+  replicas: 2
+  image: nginx:latest
+  env:
+  - name: ENVIRONMENT
+    value: production
+  - name: DEBUG
+    value: "false"

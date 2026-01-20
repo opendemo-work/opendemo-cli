@@ -1,0 +1,35 @@
+{
+  "name": "basic-ai-infra",
+  "language": "kubernetes",
+  "category": "ai-infra",
+  "description": "Kubernetes AI基础设施实战指南，涵盖GPU资源管理、分布式训练、模型服务、数据管理和监控等内容",
+  "keywords": [
+    "kubernetes",
+    "ai-infrastructure",
+    "gpu",
+    "distributed-training",
+    "model-serving",
+    "ai-observability",
+    "kserve",
+    "triton",
+    "pytorch",
+    "tensorflow",
+    "gpu-operator",
+    "fluid"
+  ],
+  "version": "1.0.0",
+  "created_at": "2026-01-20",
+  "updated_at": "2026-01-20",
+  "difficulty": "intermediate",
+  "estimated_time": "60-90 minutes",
+  "compatibility": {
+    "kubernetes": ["v1.23.x", "v1.24.x", "v1.25.x", "v1.26.x", "v1.27.x", "v1.28.x", "v1.29.x"],
+    "gpu": ["nvidia"],
+    "cuda": ["11.7", "11.8", "12.0"]
+  },
+  "author": "opendemo",
+  "maintainers": ["opendemo"],
+  "license": "MIT",
+  "status": "active",
+  "tags": ["ai", "machine-learning", "deep-learning", "gpu", "inference", "training"]
+}

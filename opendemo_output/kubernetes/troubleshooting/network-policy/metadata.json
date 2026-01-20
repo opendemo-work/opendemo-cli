@@ -1,0 +1,18 @@
+{
+  "name": "network-policy",
+  "title": "Kubernetes网络策略问题排查实战",
+  "language": "kubernetes",
+  "keywords": ["kubernetes", "network-policy", "networking", "security", "connectivity", "troubleshooting"],
+  "description": "全面的Kubernetes网络策略问题排查指南，包含网络策略导致的通信问题、策略规则配置错误、命名空间隔离问题等排查方法和解决方案。",
+  "difficulty": "intermediate",
+  "author": "Kubernetes专家团队",
+  "created_at": "2026-01-20T00:00:00Z",
+  "updated_at": "2026-01-20T00:00:00Z",
+  "version": "1.0.0",
+  "verified": true,
+  "category": "故障排查",
+  "library": "troubleshooting",
+  "tags": ["故障排查", "网络策略", "网络安全", "连通性"],
+  "requires": ["kubectl"],
+  "estimated_time": "45分钟"
+}

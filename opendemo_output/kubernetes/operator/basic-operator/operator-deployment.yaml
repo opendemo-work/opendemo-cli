@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-operator
+  namespace: default
+  labels:
+    app: demo-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-operator
+  template:
+    metadata:
+      labels:
+        app: demo-operator
+    spec:
+      serviceAccountName: demo-operator
+      containers:
+      - name: controller
+        image: bitnami/kubectl:latest
+        command:
+        - /bin/sh
+        - -c
+        - |
+          echo "Demo Operator started"
+          while true; do
+            echo "Checking for Demo resources..."
+            kubectl get demos.example.com --no-headers 2>/dev/null || echo "No demos found"
+            sleep 30
+          done
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 50m
+            memory: 64Mi

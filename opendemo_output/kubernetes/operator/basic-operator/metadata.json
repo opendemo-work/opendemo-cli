@@ -1,0 +1,13 @@
+{
+  "name": "basic-operator",
+  "language": "kubernetes",
+  "keywords": ["operator", "kubernetes", "crd", "controller"],
+  "description": "Kubernetes Operator模式基础案例，展示如何创建自定义控制器管理资源",
+  "difficulty": "intermediate",
+  "author": "opendemo-cli",
+  "created_at": "2024-01-20T00:00:00Z",
+  "updated_at": "2024-01-20T00:00:00Z",
+  "version": "1.0.0",
+  "verified": false,
+  "category": "operator"
+}

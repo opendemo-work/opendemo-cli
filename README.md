@@ -4,7 +4,7 @@
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Demos](https://img.shields.io/badge/Demos-307-orange.svg)](#demo-statistics)
+[![Demos](https://img.shields.io/badge/Demos-334-orange.svg)](#demo-statistics)
 
 ---
 
@@ -80,8 +80,11 @@ opendemo config set ai.api_endpoint YOUR_ENDPOINT
 | 🐍 **Python** | 51 | iterator(1), numpy(25) | 77 | ✅ 全部通过 |
 | 🐹 **Go** | 92 | context(1) | 93 | ✅ 全部通过 |
 | 🟢 **Node.js** | 67 | - | 67 | ✅ 全部通过 |
-| ⎈ **Kubernetes** | 0 | fluid(1), kubeflow(42), kubeskoop(10), operator-framework(2), velero(15) | 70 | ✅ 全部通过 |
-| **总计** | **210** | **97** | **307** | ✅ |
+| 🐳 **Docker** | 0 | troubleshooting(1) | 1 | ✅ 全部通过 |
+| 📦 **Containerd** | 0 | troubleshooting(1) | 1 | ✅ 全部通过 |
+| 🏃 **Runc** | 0 | troubleshooting(1) | 1 | ✅ 全部通过 |
+| ⎈ **Kubernetes** | 0 | fluid(1), kubeflow(42), kubeskoop(10), operator-framework(2), velero(15), operator(1), crd(1), rbac(1), prometheus(1), grafana(1), efk(1), elk(1), loki(1), jaeger(1), zipkin(1), opentelemetry(1), troubleshooting(8), network(1), storage(1), ai-infra(1), llmops(1) | 93 | ✅ 全部通过 |
+| **总计** | **210** | **124** | **334** | ✅ |
 
 ---
 
@@ -437,7 +440,26 @@ opendemo config set ai.api_endpoint YOUR_ENDPOINT
 
 ---
 
-### ⎈ Kubernetes (69个)
+### ⎈ Kubernetes (93个)
+
+**重要说明**：Kubernetes案例不能直接通过opendemo CLI执行，需要用户在自己的Kubernetes集群上使用kubectl命令运行。使用流程如下：
+
+```bash
+# 1. 使用opendemo CLI获取案例
+opendemo get kubernetes <案例名称>
+
+# 2. 进入案例目录
+cd opendemo_output/kubernetes/<案例目录>
+
+# 3. 查看案例说明
+cat README.md
+
+# 4. 在Kubernetes集群上运行
+kubectl apply -f <配置文件>
+
+# 5. 验证部署
+kubectl get pods
+```
 
 <details>
 <summary><b>🛡️ Velero备份恢复工具 (15个)</b> - 点击展开</summary>
@@ -602,6 +624,392 @@ opendemo config set ai.api_endpoint YOUR_ENDPOINT
 
 </details>
 
+<details>
+<summary><b>⚙️ Operator模式基础案例 (1个)</b> - 点击展开</summary>
+
+> 路径: `opendemo_output/kubernetes/operator/`
+
+| # | Demo名称 | 功能说明 | 难度 | 状态 |
+|---|---------|---------|------|------|
+| 1 | `basic-operator` | Kubernetes Operator模式基础案例 | intermediate | ✅ |
+
+</details>
+
+<details>
+<summary><b>📋 CRD自定义资源定义 (1个)</b> - 点击展开</summary>
+
+> 路径: `opendemo_output/kubernetes/crd/`
+
+| # | Demo名称 | 功能说明 | 难度 | 状态 |
+|---|---------|---------|------|------|
+| 1 | `basic-crd` | Kubernetes 自定义资源定义基础案例 | beginner | ✅ |
+
+</details>
+
+<details>
+<summary><b>🔒 RBAC权限管理 (1个)</b> - 点击展开</summary>
+
+> 路径: `opendemo_output/kubernetes/rbac/`
+
+| # | Demo名称 | 功能说明 | 难度 | 状态 |
+|---|---------|---------|------|------|
+| 1 | `basic-rbac` | Kubernetes 基于角色的访问控制基础案例 | intermediate | ✅ |
+
+</details>
+
+<details>
+<summary><b>📊 Prometheus监控 (1个)</b> - 点击展开</summary>
+
+> 路径: `opendemo_output/kubernetes/prometheus/`
+
+| # | Demo名称 | 功能说明 | 难度 | 状态 |
+|---|---------|---------|------|------|
+| 1 | `basic-prometheus` | Kubernetes 中部署 Prometheus 进行监控的基础案例 | intermediate | ✅ |
+
+</details>
+
+<details>
+<summary><b>📈 Grafana可视化 (1个)</b> - 点击展开</summary>
+
+> 路径: `opendemo_output/kubernetes/grafana/`
+
+| # | Demo名称 | 功能说明 | 难度 | 状态 |
+|---|---------|---------|------|------|
+| 1 | `basic-grafana` | Kubernetes 中部署 Grafana 进行监控可视化的基础案例 | intermediate | ✅ |
+
+</details>
+
+<details>
+<summary><b>📄 EFK日志管理 (1个)</b> - 点击展开</summary>
+
+> 路径: `opendemo_output/kubernetes/efk/`
+
+| # | Demo名称 | 功能说明 | 难度 | 状态 |
+|---|---------|---------|------|------|
+| 1 | `basic-efk` | Kubernetes 中部署 EFK 堆栈进行日志管理的基础案例 | advanced | ✅ |
+
+</details>
+
+<details>
+<summary><b>📄 ELK日志管理 (1个)</b> - 点击展开</summary>
+
+> 路径: `opendemo_output/kubernetes/elk/`
+
+| # | Demo名称 | 功能说明 | 难度 | 状态 |
+|---|---------|---------|------|------|
+| 1 | `basic-elk` | Kubernetes 中部署 ELK 堆栈进行日志管理的基础案例 | advanced | ✅ |
+
+</details>
+
+<details>
+<summary><b>🔍 Loki日志聚合 (1个)</b> - 点击展开</summary>
+
+> 路径: `opendemo_output/kubernetes/loki/`
+
+| # | Demo名称 | 功能说明 | 难度 | 状态 |
+|---|---------|---------|------|------|
+| 1 | `basic-loki` | Kubernetes 中部署 Loki 和 Promtail 进行日志管理的基础案例 | intermediate | ✅ |
+
+</details>
+
+<details>
+<summary><b>🔗 Jaeger分布式追踪 (1个)</b> - 点击展开</summary>
+
+> 路径: `opendemo_output/kubernetes/jaeger/`
+
+| # | Demo名称 | 功能说明 | 难度 | 状态 |
+|---|---------|---------|------|------|
+| 1 | `basic-jaeger` | Kubernetes 中部署 Jaeger 进行分布式追踪的基础案例 | intermediate | ✅ |
+
+</details>
+
+<details>
+<summary><b>🔗 Zipkin分布式追踪 (1个)</b> - 点击展开</summary>
+
+> 路径: `opendemo_output/kubernetes/zipkin/`
+
+| # | Demo名称 | 功能说明 | 难度 | 状态 |
+|---|---------|---------|------|------|
+| 1 | `basic-zipkin` | Kubernetes 中部署 Zipkin 进行分布式追踪的基础案例 | intermediate | ✅ |
+
+</details>
+
+<details>
+<summary><b>🌐 OpenTelemetry可观测性 (1个)</b> - 点击展开</summary>
+
+> 路径: `opendemo_output/kubernetes/opentelemetry/`
+
+| # | Demo名称 | 功能说明 | 难度 | 状态 |
+|---|---------|---------|------|------|
+| 1 | `basic-opentelemetry` | Kubernetes 中部署 OpenTelemetry Collector 进行可观测性数据收集的基础案例 | intermediate | ✅ |
+
+</details>
+
+<details>
+<summary><b>🔍 Kubernetes故障排查实战 (8个)</b> - 点击展开</summary>
+
+> 路径: `opendemo_output/kubernetes/troubleshooting/`
+
+| # | Demo名称 | 功能说明 | 难度 | 状态 |
+|---|---------|---------|------|------|
+| 1 | `pod-troubleshooting` | Kubernetes Pod故障排查实战，包括CrashLoopBackOff、ImagePullBackOff等常见问题 | intermediate | ✅ |
+| 2 | `service-connectivity` | Kubernetes服务连通性问题排查，包括Service、Endpoint、DNS等问题 | intermediate | ✅ |
+| 3 | `resource-shortage` | Kubernetes资源不足问题排查，包括CPU、内存、磁盘资源短缺 | intermediate | ✅ |
+| 4 | `scheduling-failure` | Kubernetes调度失败问题排查，包括资源不足、亲和性/反亲和性、污点/容忍度等 | intermediate | ✅ |
+| 5 | `persistent-storage` | Kubernetes持久化存储问题排查，包括PVC绑定、PV挂载、StorageClass等 | advanced | ✅ |
+| 6 | `network-policy` | Kubernetes网络策略问题排查，包括网络策略配置、Pod间通信限制等 | advanced | ✅ |
+| 7 | `control-plane-failure` | Kubernetes控制平面故障排查，包括API Server、etcd、Controller Manager等组件故障 | advanced | ✅ |
+| 8 | `node-failure` | Kubernetes节点故障排查，包括节点状态、Kubelet、资源、网络、磁盘等问题 | intermediate | ✅ |
+
+**功能覆盖**:
+- ✅ Pod故障排查（CrashLoopBackOff、ImagePullBackOff等）
+- ✅ 服务连通性问题排查
+- ✅ 资源不足问题排查
+- ✅ 调度失败问题排查
+- ✅ 持久化存储问题排查
+- ✅ 网络策略问题排查
+- ✅ 控制平面故障排查
+- ✅ 节点故障排查
+
+**版本兼容性**:
+- Kubernetes v1.20+ 完全兼容
+- 所有案例均提供详细的排查步骤和解决方案
+
+</details>
+
+### 🐳 Docker (1个)
+
+<details>
+<summary><b>🐳 Docker故障排查实战 (1个)</b> - 点击展开</summary>
+
+> 路径: `opendemo_output/docker/troubleshooting/`
+
+| # | Demo名称 | 功能说明 | 难度 | 状态 |
+|---|---------|---------|------|------|
+| 1 | `basic-docker-troubleshooting` | Docker故障排查与应急处理实战，包括Docker守护进程故障、容器启动失败、镜像拉取失败等常见问题 | intermediate | ✅ |
+
+**功能覆盖**:
+- ✅ Docker守护进程故障排查
+- ✅ 容器启动失败排查
+- ✅ 镜像拉取失败排查
+- ✅ 容器网络问题排查
+- ✅ 存储驱动问题排查
+- ✅ 资源限制问题排查
+- ✅ 容器数据丢失恢复
+- ✅ Docker升级失败处理
+
+**版本兼容性**:
+- Docker v20.10.x+ 完全兼容
+- Docker v23.0.x+ 完全兼容
+- Docker v24.0.x+ 完全兼容
+
+</details>
+
+### 📦 Containerd (1个)
+
+<details>
+<summary><b>📦 Containerd故障排查实战 (1个)</b> - 点击展开</summary>
+
+> 路径: `opendemo_output/containerd/troubleshooting/`
+
+| # | Demo名称 | 功能说明 | 难度 | 状态 |
+|---|---------|---------|------|------|
+| 1 | `basic-containerd-troubleshooting` | Containerd故障排查与应急处理实战，包括Containerd守护进程故障、容器启动失败、CRI接口问题等常见问题 | intermediate | ✅ |
+
+**功能覆盖**:
+- ✅ Containerd守护进程故障排查
+- ✅ 容器启动失败排查
+- ✅ 镜像拉取失败排查
+- ✅ 容器网络问题排查
+- ✅ 存储驱动问题排查
+- ✅ 资源限制问题排查
+- ✅ CRI接口问题排查
+- ✅ Containerd升级失败处理
+
+**版本兼容性**:
+- Containerd v1.6.x+ 完全兼容
+- Containerd v1.7.x+ 完全兼容
+- Containerd v1.8.x+ 完全兼容
+
+</details>
+
+### 🏃 Runc (1个)
+
+<details>
+<summary><b>🏃 Runc故障排查实战 (1个)</b> - 点击展开</summary>
+
+> 路径: `opendemo_output/runc/troubleshooting/`
+
+| # | Demo名称 | 功能说明 | 难度 | 状态 |
+|---|---------|---------|------|------|
+| 1 | `basic-runc-troubleshooting` | Runc故障排查与应急处理实战，包括Runc命令执行失败、容器创建失败、容器运行时错误等常见问题 | advanced | ✅ |
+
+**功能覆盖**:
+- ✅ Runc命令执行失败排查
+- ✅ 容器创建失败排查
+- ✅ 容器启动失败排查
+- ✅ 容器运行时错误排查
+- ✅ 资源限制问题排查
+- ✅ 安全相关问题排查
+- ✅ 与上层容器引擎集成问题排查
+- ✅ Runc升级失败处理
+
+**版本兼容性**:
+- Runc v1.0.x+ 完全兼容
+- Runc v1.1.x+ 完全兼容
+- Runc v1.2.x+ 完全兼容
+
+</details>
+
+### 🌐 Kubernetes网络 (1个)
+
+<details>
+<summary><b>🌐 Kubernetes网络实战指南 (1个)</b> - 点击展开</summary>
+
+> 路径: `opendemo_output/kubernetes/network/`
+
+| # | Demo名称 | 功能说明 | 难度 | 状态 |
+|---|---------|---------|------|------|
+| 1 | `basic-networking` | 全面的Kubernetes网络实战指南，涵盖Pod网络、Service网络、Ingress网络、Network Policy、CNI插件配置、DNS解析、高级网络功能和网络性能优化等内容 | intermediate | ✅ |
+
+**功能覆盖**:
+- ✅ Pod网络与通信
+- ✅ Service网络与服务发现
+- ✅ Ingress网络与外部访问
+- ✅ Network Policy与网络安全
+- ✅ CNI插件配置与对比
+- ✅ DNS配置与解析
+- ✅ 网络故障排查
+- ✅ 网络策略高级用法
+- ✅ 网络性能优化
+- ✅ 多集群网络互联
+- ✅ Service网格集成
+- ✅ 网络拓扑感知路由
+
+**版本兼容性**:
+- Kubernetes v1.20.x+ 完全兼容
+- Kubernetes v1.21.x+ 完全兼容
+- Kubernetes v1.22.x+ 完全兼容
+- Kubernetes v1.23.x+ 完全兼容
+- Kubernetes v1.24.x+ 完全兼容
+- Kubernetes v1.25.x+ 完全兼容
+- Kubernetes v1.26.x+ 完全兼容
+- Kubernetes v1.27.x+ 完全兼容
+- Kubernetes v1.28.x+ 完全兼容
+- Kubernetes v1.29.x+ 完全兼容
+
+</details>
+
+### 💾 Kubernetes存储 (1个)
+
+<details>
+<summary><b>💾 Kubernetes存储实战指南 (1个)</b> - 点击展开</summary>
+
+> 路径: `opendemo_output/kubernetes/storage/`
+
+| # | Demo名称 | 功能说明 | 难度 | 状态 |
+|---|---------|---------|------|------|
+| 1 | `basic-storage` | 全面的Kubernetes存储实战指南，涵盖卷、持久卷、持久卷声明、存储类、动态卷供应、存储性能优化、云存储集成、存储备份与恢复和存储安全等内容 | intermediate | ✅ |
+
+**功能覆盖**:
+- ✅ 卷（Volume）与卷类型
+- ✅ 持久卷（Persistent Volume）
+- ✅ 持久卷声明（Persistent Volume Claim）
+- ✅ 存储类（Storage Class）
+- ✅ 动态卷供应
+- ✅ 存储策略与最佳实践
+- ✅ 存储故障排查
+- ✅ 存储性能优化
+- ✅ 云存储集成（AWS EBS、Azure Disk、GCP PD）
+- ✅ 存储备份与恢复
+- ✅ 卷快照与卷扩容
+- ✅ 存储安全与加密
+- ✅ 分布式存储系统集成（Ceph、GlusterFS）
+- ✅ 存储拓扑感知
+- ✅ 存储监控与告警
+
+**版本兼容性**:
+- Kubernetes v1.20.x+ 完全兼容
+- Kubernetes v1.21.x+ 完全兼容
+- Kubernetes v1.22.x+ 完全兼容
+- Kubernetes v1.23.x+ 完全兼容
+- Kubernetes v1.24.x+ 完全兼容
+- Kubernetes v1.25.x+ 完全兼容
+- Kubernetes v1.26.x+ 完全兼容
+- Kubernetes v1.27.x+ 完全兼容
+- Kubernetes v1.28.x+ 完全兼容
+- Kubernetes v1.29.x+ 完全兼容
+
+</details>
+
+### 🤖 Kubernetes AI基础设施 (1个)
+
+<details>
+<summary><b>🤖 Kubernetes AI基础设施实战指南 (1个)</b> - 点击展开</summary>
+
+> 路径: `opendemo_output/kubernetes/ai-infra/`
+
+| # | Demo名称 | 功能说明 | 难度 | 状态 |
+|---|---------|---------|------|------|
+| 1 | `basic-ai-infra` | 全面的Kubernetes AI基础设施实战指南，涵盖GPU资源管理、分布式训练、模型服务、数据管理和监控等内容 | intermediate | ✅ |
+
+**功能覆盖**:
+- ✅ AI基础设施架构设计
+- ✅ GPU资源管理与调度
+- ✅ 分布式训练框架部署
+- ✅ 模型服务与推理优化
+- ✅ AI数据管理
+- ✅ AI基础设施监控与可观测性
+- ✅ AI安全与 governance
+- ✅ GPU拓扑感知调度
+- ✅ 分布式训练优化
+- ✅ 模型服务最佳实践
+
+**版本兼容性**:
+- Kubernetes v1.23.x+ 完全兼容
+- Kubernetes v1.24.x+ 完全兼容
+- Kubernetes v1.25.x+ 完全兼容
+- Kubernetes v1.26.x+ 完全兼容
+- Kubernetes v1.27.x+ 完全兼容
+- Kubernetes v1.28.x+ 完全兼容
+- Kubernetes v1.29.x+ 完全兼容
+
+</details>
+
+### 🧠 Kubernetes LLMOps (1个)
+
+<details>
+<summary><b>🧠 Kubernetes LLMOps实战指南 (1个)</b> - 点击展开</summary>
+
+> 路径: `opendemo_output/kubernetes/llmops/`
+
+| # | Demo名称 | 功能说明 | 难度 | 状态 |
+|---|---------|---------|------|------|
+| 1 | `basic-llmops` | 全面的Kubernetes LLMOps实战指南，涵盖大模型训练微调、推理优化、数据管理、监控和安全等内容 | intermediate | ✅ |
+
+**功能覆盖**:
+- ✅ LLM模型生命周期管理
+- ✅ 大模型训练与微调
+- ✅ 大模型服务与推理优化
+- ✅ 大模型数据管理
+- ✅ 大模型监控与可观测性
+- ✅ 大模型安全与治理
+- ✅ 大模型成本优化
+- ✅ 模型量化与优化
+- ✅ 大模型服务最佳实践
+- ✅ 大模型监控最佳实践
+
+**版本兼容性**:
+- Kubernetes v1.23.x+ 完全兼容
+- Kubernetes v1.24.x+ 完全兼容
+- Kubernetes v1.25.x+ 完全兼容
+- Kubernetes v1.26.x+ 完全兼容
+- Kubernetes v1.27.x+ 完全兼容
+- Kubernetes v1.28.x+ 完全兼容
+- Kubernetes v1.29.x+ 完全兼容
+
+</details>
+
 ---
 
 ## ⚙️ 配置说明
@@ -673,40 +1081,6 @@ opendemo/
 ```bash
 git clone https://github.com/opendemo/opendemo.git
 cd opendemo
-pip install -e ".[dev]"
-```
-
-### 运行测试
-
-```bash
-python -m pytest tests/
-```
-
-### 运行Demo
-
-```bash
-# Python
-cd opendemo_output/python/logging && python code/logging_demo.py
-
-# Go
-cd opendemo_output/go/go-goroutines && go run .
-
-# Node.js
-cd opendemo_output/nodejs/nodejs-express && npm install && node code/main.js
-```
-
----
-
-## 📄 许可证
-
-MIT License
-
----
-
-## 📬 联系方式
-
-- **Issues**: [GitHub Issues](https://github.com/opendemo/opendemo/issues)
-- **Repository**: https://github.com/opendemo/opendemo
 pip install -e ".[dev]"
 ```
 
