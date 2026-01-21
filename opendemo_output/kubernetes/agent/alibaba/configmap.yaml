@@ -1,0 +1,299 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: agent-config
+  namespace: agent-system
+  labels:
+    app: tongyi-agent
+    version: v1
+    company: alibaba
+    component: ai-agent
+data:
+  # 主配置文件
+  config.yaml: |
+    # Agent 服务配置
+    agent:
+      # 服务基本配置
+      service:
+        name: "tongyi-agent"
+        version: "1.0.0"
+        host: "0.0.0.0"
+        port: 8000
+        debug: false
+        enable_cors: true
+        enable_compression: true
+        request_timeout: 30
+        max_request_size: 10485760  # 10MB
+      
+      # 模型配置
+      model:
+        provider: "alibaba"
+        name: "qwen-turbo"
+        version: "latest"
+        temperature: 0.7
+        max_tokens: 2048
+        top_p: 0.95
+        frequency_penalty: 0
+        presence_penalty: 0
+        stop_sequences:
+          - "\n\nHuman:"
+          - "\n\nAssistant:"
+      
+      # 知识库配置
+      knowledge_base:
+        enabled: true
+        type: "vector"
+        embedding_model: "text-embedding-ada-002"
+        vector_store:
+          type: "milvus"
+          host: "milvus-service"
+          port: 19530
+          collection_name: "agent_knowledge"
+        chunk_size: 1000
+        chunk_overlap: 100
+        max_results: 5
+        score_threshold: 0.7
+      
+      # 工具配置
+      tools:
+        enabled: true
+        list:
+          - name: "web_search"
+            type: "search"
+            provider: "baidu"
+            api_key: "${BAIDU_API_KEY}"
+            enabled: true
+          - name: "code_executor"
+            type: "code"
+            runtime: "python"
+            timeout: 30
+            enabled: true
+          - name: "file_reader"
+            type: "file"
+            max_size: 5242880  # 5MB
+            enabled: true
+          - name: "calculator"
+            type: "math"
+            enabled: true
+      
+      # 会话管理
+      session:
+        enabled: true
+        storage:
+          type: "redis"
+          host: "redis-service"
+          port: 6379
+          db: 0
+        timeout: 3600
+        max_history: 50
+      
+      # 监控配置
+      monitoring:
+        enabled: true
+        prometheus:
+          enabled: true
+          port: 8080
+          path: "/metrics"
+        tracing:
+          enabled: true
+          provider: "jaeger"
+          endpoint: "http://jaeger-collector:14268/api/traces"
+        logging:
+          level: "info"
+          format: "json"
+          rotation:
+            enabled: true
+            max_size: "100MB"
+            max_backups: 5
+            max_age: "7d"
+      
+      # 安全配置
+      security:
+        enabled: true
+        authentication:
+          enabled: true
+          type: "jwt"
+          secret: "${JWT_SECRET}"
+          algorithm: "HS256"
+          expires_in: 3600
+        authorization:
+          enabled: true
+          roles:
+            - name: "admin"
+              permissions: ["*"]
+            - name: "user"
+              permissions: ["chat", "tools"]
+            - name: "guest"
+              permissions: ["chat"]
+        rate_limiting:
+          enabled: true
+          strategy: "token_bucket"
+          limit: 60
+          window: 60
+        cors:
+          enabled: true
+          allowed_origins: ["*"]
+          allowed_methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+          allowed_headers: ["Content-Type", "Authorization"]
+          max_age: 86400
+      
+      # 多语言支持
+      i18n:
+        enabled: true
+        default_locale: "zh-CN"
+        supported_locales: ["zh-CN", "en-US", "ja-JP", "ko-KR"]
+      
+      # 部署配置
+      deployment:
+        mode: "kubernetes"
+        environment: "production"
+        replicas: 2
+        rolling_update:
+          enabled: true
+          max_surge: 1
+          max_unavailable: 0
+        resources:
+          requests:
+            cpu: "2"
+            memory: "4Gi"
+          limits:
+            cpu: "4"
+            memory: "8Gi"
+      
+      # 集成配置
+      integrations:
+        slack:
+          enabled: false
+          token: "${SLACK_TOKEN}"
+        discord:
+          enabled: false
+          token: "${DISCORD_TOKEN}"
+        wechat:
+          enabled: false
+          app_id: "${WECHAT_APP_ID}"
+          app_secret: "${WECHAT_APP_SECRET}"
+        dingtalk:
+          enabled: true
+          app_key: "${DINGTALK_APP_KEY}"
+          app_secret: "${DINGTALK_APP_SECRET}"
+          agent_id: "${DINGTALK_AGENT_ID}"
+
+  # 启动脚本
+  start.sh: |
+    #!/bin/bash
+    
+    # 设置环境变量
+    export MODEL_NAME=${MODEL_NAME:-"qwen-turbo"}
+    export API_ENDPOINT=${API_ENDPOINT:-"https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation"}
+    export API_KEY=${API_KEY:-""}
+    export MAX_CONCURRENT_REQUESTS=${MAX_CONCURRENT_REQUESTS:-"10"}
+    export REQUEST_TIMEOUT=${REQUEST_TIMEOUT:-"30"}
+    export CACHE_ENABLED=${CACHE_ENABLED:-"true"}
+    export CACHE_TTL=${CACHE_TTL:-"3600"}
+    export LOG_LEVEL=${LOG_LEVEL:-"info"}
+    export LOG_FORMAT=${LOG_FORMAT:-"json"}
+    export NAMESPACE=${NAMESPACE:-"agent-system"}
+    export POD_NAME=${POD_NAME:-""}
+    export NODE_NAME=${NODE_NAME:-""}
+    
+    # 检查必要的环境变量
+    if [ -z "$API_KEY" ]; then
+      echo "Error: API_KEY is not set"
+      exit 1
+    fi
+    
+    # 启动 Agent 服务
+    echo "Starting Tongyi Agent Service..."
+    echo "Model: $MODEL_NAME"
+    echo "Endpoint: $API_ENDPOINT"
+    echo "Namespace: $NAMESPACE"
+    echo "Pod Name: $POD_NAME"
+    echo "Node Name: $NODE_NAME"
+    
+    # 运行 Agent 服务
+    python -m agent.server
+
+  # 健康检查脚本
+  health-check.sh: |
+    #!/bin/bash
+    
+    # 检查 Agent 服务是否正常运行
+    STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8000/health/liveness)
+    
+    if [ "$STATUS_CODE" -eq 200 ]; then
+      echo "Agent service is healthy"
+      exit 0
+    else
+      echo "Agent service is unhealthy (status code: $STATUS_CODE)"
+      exit 1
+    fi
+
+  # 监控配置
+  prometheus.yaml: |
+    global:
+      scrape_interval: 15s
+      evaluation_interval: 15s
+    
+    scrape_configs:
+      - job_name: 'agent-service'
+        kubernetes_sd_configs:
+        - role: pod
+        relabel_configs:
+        - source_labels: [__meta_kubernetes_pod_label_app]
+          regex: tongyi-agent
+          action: keep
+        - source_labels: [__meta_kubernetes_pod_container_port_name]
+          regex: metrics
+          action: keep
+        - target_label: job
+          replacement: agent-service
+        - source_labels: [__meta_kubernetes_pod_name]
+          target_label: pod
+        - source_labels: [__meta_kubernetes_namespace]
+          target_label: namespace
+
+  # 日志配置
+  logging.yaml: |
+    version: 1
+    disable_existing_loggers: false
+    
+    formatters:
+      json:
+        format: "%(asctime)s %(levelname)s %(name)s %(message)s"
+        datefmt: "%Y-%m-%d %H:%M:%S"
+      
+    handlers:
+      console:
+        class: logging.StreamHandler
+        level: INFO
+        formatter: json
+        stream: ext://sys.stdout
+      
+      file:
+        class: logging.handlers.RotatingFileHandler
+        level: INFO
+        formatter: json
+        filename: /app/logs/agent.log
+        maxBytes: 104857600  # 100MB
+        backupCount: 5
+      
+    loggers:
+      agent:
+        level: INFO
+        handlers: [console, file]
+        propagate: no
+      
+      uvicorn:
+        level: WARNING
+        handlers: [console]
+        propagate: no
+      
+      fastapi:
+        level: WARNING
+        handlers: [console]
+        propagate: no
+      
+    root:
+      level: INFO
+      handlers: [console, file]
+      propagate: no

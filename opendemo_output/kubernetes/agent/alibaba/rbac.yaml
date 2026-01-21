@@ -1,0 +1,194 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: agent-system
+  labels:
+    name: agent-system
+    company: alibaba
+    component: ai-agent
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: agent-service-account
+  namespace: agent-system
+  labels:
+    app: tongyi-agent
+    version: v1
+    company: alibaba
+    component: ai-agent
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: agent-cluster-role
+  labels:
+    app: tongyi-agent
+    version: v1
+    company: alibaba
+    component: ai-agent
+rules:
+- apiGroups: [""]
+  resources: ["pods", "pods/log", "pods/exec", "services", "endpoints", "configmaps", "secrets", "nodes", "namespaces"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["apps"]
+  resources: ["deployments", "daemonsets", "replicasets", "statefulsets"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["batch"]
+  resources: ["jobs", "cronjobs"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["autoscaling"]
+  resources: ["horizontalpodautoscalers"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["policy"]
+  resources: ["poddisruptionbudgets"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["networking.k8s.io"]
+  resources: ["ingresses", "networkpolicies"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["rbac.authorization.k8s.io"]
+  resources: ["roles", "rolebindings", "clusterroles", "clusterrolebindings"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["metrics.k8s.io"]
+  resources: ["pods", "nodes"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["storage.k8s.io"]
+  resources: ["storageclasses", "csinodes"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["scheduling.k8s.io"]
+  resources: ["priorityclasses"]
+  verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: agent-cluster-role-binding
+  labels:
+    app: tongyi-agent
+    version: v1
+    company: alibaba
+    component: ai-agent
+subjects:
+- kind: ServiceAccount
+  name: agent-service-account
+  namespace: agent-system
+roleRef:
+  kind: ClusterRole
+  name: agent-cluster-role
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: agent-namespace-role
+  namespace: agent-system
+  labels:
+    app: tongyi-agent
+    version: v1
+    company: alibaba
+    component: ai-agent
+rules:
+- apiGroups: [""]
+  resources: ["pods", "pods/log", "pods/exec", "services", "endpoints", "configmaps", "secrets", "events", "persistentvolumeclaims"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["apps"]
+  resources: ["deployments", "daemonsets", "replicasets", "statefulsets"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["batch"]
+  resources: ["jobs", "cronjobs"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["autoscaling"]
+  resources: ["horizontalpodautoscalers"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["policy"]
+  resources: ["poddisruptionbudgets", "podsecuritypolicies"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["networking.k8s.io"]
+  resources: ["ingresses", "networkpolicies"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["rbac.authorization.k8s.io"]
+  resources: ["roles", "rolebindings"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["apps.openshift.io"]
+  resources: ["deploymentconfigs"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["route.openshift.io"]
+  resources: ["routes"]
+  verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: agent-namespace-role-binding
+  namespace: agent-system
+  labels:
+    app: tongyi-agent
+    version: v1
+    company: alibaba
+    component: ai-agent
+subjects:
+- kind: ServiceAccount
+  name: agent-service-account
+  namespace: agent-system
+roleRef:
+  kind: Role
+  name: agent-namespace-role
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: agent-resource-quota
+  namespace: agent-system
+  labels:
+    app: tongyi-agent
+    version: v1
+    company: alibaba
+    component: ai-agent
+spec:
+  hard:
+    pods: "10"
+    requests.cpu: "10"
+    requests.memory: "20Gi"
+    requests.nvidia.com/gpu: "4"
+    limits.cpu: "20"
+    limits.memory: "40Gi"
+    limits.nvidia.com/gpu: "8"
+    configmaps: "20"
+    secrets: "20"
+    services: "10"
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: agent-limit-range
+  namespace: agent-system
+  labels:
+    app: tongyi-agent
+    version: v1
+    company: alibaba
+    component: ai-agent
+spec:
+  limits:
+  - default:
+      cpu: "2"
+      memory: "4Gi"
+    defaultRequest:
+      cpu: "1"
+      memory: "2Gi"
+    type: Container
+  - default:
+      cpu: "4"
+      memory: "8Gi"
+    defaultRequest:
+      cpu: "2"
+      memory: "4Gi"
+    type: Pod
+  - max:
+      cpu: "8"
+      memory: "16Gi"
+      nvidia.com/gpu: "2"
+    min:
+      cpu: "500m"
+      memory: "1Gi"
+    type: Container

@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gemini-cli
+  namespace: gemini-cli-system
+  labels:
+    app: gemini-cli
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gemini-cli
+  template:
+    metadata:
+      labels:
+        app: gemini-cli
+    spec:
+      serviceAccountName: gemini-cli-sa
+      containers:
+      - name: gemini-cli
+        image: gemini-cli:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: CONFIG_PATH
+          value: /etc/config/config.yaml
+        - name: GEMINI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: gemini-cli-secrets
+              key: gemini-api-key
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: gemini-cli-secrets
+              key: github-token
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/config
+        - name: secrets-volume
+          mountPath: /etc/secrets
+          readOnly: true
+        resources:
+          requests:
+            cpu: "1"
+            memory: "2Gi"
+          limits:
+            cpu: "2"
+            memory: "4Gi"
+        livenessProbe:
+          httpGet:
+            path: /api/v1/health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /api/v1/health
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 10
+      volumes:
+      - name: config-volume
+        configMap:
+          name: gemini-cli-config
+      - name: secrets-volume
+        secret:
+          secretName: gemini-cli-secrets

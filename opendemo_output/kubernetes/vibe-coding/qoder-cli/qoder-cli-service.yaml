@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: qoder-cli-service
+  namespace: qoder-cli-system
+spec:
+  selector:
+    app: qoder-cli
+  ports:
+  - port: 8080
+    targetPort: 8080
+  type: LoadBalancer

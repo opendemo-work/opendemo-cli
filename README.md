@@ -198,8 +198,8 @@ opendemo check --report
 | 🐳 **Docker** | 0 | troubleshooting(1) | 1 | ✅ 全部通过 |
 | 📦 **Containerd** | 0 | troubleshooting(1) | 1 | ✅ 全部通过 |
 | 🏃 **Runc** | 0 | troubleshooting(1) | 1 | ✅ 全部通过 |
-| ⎈ **Kubernetes** | 0 | fluid(1), kubeflow(42), kubeskoop(10), operator-framework(2), velero(15), operator(1), crd(1), rbac(1), prometheus(1), grafana(1), efk(1), elk(1), loki(1), jaeger(1), zipkin(1), opentelemetry(1), troubleshooting(8), network(1), storage(1), ai-infra(1), llmops(1) | 93 | ✅ 全部通过 |
-| **总计** | **210** | **124** | **334** | ✅ |
+| ⎈ **Kubernetes** | 0 | fluid(1), kubeflow(42), kubeskoop(10), operator-framework(2), velero(15), operator(1), crd(1), rbac(1), prometheus(1), grafana(1), efk(1), elk(1), loki(1), jaeger(1), zipkin(1), opentelemetry(1), troubleshooting(8), network(1), storage(1), ai-infra(1), llmops(1), agent(9), mcp(9), rag(3), n8n(1), vibe-coding(4) | 119 | ✅ 全部通过 |
+| **总计** | **210** | **150** | **360** | ✅ |
 
 ---
 
@@ -1113,6 +1113,82 @@ kubectl get pods
 - ✅ 模型量化与优化
 - ✅ 大模型服务最佳实践
 - ✅ 大模型监控最佳实践
+
+**版本兼容性**:
+- Kubernetes v1.23.x+ 完全兼容
+- Kubernetes v1.24.x+ 完全兼容
+- Kubernetes v1.25.x+ 完全兼容
+- Kubernetes v1.26.x+ 完全兼容
+- Kubernetes v1.27.x+ 完全兼容
+- Kubernetes v1.28.x+ 完全兼容
+- Kubernetes v1.29.x+ 完全兼容
+
+</details>
+
+### 🤖 Kubernetes Agent (9个)
+
+<details>
+<summary><b>🤖 Kubernetes Agent案例 (9个)</b> - 点击展开</summary>
+
+> 路径: `opendemo_output/kubernetes/agent/`
+
+| # | Demo名称 | 功能说明 | 难度 | 状态 |
+|---|---------|---------|------|------|
+| 1 | `alibaba` | 阿里巴巴 Agent 案例，包括通义千问 Agent 部署 | intermediate | ✅ |
+| 2 | `tencent` | 腾讯 Agent 案例，包括混元大模型 Agent 部署 | intermediate | ✅ |
+| 3 | `bytedance` | 字节跳动 Agent 案例，包括豆包大模型 Agent 部署 | intermediate | ✅ |
+| 4 | `google` | 谷歌 Agent 案例，包括 Gemini 大模型 Agent 部署 | intermediate | ✅ |
+| 5 | `meta` | Meta Agent 案例，包括 LLaMA 大模型 Agent 部署 | intermediate | ✅ |
+| 6 | `openai` | OpenAI Agent 案例，包括 GPT 大模型 Agent 部署 | intermediate | ✅ |
+| 7 | `microsoft` | Microsoft Agent 案例，包括 Copilot Agent 部署 | intermediate | ✅ |
+| 8 | `amazon` | Amazon Agent 案例，包括 Bedrock 大模型 Agent 部署 | intermediate | ✅ |
+| 9 | `others` | 其他顶级 AI 公司 Agent 案例 | intermediate | ✅ |
+
+**功能覆盖**:
+- ✅ 多模型支持
+- ✅ Agent 服务架构设计
+- ✅ 多模态能力集成
+- ✅ 知识库对接
+- ✅ 权限管理与安全控制
+- ✅ 监控与可观测性
+
+**版本兼容性**:
+- Kubernetes v1.23.x+ 完全兼容
+- Kubernetes v1.24.x+ 完全兼容
+- Kubernetes v1.25.x+ 完全兼容
+- Kubernetes v1.26.x+ 完全兼容
+- Kubernetes v1.27.x+ 完全兼容
+- Kubernetes v1.28.x+ 完全兼容
+- Kubernetes v1.29.x+ 完全兼容
+
+</details>
+
+### 🎛️ Kubernetes MCP (9个)
+
+<details>
+<summary><b>🎛️ Kubernetes MCP案例 (9个)</b> - 点击展开</summary>
+
+> 路径: `opendemo_output/kubernetes/mcp/`
+
+| # | Demo名称 | 功能说明 | 难度 | 状态 |
+|---|---------|---------|------|------|
+| 1 | `alibaba` | 阿里巴巴 MCP 案例，包括通义千问 MCP 部署 | intermediate | ✅ |
+| 2 | `tencent` | 腾讯 MCP 案例，包括混元大模型 MCP 部署 | intermediate | ✅ |
+| 3 | `bytedance` | 字节跳动 MCP 案例，包括豆包大模型 MCP 部署 | intermediate | ✅ |
+| 4 | `google` | 谷歌 MCP 案例，包括 Gemini 大模型 MCP 部署 | intermediate | ✅ |
+| 5 | `meta` | Meta MCP 案例，包括 LLaMA 大模型 MCP 部署 | intermediate | ✅ |
+| 6 | `openai` | OpenAI MCP 案例，包括 GPT 大模型 MCP 部署 | intermediate | ✅ |
+| 7 | `microsoft` | Microsoft MCP 案例，包括 Copilot MCP 部署 | intermediate | ✅ |
+| 8 | `amazon` | Amazon MCP 案例，包括 Bedrock 大模型 MCP 部署 | intermediate | ✅ |
+| 9 | `others` | 其他顶级 AI 公司 MCP 案例 | intermediate | ✅ |
+
+**功能覆盖**:
+- ✅ 模型生命周期管理
+- ✅ 模型版本控制
+- ✅ 模型部署与扩缩容
+- ✅ 模型监控与告警
+- ✅ 模型访问控制
+- ✅ 多模型支持
 
 **版本兼容性**:
 - Kubernetes v1.23.x+ 完全兼容

@@ -1,0 +1,210 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tongyi-agent
+  namespace: agent-system
+  labels:
+    app: tongyi-agent
+    version: v1
+    company: alibaba
+    component: ai-agent
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: tongyi-agent
+      version: v1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: tongyi-agent
+        version: v1
+        company: alibaba
+        component: ai-agent
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8000"
+        prometheus.io/path: "/metrics"
+        sidecar.istio.io/inject: "false"
+    spec:
+      serviceAccountName: agent-service-account
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+      - name: agent-server
+        image: registry.cn-hangzhou.aliyuncs.com/tongyi/agent-server:v1.0.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8000
+          name: http
+          protocol: TCP
+        - containerPort: 8080
+          name: metrics
+          protocol: TCP
+        env:
+        - name: MODEL_NAME
+          value: "qwen-turbo"
+        - name: API_ENDPOINT
+          value: "https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation"
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: agent-secrets
+              key: api-key
+        - name: MAX_CONCURRENT_REQUESTS
+          value: "10"
+        - name: REQUEST_TIMEOUT
+          value: "30"
+        - name: CACHE_ENABLED
+          value: "true"
+        - name: CACHE_TTL
+          value: "3600"
+        - name: LOG_LEVEL
+          value: "info"
+        - name: LOG_FORMAT
+          value: "json"
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        resources:
+          requests:
+            cpu: "2"
+            memory: "4Gi"
+            nvidia.com/gpu: "1"  # 可选，用于GPU加速
+          limits:
+            cpu: "4"
+            memory: "8Gi"
+            nvidia.com/gpu: "1"  # 可选，用于GPU加速
+        livenessProbe:
+          httpGet:
+            path: /health/liveness
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+        readinessProbe:
+          httpGet:
+            path: /health/readiness
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+          successThreshold: 1
+        startupProbe:
+          httpGet:
+            path: /health/startup
+            port: 8000
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 6
+          successThreshold: 1
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/config
+        - name: cache-volume
+          mountPath: /app/cache
+        - name: logs-volume
+          mountPath: /app/logs
+      - name: sidecar-proxy
+        image: registry.cn-hangzhou.aliyuncs.com/tongyi/agent-proxy:v1.0.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8081
+          name: proxy
+          protocol: TCP
+        env:
+        - name: UPSTREAM_SERVICE
+          value: "localhost:8000"
+        - name: PROXY_PORT
+          value: "8081"
+        - name: CORS_ENABLED
+          value: "true"
+        - name: RATE_LIMIT_ENABLED
+          value: "true"
+        - name: MAX_REQUESTS_PER_MINUTE
+          value: "60"
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+      volumes:
+      - name: config-volume
+        configMap:
+          name: agent-config
+      - name: cache-volume
+        emptyDir:
+          medium: Memory
+          sizeLimit: 1Gi
+      - name: logs-volume
+        emptyDir:
+          medium: Memory
+          sizeLimit: 512Mi
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/os
+                operator: In
+                values:
+                - linux
+              - key: type
+                operator: NotIn
+                values:
+                - virtual-kubelet
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - tongyi-agent
+              topologyKey: kubernetes.io/hostname
+      tolerations:
+      - key: "node.kubernetes.io/not-ready"
+        operator: "Exists"
+        effect: "NoExecute"
+        tolerationSeconds: 300
+      - key: "node.kubernetes.io/unreachable"
+        operator: "Exists"
+        effect: "NoExecute"
+        tolerationSeconds: 300
+      - key: "nvidia.com/gpu"
+        operator: "Exists"
+        effect: "NoSchedule"
+      priorityClassName: high-priority
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 60
+      hostAliases:
+      - ip: "127.0.0.1"
+        hostnames:
+        - "agent-local"
+      schedulerName: default-scheduler

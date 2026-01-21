@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: other-cli
+  namespace: other-cli-system
+  labels:
+    app: other-cli
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: other-cli
+  template:
+    metadata:
+      labels:
+        app: other-cli
+    spec:
+      serviceAccountName: other-cli-sa
+      containers:
+      - name: other-cli
+        image: other-cli:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: CONFIG_PATH
+          value: /etc/config/config.yaml
+        - name: CLI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: other-cli-secrets
+              key: cli-api-key
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: other-cli-secrets
+              key: github-token
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/config
+        - name: secrets-volume
+          mountPath: /etc/secrets
+          readOnly: true
+        resources:
+          requests:
+            cpu: "1"
+            memory: "2Gi"
+          limits:
+            cpu: "2"
+            memory: "4Gi"
+        livenessProbe:
+          httpGet:
+            path: /api/v1/health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /api/v1/health
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 10
+      volumes:
+      - name: config-volume
+        configMap:
+          name: other-cli-config
+      - name: secrets-volume
+        secret:
+          secretName: other-cli-secrets

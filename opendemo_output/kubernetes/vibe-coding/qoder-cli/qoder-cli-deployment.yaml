@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qoder-cli
+  namespace: qoder-cli-system
+  labels:
+    app: qoder-cli
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: qoder-cli
+  template:
+    metadata:
+      labels:
+        app: qoder-cli
+    spec:
+      serviceAccountName: qoder-cli-sa
+      containers:
+      - name: qoder-cli
+        image: qoder-cli:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: CONFIG_PATH
+          value: /etc/config/config.yaml
+        - name: QODER_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: qoder-cli-secrets
+              key: qoder-api-key
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: qoder-cli-secrets
+              key: github-token
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/config
+        - name: secrets-volume
+          mountPath: /etc/secrets
+          readOnly: true
+        resources:
+          requests:
+            cpu: "1"
+            memory: "2Gi"
+          limits:
+            cpu: "2"
+            memory: "4Gi"
+        livenessProbe:
+          httpGet:
+            path: /api/v1/health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /api/v1/health
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 10
+      volumes:
+      - name: config-volume
+        configMap:
+          name: qoder-cli-config
+      - name: secrets-volume
+        secret:
+          secretName: qoder-cli-secrets

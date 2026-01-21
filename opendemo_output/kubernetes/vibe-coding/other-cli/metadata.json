@@ -1,0 +1,37 @@
+{
+  "name": "other-cli",
+  "version": "1.0.0",
+  "description": "其他AI辅助编码CLI工具部署",
+  "author": "opendemo",
+  "difficulty": "intermediate",
+  "category": "vibe-coding",
+  "tags": ["cli", "ai-coding", "kubernetes"],
+  "kubernetes_version": "v1.23+",
+  "created_at": "2026-01-21",
+  "updated_at": "2026-01-21",
+  "files": [
+    "README.md",
+    "other-cli-deployment.yaml",
+    "other-cli-service.yaml",
+    "configmap.yaml",
+    "secret.yaml",
+    "rbac.yaml",
+    "metadata.json"
+  ],
+  "services": [
+    {
+      "name": "other-cli",
+      "type": "LoadBalancer",
+      "port": 8080
+    }
+  ],
+  "dependencies": [
+    "cli-api",
+    "code-repository"
+  ],
+  "health_check": {
+    "endpoint": "/api/v1/health",
+    "interval": "30s",
+    "timeout": "10s"
+  }
+}

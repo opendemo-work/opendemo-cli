@@ -1,0 +1,37 @@
+{
+  "name": "basic-vibe-coding",
+  "version": "1.0.0",
+  "description": "Vibe Coding AI辅助编码平台基础部署",
+  "author": "opendemo",
+  "difficulty": "intermediate",
+  "category": "vibe-coding",
+  "tags": ["vibe-coding", "ai-coding", "code-generation", "kubernetes"],
+  "kubernetes_version": "v1.23+",
+  "created_at": "2026-01-21",
+  "updated_at": "2026-01-21",
+  "files": [
+    "README.md",
+    "vibe-coding-deployment.yaml",
+    "vibe-coding-service.yaml",
+    "configmap.yaml",
+    "secret.yaml",
+    "rbac.yaml",
+    "metadata.json"
+  ],
+  "services": [
+    {
+      "name": "vibe-coding",
+      "type": "LoadBalancer",
+      "port": 8080
+    }
+  ],
+  "dependencies": [
+    "ai-model-api",
+    "code-repository"
+  ],
+  "health_check": {
+    "endpoint": "/api/v1/health",
+    "interval": "30s",
+    "timeout": "10s"
+  }
+}

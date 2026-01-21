@@ -1,0 +1,118 @@
+{
+  "name": "alibaba-agent",
+  "title": "阿里巴巴 Agent 案例",
+  "description": "阿里巴巴在 AI Agent 领域的实践案例，展示如何在 Kubernetes 环境中部署和管理基于阿里巴巴技术栈的 AI Agent 系统",
+  "version": "1.0.0",
+  "language": "kubernetes",
+  "category": "agent",
+  "subcategory": "alibaba",
+  "difficulty": "intermediate",
+  "tags": [
+    "alibaba",
+    "agent",
+    "tongyi",
+    "kubernetes",
+    "ai"
+  ],
+  "author": "Open Demo Team",
+  "maintainer": "Open Demo Team",
+  "created_at": "2026-01-21",
+  "updated_at": "2026-01-21",
+  "status": "active",
+  "features": [
+    "通义千问模型部署",
+    "Agent 服务架构设计",
+    "多模态能力集成",
+    "知识库对接",
+    "权限管理与安全控制",
+    "监控与可观测性"
+  ],
+  "prerequisites": [
+    "Kubernetes 集群 (v1.23+)",
+    "Helm 3.0+",
+    "通义千问 API 密钥",
+    "适当的 GPU 资源（推荐）"
+  ],
+  "components": [
+    {
+      "name": "agent-service",
+      "type": "deployment",
+      "description": "Agent 服务部署"
+    },
+    {
+      "name": "agent-api",
+      "type": "service",
+      "description": "Agent API 服务"
+    },
+    {
+      "name": "agent-config",
+      "type": "configmap",
+      "description": "Agent 配置管理"
+    },
+    {
+      "name": "agent-secrets",
+      "type": "secret",
+      "description": "Agent 密钥管理"
+    }
+  ],
+  "deployment": {
+    "namespace": "agent-system",
+    "resources": {
+      "cpu": "2",
+      "memory": "4Gi",
+      "gpu": "1"  
+    },
+    "replicas": 2,
+    "strategy": "rollingUpdate"
+  },
+  "testing": {
+    "enabled": true,
+    "test_cases": [
+      "API 调用测试",
+      "模型推理测试",
+      "多模态能力测试",
+      "知识库集成测试"
+    ]
+  },
+  "docs": {
+    "readme": "README.md",
+    "deployment_guide": "deployment-guide.md",
+    "api_reference": "api-reference.md"
+  },
+  "examples": [
+    {
+      "name": "通义千问 Agent 部署",
+      "description": "在 Kubernetes 集群中部署基于通义千问的 AI Agent 服务",
+      "path": "tongyi-agent"
+    },
+    {
+      "name": "钉钉智能助手 Agent",
+      "description": "基于阿里巴巴钉钉平台的智能助手 Agent 部署",
+      "path": "dingtalk-agent"
+    }
+  ],
+  "compatibility": {
+    "kubernetes": [
+      "1.23.x",
+      "1.24.x",
+      "1.25.x",
+      "1.26.x",
+      "1.27.x",
+      "1.28.x",
+      "1.29.x"
+    ],
+    "cloud_providers": [
+      "aliyun",
+      "aws",
+      "azure",
+      "gcp",
+      "on-prem"
+    ]
+  },
+  "links": {
+    "documentation": "https://help.aliyun.com/product/1013056.html",
+    "github": "https://github.com/opendemo/opendemo",
+    "support": "https://github.com/opendemo/opendemo/issues"
+  },
+  "license": "MIT"
+}
